@@ -1,0 +1,23 @@
+common:
+  services:
+    articleController:
+      class: Example\Controller\ArticleController
+
+    articleModelFacade:
+      class: Example\Model\Facade\ArticleModelFacade
+
+    logger:
+      class: Example\Logger\StdLogger
+
+    stopwatchFactory:
+      class: Example\Stopwatch\StopwatchFactory
+
+  aspects:
+    executionTimeLoggingAspect:
+      class: Example\Aspect\ExecutionTimeLoggingAspect
+
+production < common:
+
+development < common:
+
+testing < development:
