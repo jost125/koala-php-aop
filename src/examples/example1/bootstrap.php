@@ -1,13 +1,11 @@
 <?php
 
 spl_autoload_register(function($className) {
-
-	$dirs = array('.', 'tmp/cache/proxy');
-
-	$fileName = preg_replace('~\\\\~', '/', $className) . '.php';
-	foreach ($dirs as $dir) {
-		if (file_exists($dir . '/' . $fileName)) {
-			require_once $dir . '/' . $fileName;
+	if (preg_match('~^[\\a-zA-Z0-9]+$~', $className)) {
+		$fileName = preg_replace('~\\\\~', '/', $className) . '.php';
+		$filePath = __DIR__ . '/library/' . $fileName;
+		if (file_exists($filePath)) {
+			require_once $filePath;
 		}
 	}
 });
