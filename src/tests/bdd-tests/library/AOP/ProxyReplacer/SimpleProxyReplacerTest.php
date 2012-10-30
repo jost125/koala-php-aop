@@ -56,6 +56,76 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($configuration, $replacedConfiguration);
 	}
 
+	public function testReplaceProxies() {
+		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
+			'fooService' => array(
+				'class' => '\Foo',
+				'arguments' => array()
+			),
+			'fooServiceAspect' => array(
+				'class' => '\FooAspect',
+				'arguments' => array()
+			)
+		)));
+
+		$servicesDefinitions = array(
+			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'class' => '\Foo',
+				'arguments' => array()
+			)),
+			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'class' => '\FooAspect',
+				'arguments' => array()
+			))
+		);
+
+		$aspectServicesDefinitions = array(
+			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'class' => '\FooAspect',
+				'arguments' => array()
+			))
+		);
+
+		$nonAspectServicesDefinitions = array(
+			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'class' => '\Foo',
+				'arguments' => array()
+			))
+		);
+
+		$proxyServicesDefinitions = array(
+			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'class' => '\FooProxy',
+				'arguments' => array()
+			))
+		);
+
+		$expectedReplacedConfiguration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
+			'fooService' => array(
+				'class' => '\FooProxy',
+				'arguments' => array()
+			),
+			'fooServiceAspect' => array(
+				'class' => '\FooAspect',
+				'arguments' => array()
+			)
+		)));
+
+		$this->aspectReflectionResolverMock->expects($this->once())
+			->method('filterAspectServices')
+			->with($servicesDefinitions)
+			->will($this->returnValue($aspectServicesDefinitions));
+
+		$this->proxyBuilderMock->expects($this->once())
+			->method('buildProxies')
+			->with($aspectServicesDefinitions, $nonAspectServicesDefinitions)
+			->will($this->returnValue($proxyServicesDefinitions));
+
+		$replacedConfiguration = $this->simpleProxyReplacer->replaceProxies($configuration);
+
+		$this->assertEquals($expectedReplacedConfiguration, $replacedConfiguration);
+	}
+
 	private function mockAspectReflectionResolver() {
 		$this->aspectReflectionResolverMock = $this->getMockBuilder('\AOP\AspectReflectionResolver')
 			->disableOriginalConstructor()
