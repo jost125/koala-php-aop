@@ -19,4 +19,11 @@ interface ConfigurationDefinition {
 	 * @return ServiceDefinition[]
 	 */
 	public function getServiceDefinitions();
+
+	/**
+	 * @param string $serviceId
+	 * @param ServiceDefinition $proxyServiceDefinition
+	 * @return void
+	 */
+	public function replaceServiceDefinition($serviceId, ServiceDefinition $proxyServiceDefinition);
 }

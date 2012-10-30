@@ -35,4 +35,13 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 
 		return $serviceDefinitions;
 	}
+
+	/**
+	 * @param string $serviceId
+	 * @param \DI\Definition\ServiceDefinition $proxyServiceDefinition
+	 * @return void
+	 */
+	public function replaceServiceDefinition($serviceId, \DI\Definition\ServiceDefinition $proxyServiceDefinition) {
+		$this->configuration[$serviceId] = $proxyServiceDefinition;
+	}
 }
