@@ -4,28 +4,11 @@ namespace DI;
 
 class Container {
 	private $services = array();
-	private $config = array(
-		'services' => array(
-			'articleController' => array(
-				'class' => '\Example\Controller\ArticleController',
-				'arguments' => array(
-					'service' => 'articleModelFacade'
-				),
-			),
-			'articleModelFacade' => array(
-				'class' => '\Example\Model\Facade\ArticleModelFacade',
-				'arguments' => array(),
-			),
-			'logger' => array(
-				'class' => '\Example\Logger\StdLogger',
-				'arguments' => array(),
-			),
-			'stopwatchFactory' => array(
-				'class' => '\Example\Stopwatch\StopwatchFactory',
-				'arguments' => array(),
-			)
-		)
-	);
+	private $definition;
+
+	public function __construct(\DI\Definition\ConfigurationDefinition $definition) {
+		$this->definition = $definition;
+	}
 
 	public function getService($serviceId) {
 		if (!$this->isServiceCreated($serviceId)) {
@@ -39,27 +22,27 @@ class Container {
 	}
 
 	private function createService($serviceId) {
-		if (array_key_exists($serviceId, $this->config['services'])) {
-			$serviceDefinition = $this->config['services'][$serviceId];
-			$arguments = array();
-			foreach ($serviceDefinition['arguments'] as $argumentType => $argumentValue) {
-				switch ($argumentType) {
-					case 'service':
-						$arguments[] = $this->getService($argumentValue);
-						break;
-				}
-			}
+		if ($this->definition->serviceExists($serviceId)) {
+			$serviceDefinition = $this->definition->getServiceDefinition($serviceId);
+			$reflectionClass = $serviceDefinition->getClassReflection();
 
-			$reflectionClass = new \ReflectionClass($serviceDefinition['class']);
-			if (empty($arguments)) {
-				$this->services[$serviceId] = $reflectionClass->newInstance();
+			if ($serviceDefinition->hasConstructorArguments()) {
+				$constructorArgumentValues = $this->getConstructorArgumentValues($serviceDefinition);
+				$this->services[$serviceId] = $reflectionClass->newInstanceArgs($constructorArgumentValues);
 			} else {
-				$this->services[$serviceId] = $reflectionClass->newInstanceArgs($arguments);
+				$this->services[$serviceId] = $reflectionClass->newInstance();
 			}
 		} else {
-			// TODO add this exception
-			throw new ServiceNotExists();
+			throw new \DI\Exception\ServiceNotExistsException();
 		}
+	}
+
+	private function getConstructorArgumentValues(\DI\Definition\ServiceDefinition $serviceDefinition) {
+		$constructorArgumentValues = array();
+		foreach ($serviceDefinition->getConstructorArguments() as $constructorArgument) {
+			$constructorArgumentValues[] = $constructorArgument->getValue($this);
+		}
+		return $constructorArgumentValues;
 	}
 
 	private function getServiceInstance($serviceId) {
