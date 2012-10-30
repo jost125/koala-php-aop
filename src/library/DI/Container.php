@@ -4,10 +4,12 @@ namespace DI;
 
 class Container {
 	private $services = array();
-	private $definition;
+	private $configurationDefinition;
+	private $proxyReplacer;
 
-	public function __construct(\DI\Definition\ConfigurationDefinition $definition) {
-		$this->definition = $definition;
+	public function __construct(\DI\Definition\ConfigurationDefinition $configurationDefinition, \AOP\ProxyReplacer $proxyReplacer) {
+		$this->proxyReplacer = $proxyReplacer;
+		$this->configurationDefinition = $proxyReplacer->replaceProxies($configurationDefinition);
 	}
 
 	public function getService($serviceId) {
@@ -22,8 +24,8 @@ class Container {
 	}
 
 	private function createService($serviceId) {
-		if ($this->definition->serviceExists($serviceId)) {
-			$serviceDefinition = $this->definition->getServiceDefinition($serviceId);
+		if ($this->configurationDefinition->serviceExists($serviceId)) {
+			$serviceDefinition = $this->configurationDefinition->getServiceDefinition($serviceId);
 			$reflectionClass = $serviceDefinition->getClassReflection();
 
 			if ($serviceDefinition->hasConstructorArguments()) {
