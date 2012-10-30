@@ -41,4 +41,11 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 	public function hasConstructorArguments() {
 		return array_key_exists('arguments', $this->serviceDefinition) && !empty($this->serviceDefinition['arguments']);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function getClassName() {
+		return $this->serviceDefinition['class'];
+	}
 }

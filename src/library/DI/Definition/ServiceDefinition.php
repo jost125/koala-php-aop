@@ -17,4 +17,9 @@ interface ServiceDefinition {
 	 * @return boolean
 	 */
 	public function hasConstructorArguments();
+
+	/**
+	 * @return string
+	 */
+	public function getClassName();
 }
