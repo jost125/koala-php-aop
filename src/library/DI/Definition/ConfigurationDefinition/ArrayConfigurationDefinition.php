@@ -23,4 +23,16 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 	public function getServiceDefinition($serviceId) {
 		return new \DI\Definition\ServiceDefinition\ArrayServiceDefinition($this->configuration['services'][$serviceId]);
 	}
+
+	/**
+	 * @return ServiceDefinition[]
+	 */
+	public function getServiceDefinitions() {
+		$serviceDefinitions = array();
+		foreach ($this->configuration['services'] as $serviceId => $foo) {
+			$serviceDefinitions[$serviceId] = $this->getServiceDefinition($serviceId);
+		}
+
+		return $serviceDefinitions;
+	}
 }

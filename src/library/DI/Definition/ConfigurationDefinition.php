@@ -14,4 +14,9 @@ interface ConfigurationDefinition {
 	 * @return ServiceDefinition
 	 */
 	public function getServiceDefinition($serviceId);
+
+	/**
+	 * @return ServiceDefinition[]
+	 */
+	public function getServiceDefinitions();
 }
