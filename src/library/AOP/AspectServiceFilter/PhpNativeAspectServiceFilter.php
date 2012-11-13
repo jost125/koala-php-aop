@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\AspectReflectionResolver;
+namespace AOP\AspectServiceFilter;
 
-class PhpNativeAspectReflectionResolver implements \AOP\AspectReflectionResolver {
+class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 
 	private $annotationResolver;
 
@@ -15,14 +15,14 @@ class PhpNativeAspectReflectionResolver implements \AOP\AspectReflectionResolver
 	 * @return \DI\Definition\ServiceDefinition[]
 	 */
 	public function filterAspectServices(array $serviceDefinitions) {
-		$aspectServiceDefinitions = array();
+		$aspectDefinitions = array();
 		foreach ($serviceDefinitions as $serviceId => $serviceDefinition) {
 			if ($this->isAspect($serviceDefinition)) {
-				$aspectServiceDefinitions[$serviceId] = $serviceDefinition;
+				$aspectDefinitions[$serviceId] = $serviceDefinition;
 			}
 		}
 
-		return $aspectServiceDefinitions;
+		return $aspectDefinitions;
 	}
 
 	private function isAspect($serviceDefinition) {

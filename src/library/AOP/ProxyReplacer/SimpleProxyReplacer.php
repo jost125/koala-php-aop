@@ -7,7 +7,7 @@ class SimpleProxyReplacer implements \AOP\ProxyReplacer {
 	private $aspectReflectionResolver;
 	private $proxyBuilder;
 
-	function __construct(\AOP\AspectReflectionResolver $aspectReflectionResolver, \AOP\ProxyBuilder $proxyBuilder) {
+	function __construct(\AOP\AspectServiceFilter $aspectReflectionResolver, \AOP\ProxyBuilder $proxyBuilder) {
 		$this->aspectReflectionResolver = $aspectReflectionResolver;
 		$this->proxyBuilder = $proxyBuilder;
 	}
@@ -22,25 +22,25 @@ class SimpleProxyReplacer implements \AOP\ProxyReplacer {
 			return $configurationDefinition;
 		}
 
-		$aspectServiceDefinitions = $this->aspectReflectionResolver->filterAspectServices($serviceDefinitions);
-		$possibleTargetServiceDefinitions = $this->subtractAspectsFromServices($serviceDefinitions, $aspectServiceDefinitions);
-		$proxyServiceDefinitions = $this->proxyBuilder->buildProxies($aspectServiceDefinitions, $possibleTargetServiceDefinitions);
+		$aspectDefinitions = $this->aspectReflectionResolver->filterAspectServices($serviceDefinitions);
+		$targetDefinitions = $this->subtractAspectsFromServices($serviceDefinitions, $aspectDefinitions);
+		$proxyDefinitions = $this->proxyBuilder->buildProxies($aspectDefinitions, $targetDefinitions);
 
-		return $this->replaceBuildProxies($configurationDefinition, $proxyServiceDefinitions);
+		return $this->replaceBuildProxies($configurationDefinition, $proxyDefinitions);
 	}
 
-	private function subtractAspectsFromServices(array $serviceDefinitions, array $aspectServiceDefinitions) {
+	private function subtractAspectsFromServices(array $serviceDefinitions, array $aspectDefinitions) {
 		$notAspects = $serviceDefinitions;
-		foreach ($aspectServiceDefinitions as $serviceId => $foo) {
+		foreach ($aspectDefinitions as $serviceId => $foo) {
 			unset($notAspects[$serviceId]);
 		}
 
 		return $notAspects;
 	}
 
-	private function replaceBuildProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition, array $proxyServiceDefinitions) {
-		foreach ($proxyServiceDefinitions as $serviceId => $proxyServiceDefinition) {
-			$configurationDefinition->replaceServiceDefinition($serviceId, $proxyServiceDefinition);
+	private function replaceBuildProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition, array $proxyDefinitions) {
+		foreach ($proxyDefinitions as $serviceId => $proxyDefinition) {
+			$configurationDefinition->replaceServiceDefinition($serviceId, $proxyDefinition);
 		}
 
 		return $configurationDefinition;

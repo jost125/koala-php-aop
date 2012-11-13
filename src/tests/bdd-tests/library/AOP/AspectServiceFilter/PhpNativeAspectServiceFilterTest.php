@@ -1,24 +1,24 @@
 <?php
 
-namespace AOP\AspectReflectionResolver;
+namespace AOP\AspectServiceFilter;
 
-class PhpNativeAspectReflectionResolverTest extends \PHPUnit_Framework_TestCase {
+class PhpNativeAspectServiceFilterTest extends \PHPUnit_Framework_TestCase {
 
-	/** @var PhpNativeAspectReflectionResolver */
-	private $phpNativeAspectReflectionResolver;
+	/** @var PhpNativeAspectServiceFilter */
+	private $phpNativeAspectServiceFilter;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
 	private $annotationResolverMock;
 
 	protected function setUp() {
-		$this->phpNativeAspectReflectionResolver = new PhpNativeAspectReflectionResolver(
+		$this->phpNativeAspectServiceFilter = new PhpNativeAspectServiceFilter(
 			$this->mockAnnotationResolver()
 		);
 	}
 
 	public function testFilterAspectServices() {
-		require_once __DIR__ . '/PhpNativeAspectReflectionResolverTest/Foo.php';
-		require_once __DIR__ . '/PhpNativeAspectReflectionResolverTest/FooAspect.php';
+		require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/Foo.php';
+		require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/FooAspect.php';
 
 		/** @var $serviceDefinitions \DI\Definition\ServiceDefinition[] */
 		$serviceDefinitions = array(
@@ -55,7 +55,7 @@ class PhpNativeAspectReflectionResolverTest extends \PHPUnit_Framework_TestCase 
 			->with(new \ReflectionClass('\PhpNativeAspectReflectionResolverTest\FooAspect'))
 			->will($this->returnValue(true));
 
-		$filteredAspectServices = $this->phpNativeAspectReflectionResolver->filterAspectServices($serviceDefinitions);
+		$filteredAspectServices = $this->phpNativeAspectServiceFilter->filterAspectServices($serviceDefinitions);
 
 		$this->assertEquals($expectedAspectServices, $filteredAspectServices);
 	}

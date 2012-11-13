@@ -2,7 +2,7 @@
 
 namespace AOP;
 
-interface AspectReflectionResolver {
+interface AspectServiceFilter {
 
 	/**
 	 * @param \DI\Definition\ServiceDefinition[] $serviceDefinitions

@@ -8,14 +8,14 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 	private $simpleProxyReplacer;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
-	private $aspectReflectionResolverMock;
+	private $aspectServiceFilterMock;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
 	public $proxyBuilderMock;
 
 	protected function setUp() {
 		$this->simpleProxyReplacer = new SimpleProxyReplacer(
-			$this->mockAspectReflectionResolver(),
+			$this->mockAspectServiceFilter(),
 			$this->mockProxyBuilder()
 		);
 	}
@@ -41,7 +41,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 			))
 		);
 
-		$this->aspectReflectionResolverMock->expects($this->once())
+		$this->aspectServiceFilterMock->expects($this->once())
 			->method('filterAspectServices')
 			->with($servicesDefinitions)
 			->will($this->returnValue(array()));
@@ -111,7 +111,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 			)
 		)));
 
-		$this->aspectReflectionResolverMock->expects($this->once())
+		$this->aspectServiceFilterMock->expects($this->once())
 			->method('filterAspectServices')
 			->with($servicesDefinitions)
 			->will($this->returnValue($aspectServicesDefinitions));
@@ -126,12 +126,12 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 		$this->assertEquals($expectedReplacedConfiguration, $replacedConfiguration);
 	}
 
-	private function mockAspectReflectionResolver() {
-		$this->aspectReflectionResolverMock = $this->getMockBuilder('\AOP\AspectReflectionResolver')
+	private function mockAspectServiceFilter() {
+		$this->aspectServiceFilterMock = $this->getMockBuilder('\AOP\AspectServiceFilter')
 			->disableOriginalConstructor()
 			->getMock();
 
-		return $this->aspectReflectionResolverMock;
+		return $this->aspectServiceFilterMock;
 	}
 
 	private function mockProxyBuilder() {
