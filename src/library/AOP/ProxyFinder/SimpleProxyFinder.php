@@ -32,7 +32,7 @@ class SimpleProxyFinder implements \AOP\ProxyFinder {
 		$proxyList = $this->proxyListFactory->createProxyList();
 
 		foreach ($aspectDefinitions as $aspectDefinition) {
-			$aspect = $this->aspectReflection->getAspect($aspectDefinition);
+			$aspect = $this->aspectReflection->getAspect($aspectDefinition->getClassName());
 			$advices = $aspect->getAdvices();
 			foreach ($advices as $advice) {
 				$pointcutExpression = $advice->getPointcut()->getPointcutExpression();

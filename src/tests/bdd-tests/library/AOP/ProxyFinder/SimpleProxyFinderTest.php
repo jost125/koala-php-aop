@@ -34,7 +34,7 @@ class SimpleProxyFinderTest extends \PHPUnit_Framework_TestCase {
 
 		$this->aspectReflectionMock->expects($this->once())
 			->method('getAspect')
-			->with($aspectDefinitionsFixtures['fooAspect'])
+			->with($aspectDefinitionsFixtures['fooAspect']->getClassName())
 			->will($this->returnValue($aspectFixtures));
 
 		$this->pointcutExpressionResolverMock->expects($this->once())
@@ -56,6 +56,9 @@ class SimpleProxyFinderTest extends \PHPUnit_Framework_TestCase {
 		return new \AOP\Abstraction\ProxyList\ProxyArrayList();
 	}
 
+	/**
+	 * @return \DI\Definition\ServiceDefinition[]
+	 */
 	private function getAspectDefinitionsFixtures() {
 		return array(
 			'fooAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
