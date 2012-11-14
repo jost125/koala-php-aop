@@ -17,7 +17,7 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 	public function testHasClassAnnotation() {
 		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Foo.php';
 
-		$reflection = new \ReflectionClass('\CommentParserAnnotationResolverTest\Foo');
+		$className = '\CommentParserAnnotationResolverTest\Foo';
 		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Aspect');
 		$comment = '/**
  * @\AOP\Aspect
@@ -28,13 +28,13 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 			->with($annotationExpression, $comment)
 			->will($this->returnValue(array('\AOP\Aspect')));
 
-		$this->assertTrue($this->commentParserAnnotationResolver->hasClassAnnotation($reflection, $annotationExpression));
+		$this->assertTrue($this->commentParserAnnotationResolver->hasClassAnnotation($className, $annotationExpression));
 	}
 
 	public function testHasNotClassAnnotation() {
 		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Bar.php';
 
-		$reflection = new \ReflectionClass('\CommentParserAnnotationResolverTest\Bar');
+		$className = '\CommentParserAnnotationResolverTest\Bar';
 		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Aspect');
 		$comment = '/**
  * @\Some\AOP\Aspect
@@ -45,7 +45,7 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 			->with($annotationExpression, $comment)
 			->will($this->returnValue(null));
 
-		$this->assertFalse($this->commentParserAnnotationResolver->hasClassAnnotation($reflection, $annotationExpression));
+		$this->assertFalse($this->commentParserAnnotationResolver->hasClassAnnotation($className, $annotationExpression));
 	}
 
 	private function mockAnnotationExpressionMatcher() {

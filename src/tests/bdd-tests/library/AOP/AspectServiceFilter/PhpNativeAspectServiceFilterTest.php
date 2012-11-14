@@ -47,12 +47,12 @@ class PhpNativeAspectServiceFilterTest extends \PHPUnit_Framework_TestCase {
 
 		$this->annotationResolverMock->expects($this->at(0))
 			->method('hasClassAnnotation')
-			->with(new \ReflectionClass('\PhpNativeAspectReflectionResolverTest\Foo'))
+			->with('\PhpNativeAspectReflectionResolverTest\Foo')
 			->will($this->returnValue(false));
 
 		$this->annotationResolverMock->expects($this->at(1))
 			->method('hasClassAnnotation')
-			->with(new \ReflectionClass('\PhpNativeAspectReflectionResolverTest\FooAspect'))
+			->with('\PhpNativeAspectReflectionResolverTest\FooAspect')
 			->will($this->returnValue(true));
 
 		$filteredAspectServices = $this->phpNativeAspectServiceFilter->filterAspectServices($serviceDefinitions);

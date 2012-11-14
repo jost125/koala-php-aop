@@ -4,9 +4,9 @@ namespace Reflection;
 
 interface AnnotationResolver {
 	/**
-	 * @param \ReflectionClass $reflectionClass
+	 * @param string $className
 	 * @param AnnotationExpression $annotationExpression
 	 * @return boolean
 	 */
-	public function hasClassAnnotation(\ReflectionClass $reflectionClass, AnnotationExpression $annotationExpression);
+	public function hasClassAnnotation($className, AnnotationExpression $annotationExpression);
 }

@@ -11,12 +11,13 @@ class CommentParserAnnotationResolver implements \Reflection\AnnotationResolver 
 	}
 
 	/**
-	 * @param \ReflectionClass $reflectionClass
+	 * @param string $className
 	 * @param \Reflection\AnnotationExpression $annotationExpression
 	 * @return boolean
 	 */
-	public function hasClassAnnotation(\ReflectionClass $reflectionClass, \Reflection\AnnotationExpression $annotationExpression) {
-		$comment = $reflectionClass->getDocComment();
+	public function hasClassAnnotation($className, \Reflection\AnnotationExpression $annotationExpression) {
+		$classReflection = new \ReflectionClass($className);
+		$comment = $classReflection->getDocComment();
 		$matches = $this->annotationExpressionMatcher->match($annotationExpression, $comment);
 		return $matches === null ? false : !empty($matches);
 	}

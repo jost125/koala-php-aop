@@ -9,11 +9,6 @@ interface ServiceDefinition {
 	public function getConstructorArguments();
 
 	/**
-	 * @return \ReflectionClass
-	 */
-	public function getClassReflection();
-
-	/**
 	 * @return boolean
 	 */
 	public function hasConstructorArguments();

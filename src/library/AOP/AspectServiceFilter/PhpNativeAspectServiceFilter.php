@@ -25,7 +25,7 @@ class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 		return $aspectDefinitions;
 	}
 
-	private function isAspect($serviceDefinition) {
-		return $this->annotationResolver->hasClassAnnotation($serviceDefinition->getClassReflection(), new \Reflection\AnnotationExpression('\AOP\Aspect'));
+	private function isAspect(\DI\Definition\ServiceDefinition $serviceDefinition) {
+		return $this->annotationResolver->hasClassAnnotation($serviceDefinition->getClassName(), new \Reflection\AnnotationExpression('\AOP\Aspect'));
 	}
 }
