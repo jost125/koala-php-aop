@@ -85,12 +85,14 @@ class SimpleProxyBuilderTest extends \PHPUnit_Framework_TestCase {
 	private function getPossibleTargetServiceDefinitionFixtures() {
 		return array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\SimpleProxyBuilderTest\FooService',
 				'arguments' => array(
 					array('service' => 'fooDependencyService'),
 				),
 			)),
 			'fooDependencyService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooDependencyService',
 				'class' => '\SimpleProxyBuilderTest\FooDependencyService',
 			)),
 		);
@@ -99,6 +101,7 @@ class SimpleProxyBuilderTest extends \PHPUnit_Framework_TestCase {
 	private function getAspectServiceDefinitionFixtures() {
 		return array(
 			'fooAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooAspect',
 				'class' => '\SimpleProxyBuilderTest\FooAspect',
 			)),
 		);
@@ -107,6 +110,7 @@ class SimpleProxyBuilderTest extends \PHPUnit_Framework_TestCase {
 	private function getExpectedBuiltProxies() {
 		return array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\AOPGeneratedProxy\SimpleProxyBuilderTest\FooService',
 				'arguments' => array(
 					array('service' => 'fooDependencyService'),

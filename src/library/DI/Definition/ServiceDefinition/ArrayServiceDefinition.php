@@ -17,6 +17,7 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 	 * )
 	 */
 	public function __construct(array $serviceDefinition) {
+		$this->checkDefinition($serviceDefinition);
 		$this->serviceDefinition = $serviceDefinition;
 	}
 
@@ -64,5 +65,22 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 	 */
 	public function getServiceId() {
 		return $this->serviceDefinition['serviceId'];
+	}
+
+	private function checkDefinition($serviceDefinition) {
+		if (!array_key_exists('serviceId', $serviceDefinition) || !array_key_exists('class', $serviceDefinition)) {
+			throw new \InvalidArgumentException('Provide serviceId and class');
+		}
+
+		if (array_key_exists('arguments', $serviceDefinition)) {
+			foreach ($serviceDefinition['arguments'] as $argument) {
+				switch (key($argument)) {
+					case 'service':
+						break;
+					default:
+						throw new \InvalidArgumentException('Invalid argument ' . $argument);
+				}
+			}
+		}
 	}
 }

@@ -25,7 +25,7 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 	}
 
 	/**
-	 * @return ServiceDefinition[]
+	 * @return \DI\Definition\ServiceDefinition[]
 	 */
 	public function getServiceDefinitions() {
 		$serviceDefinitions = array();
@@ -43,6 +43,7 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 	 */
 	public function replaceServiceDefinition($serviceId, \DI\Definition\ServiceDefinition $proxyServiceDefinition) {
 		$this->configuration['services'][$serviceId] = array(
+			'serviceId' => $serviceId,
 			'class' => $proxyServiceDefinition->getClassName(),
 			'arguments' => $proxyServiceDefinition->getConstructorArguments()
 		);

@@ -29,6 +29,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 	public function testReplaceProxies_noAspects() {
 		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
+				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			)
@@ -36,6 +37,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$servicesDefinitions = array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			))
@@ -59,10 +61,12 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 	public function testReplaceProxies() {
 		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
+				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			),
 			'fooServiceAspect' => array(
+				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
 			)
@@ -70,10 +74,12 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$servicesDefinitions = array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			)),
 			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
 			))
@@ -81,6 +87,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$aspectServicesDefinitions = array(
 			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
 			))
@@ -88,6 +95,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$nonAspectServicesDefinitions = array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			))
@@ -95,6 +103,7 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$proxyServicesDefinitions = array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+				'serviceId' => 'fooService',
 				'class' => '\FooProxy',
 				'arguments' => array()
 			))
@@ -102,10 +111,12 @@ class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
 
 		$expectedReplacedConfiguration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
+				'serviceId' => 'fooService',
 				'class' => '\FooProxy',
 				'arguments' => array()
 			),
 			'fooServiceAspect' => array(
+				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
 			)
