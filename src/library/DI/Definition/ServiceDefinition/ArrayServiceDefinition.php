@@ -6,6 +6,16 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 
 	private $serviceDefinition;
 
+	/**
+	 * @param array $serviceDefinition
+	 * array(
+	 * 	'serviceId' => 'serviceId'
+	 * 	'class' => '\Namespace\ClassName',
+	 * 	'arguments' => array(
+	 * 			array('service' => 'serviceId'),
+	 * 	)
+	 * )
+	 */
 	public function __construct(array $serviceDefinition) {
 		$this->serviceDefinition = $serviceDefinition;
 	}
@@ -47,5 +57,12 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 	 */
 	public function getClassName() {
 		return $this->serviceDefinition['class'];
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getServiceId() {
+		return $this->serviceDefinition['serviceId'];
 	}
 }

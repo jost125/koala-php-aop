@@ -24,12 +24,14 @@ class PhpNativeAspectServiceFilterTest extends \PHPUnit_Framework_TestCase {
 		$serviceDefinitions = array(
 			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
 				array(
+					'serviceId' => 'fooService',
 					'class' => '\PhpNativeAspectReflectionResolverTest\Foo',
 					'arguments' => array()
 				)
 			),
 			'fooAspectService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
 				array(
+					'serviceId' => 'fooAspectService',
 					'class' => '\PhpNativeAspectReflectionResolverTest\FooAspect',
 					'arguments' => array()
 				)
@@ -39,6 +41,7 @@ class PhpNativeAspectServiceFilterTest extends \PHPUnit_Framework_TestCase {
 		$expectedAspectServices = array(
 			'fooAspectService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
 				array(
+					'serviceId' => 'fooAspectService',
 					'class' => '\PhpNativeAspectReflectionResolverTest\FooAspect',
 					'arguments' => array()
 				)

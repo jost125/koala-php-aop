@@ -16,9 +16,9 @@ class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 	 */
 	public function filterAspectServices(array $serviceDefinitions) {
 		$aspectDefinitions = array();
-		foreach ($serviceDefinitions as $serviceId => $serviceDefinition) {
+		foreach ($serviceDefinitions as $serviceDefinition) {
 			if ($this->isAspect($serviceDefinition)) {
-				$aspectDefinitions[$serviceId] = $serviceDefinition;
+				$aspectDefinitions[$serviceDefinition->getServiceId()] = $serviceDefinition;
 			}
 		}
 
