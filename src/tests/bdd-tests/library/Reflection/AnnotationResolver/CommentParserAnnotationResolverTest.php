@@ -48,6 +48,23 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 		$this->assertFalse($this->commentParserAnnotationResolver->hasClassAnnotation($className, $annotationExpression));
 	}
 
+	public function testGetMethodsHavingAnnotation() {
+		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Baz.php';
+
+		$className = '\CommentParserAnnotationResolverTest\Baz';
+		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Before|\AOP\After');
+
+		$this->annotationExpressionMatcherMock->expects($this->exactly(2))
+			->method('match')
+			->will($this->returnValue(true));
+
+		$methods = $this->commentParserAnnotationResolver->getMethodsHavingAnnotation($className, $annotationExpression);
+
+		$this->assertCount(2, $methods);
+		$this->assertEquals('beforeAdvice', $methods[0]->getName());
+		$this->assertEquals('afterAdvice', $methods[1]->getName());
+	}
+
 	private function mockAnnotationExpressionMatcher() {
 		$this->annotationExpressionMatcherMock = $this->getMockBuilder('\Reflection\AnnotationExpressionMatcher')
 			->disableOriginalConstructor()
