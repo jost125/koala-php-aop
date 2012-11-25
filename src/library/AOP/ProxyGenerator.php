@@ -4,10 +4,10 @@ namespace AOP;
 
 interface ProxyGenerator {
 	/**
-	 * @param Abstraction\ProxyList $proxyAbstraction
+	 * @param Abstraction\ProxyList $proxyAbstractionList
 	 * @return \DI\Definition\ServiceDefinition[]
 	 */
-	public function generateProxies(\AOP\Abstraction\ProxyList $proxyAbstraction);
+	public function generateProxies(\AOP\Abstraction\ProxyList $proxyAbstractionList);
 
 
 }
