@@ -16,9 +16,11 @@ class SimpleProxyReplacerTest extends TestCase {
 	public $proxyBuilderMock;
 
 	protected function setUp() {
+		$this->aspectServiceFilterMock = $this->createMock('\AOP\AspectServiceFilter');
+		$this->proxyBuilderMock = $this->createMock('\AOP\ProxyBuilder');
 		$this->simpleProxyReplacer = new SimpleProxyReplacer(
-			$this->mockAspectServiceFilter(),
-			$this->mockProxyBuilder()
+			$this->aspectServiceFilterMock,
+			$this->proxyBuilderMock
 		);
 	}
 
@@ -137,22 +139,6 @@ class SimpleProxyReplacerTest extends TestCase {
 		$replacedConfiguration = $this->simpleProxyReplacer->replaceProxies($configuration);
 
 		$this->assertEquals($expectedReplacedConfiguration, $replacedConfiguration);
-	}
-
-	private function mockAspectServiceFilter() {
-		$this->aspectServiceFilterMock = $this->getMockBuilder('\AOP\AspectServiceFilter')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->aspectServiceFilterMock;
-	}
-
-	private function mockProxyBuilder() {
-		$this->proxyBuilderMock = $this->getMockBuilder('\AOP\ProxyBuilder')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->proxyBuilderMock;
 	}
 
 }

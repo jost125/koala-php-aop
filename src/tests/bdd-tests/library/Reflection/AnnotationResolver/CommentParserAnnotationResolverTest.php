@@ -14,7 +14,8 @@ class CommentParserAnnotationResolverTest extends TestCase {
 	private $annotationExpressionMatcherMock;
 
 	protected function setUp() {
-		$this->commentParserAnnotationResolver = new CommentParserAnnotationResolver($this->mockAnnotationExpressionMatcher());
+		$this->annotationExpressionMatcherMock = $this->createMock('\Reflection\AnnotationExpressionMatcher');
+		$this->commentParserAnnotationResolver = new CommentParserAnnotationResolver($this->annotationExpressionMatcherMock);
 	}
 
 	public function testHasClassAnnotation() {
@@ -66,14 +67,6 @@ class CommentParserAnnotationResolverTest extends TestCase {
 		$this->assertCount(2, $methods);
 		$this->assertEquals('beforeAdvice', $methods[0]->getName());
 		$this->assertEquals('afterAdvice', $methods[1]->getName());
-	}
-
-	private function mockAnnotationExpressionMatcher() {
-		$this->annotationExpressionMatcherMock = $this->getMockBuilder('\Reflection\AnnotationExpressionMatcher')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->annotationExpressionMatcherMock;
 	}
 
 }

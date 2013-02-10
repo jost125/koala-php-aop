@@ -17,8 +17,9 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 	private $annotationResolverMock;
 
 	protected function setUp() {
+		$this->annotationResolverMock = $this->createMock('\Reflection\AnnotationResolver');
 		$this->phpNativeAspectServiceFilter = new PhpNativeAspectServiceFilter(
-			$this->mockAnnotationResolver()
+			$this->annotationResolverMock
 		);
 	}
 
@@ -67,14 +68,6 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 		$filteredAspectServices = $this->phpNativeAspectServiceFilter->filterAspectServices($serviceDefinitions);
 
 		$this->assertEquals($expectedAspectServices, $filteredAspectServices);
-	}
-
-	private function mockAnnotationResolver() {
-		$this->annotationResolverMock = $this->getMockBuilder('\Reflection\AnnotationResolver')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->annotationResolverMock;
 	}
 
 }

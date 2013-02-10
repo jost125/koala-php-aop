@@ -23,10 +23,13 @@ class SimpleProxyFinderTest extends TestCase {
 	private $simpleProxyFinder;
 
 	protected function setUp() {
+		$this->aspectReflectionMock = $this->createMock('\AOP\AspectReflection');
+		$this->pointcutExpressionResolverMock = $this->createMock('\AOP\PointcutExpressionResolver');
+		$this->proxyListFactoryMock = $this->createMock('\AOP\Abstraction\ProxyListFactory');
 		$this->simpleProxyFinder = new SimpleProxyFinder(
-			$this->mockAspectReflection(),
-			$this->mockPointcutExpressionResolver(),
-			$this->mockProxyListFactory()
+			$this->aspectReflectionMock,
+			$this->pointcutExpressionResolverMock,
+			$this->proxyListFactoryMock
 		);
 	}
 
@@ -94,30 +97,6 @@ class SimpleProxyFinderTest extends TestCase {
 
 	private function getPointcutExpressionFixtures() {
 		return new \AOP\Pointcut\PointcutExpression('execution(public \SimpleProxyFinderTest\FooService::*(..))');
-	}
-
-	private function mockProxyListFactory() {
-		$this->proxyListFactoryMock = $this->getMockBuilder('\AOP\Abstraction\ProxyListFactory')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->proxyListFactoryMock;
-	}
-
-	private function mockPointcutExpressionResolver() {
-		$this->pointcutExpressionResolverMock = $this->getMockBuilder('\AOP\PointcutExpressionResolver')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->pointcutExpressionResolverMock;
-	}
-
-	private function mockAspectReflection() {
-		$this->aspectReflectionMock = $this->getMockBuilder('\AOP\AspectReflection')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->aspectReflectionMock;
 	}
 
 }

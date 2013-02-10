@@ -13,12 +13,18 @@ class SimpleProxyBuilderTest extends TestCase {
 	private $proxyFinderMock;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
-	private $proxyGenerator;
+	private $proxyGeneratorMock;
+
+	/** @var \PHPUnit_Framework_MockObject_MockObject */
+	private $proxyListMock;
 
 	protected function setUp() {
+		$this->proxyFinderMock = $this->createMock('\AOP\ProxyFinder');
+		$this->proxyGeneratorMock = $this->createMock('\AOP\ProxyGenerator');
+		$this->proxyListMock = $this->createMock('\AOP\Abstraction\ProxyList');
 		$this->simpleProxyBuilder = new SimpleProxyBuilder(
-			$this->mockProxyGenerator(),
-			$this->mockProxyFinder()
+			$this->proxyGeneratorMock,
+			$this->proxyFinderMock
 		);
 	}
 
@@ -56,32 +62,16 @@ class SimpleProxyBuilderTest extends TestCase {
 		$this->proxyFinderMock->expects($this->once())
 			->method('findProxies')
 			->with($aspectDefinitions, $serviceDefinitions)
-			->will($this->returnValue($this->mockProxyList()));
+			->will($this->returnValue($this->proxyListMock));
 
-		$this->proxyGenerator->expects($this->once())
+		$this->proxyGeneratorMock->expects($this->once())
 			->method('generateProxies')
-			->with($this->mockProxyList())
+			->with($this->proxyListMock)
 			->will($this->returnValue($this->getExpectedBuiltProxies()));
 
 		$builtProxies = $this->simpleProxyBuilder->buildProxies($aspectDefinitions, $serviceDefinitions);
 
 		$this->assertEquals($this->getExpectedBuiltProxies(), $builtProxies);
-	}
-
-	private function mockProxyFinder() {
-		$this->proxyFinderMock = $this->getMockBuilder('\AOP\ProxyFinder')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->proxyFinderMock;
-	}
-
-	private function mockProxyGenerator() {
-		$this->proxyGenerator = $this->getMockBuilder('\AOP\ProxyGenerator')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->proxyGenerator;
 	}
 
 	private function getPossibleTargetServiceDefinitionFixtures() {
@@ -119,13 +109,6 @@ class SimpleProxyBuilderTest extends TestCase {
 				),
 			)),
 		);
-	}
-
-	private function mockProxyList() {
-		$proxyListMock = $this->getMockBuilder('\AOP\Abstraction\ProxyList')
-			->getMock();
-
-		return $proxyListMock;
 	}
 
 }

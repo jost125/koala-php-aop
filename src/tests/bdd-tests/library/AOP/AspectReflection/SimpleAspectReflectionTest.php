@@ -16,7 +16,8 @@ class SimpleAspectReflectionTest extends TestCase {
 	private $adviceReflectionMock;
 
 	protected function setUp() {
-		$this->pregAspectReflection = new SimpleAspectReflection($this->mockAdviceReflection());
+		$this->adviceReflectionMock = $this->createMock('\AOP\AdviceReflection');
+		$this->pregAspectReflection = new SimpleAspectReflection($this->adviceReflectionMock);
 	}
 
 	public function testGetAspect() {
@@ -43,14 +44,6 @@ class SimpleAspectReflectionTest extends TestCase {
 			new \AOP\Abstraction\Pointcut(new \AOP\Pointcut\PointcutExpression('\AOP\Before("execution(public *(..))")')),
 			'beforeAdvice'
 		));
-	}
-
-	private function mockAdviceReflection() {
-		$this->adviceReflectionMock = $this->getMockBuilder('\AOP\AdviceReflection')
-			->disableOriginalConstructor()
-			->getMock();
-
-		return $this->adviceReflectionMock;
 	}
 
 }
