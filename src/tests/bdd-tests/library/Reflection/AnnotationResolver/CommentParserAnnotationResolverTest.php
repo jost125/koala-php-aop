@@ -2,6 +2,9 @@
 
 namespace Reflection\AnnotationResolver;
 
+use Reflection\Annotation\MethodAnnotation;
+use ReflectionClass;
+
 class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 
 	/** @var CommentParserAnnotationResolver */
@@ -17,7 +20,7 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 	public function testHasClassAnnotation() {
 		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Foo.php';
 
-		$className = '\CommentParserAnnotationResolverTest\Foo';
+		$reflectionClass = new ReflectionClass('\CommentParserAnnotationResolverTest\Foo');
 		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Aspect');
 		$comment = '/**
  * @\AOP\Aspect
@@ -28,13 +31,13 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 			->with($annotationExpression, $comment)
 			->will($this->returnValue(array('\AOP\Aspect')));
 
-		$this->assertTrue($this->commentParserAnnotationResolver->hasClassAnnotation($className, $annotationExpression));
+		$this->assertTrue($this->commentParserAnnotationResolver->hasClassAnnotation($reflectionClass, $annotationExpression));
 	}
 
 	public function testHasNotClassAnnotation() {
 		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Bar.php';
 
-		$className = '\CommentParserAnnotationResolverTest\Bar';
+		$reflectionClass = new ReflectionClass('\CommentParserAnnotationResolverTest\Bar');
 		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Aspect');
 		$comment = '/**
  * @\Some\AOP\Aspect
@@ -45,20 +48,20 @@ class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
 			->with($annotationExpression, $comment)
 			->will($this->returnValue(null));
 
-		$this->assertFalse($this->commentParserAnnotationResolver->hasClassAnnotation($className, $annotationExpression));
+		$this->assertFalse($this->commentParserAnnotationResolver->hasClassAnnotation($reflectionClass, $annotationExpression));
 	}
 
 	public function testGetMethodsHavingAnnotation() {
 		require_once __DIR__ . '/CommentParserAnnotationResolverTest/Baz.php';
 
-		$className = '\CommentParserAnnotationResolverTest\Baz';
+		$reflectionClass = new ReflectionClass('\CommentParserAnnotationResolverTest\Baz');
 		$annotationExpression = new \Reflection\AnnotationExpression('\AOP\Before|\AOP\After');
 
 		$this->annotationExpressionMatcherMock->expects($this->exactly(2))
 			->method('match')
 			->will($this->returnValue(true));
 
-		$methods = $this->commentParserAnnotationResolver->getMethodsHavingAnnotation($className, $annotationExpression);
+		$methods = $this->commentParserAnnotationResolver->getMethodsHavingAnnotation($reflectionClass, $annotationExpression);
 
 		$this->assertCount(2, $methods);
 		$this->assertEquals('beforeAdvice', $methods[0]->getName());

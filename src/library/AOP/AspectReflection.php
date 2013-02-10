@@ -2,10 +2,12 @@
 
 namespace AOP;
 
+use ReflectionClass;
+
 interface AspectReflection {
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @return \AOP\Abstraction\Aspect
 	 */
-	public function getAspect($className);
+	public function getAspect(ReflectionClass $reflectionClass);
 }

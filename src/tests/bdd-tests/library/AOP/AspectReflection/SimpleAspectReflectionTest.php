@@ -2,6 +2,10 @@
 
 namespace AOP\AspectReflection;
 
+use ReflectionClass;
+
+require_once __DIR__ . '/SimpleAspectReflectionTest/BarAspect.php';
+
 class SimpleAspectReflectionTest extends \PHPUnit_Framework_TestCase {
 
 	/** @var SimpleAspectReflection */
@@ -15,14 +19,14 @@ class SimpleAspectReflectionTest extends \PHPUnit_Framework_TestCase {
 	}
 
 	public function testGetAspect() {
-		$className = 'PregAspectReflectionTest\FooAspect';
+		$reflectionClass = new ReflectionClass('AOP\AspectReflection\SimpleAspectReflectionTest\BarAspect');
 
 		$this->adviceReflectionMock->expects($this->once())
 			->method('getAdvices')
-			->with($className)
+			->with($reflectionClass)
 			->will($this->returnValue($this->getAdvicesFixtures()));
 
-		$aspect = $this->pregAspectReflection->getAspect($className);
+		$aspect = $this->pregAspectReflection->getAspect($reflectionClass);
 
 		$this->assertEquals($this->getAspectExpectedResult(), $aspect);
 	}
@@ -35,7 +39,8 @@ class SimpleAspectReflectionTest extends \PHPUnit_Framework_TestCase {
 
 	private function getAdvicesFixtures() {
 		return array(new \AOP\Abstraction\Advice(
-			new \AOP\Abstraction\Pointcut(new \AOP\Pointcut\PointcutExpression('\AOP\Before("execution(public *(..))")'))
+			new \AOP\Abstraction\Pointcut(new \AOP\Pointcut\PointcutExpression('\AOP\Before("execution(public *(..))")')),
+			'beforeAdvice'
 		));
 	}
 

@@ -2,6 +2,8 @@
 
 namespace AOP\AspectServiceFilter;
 
+use ReflectionClass;
+
 class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 
 	private $annotationResolver;
@@ -26,6 +28,6 @@ class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 	}
 
 	private function isAspect(\DI\Definition\ServiceDefinition $serviceDefinition) {
-		return $this->annotationResolver->hasClassAnnotation($serviceDefinition->getClassName(), new \Reflection\AnnotationExpression('\AOP\Aspect'));
+		return $this->annotationResolver->hasClassAnnotation(new ReflectionClass($serviceDefinition->getClassName()), new \Reflection\AnnotationExpression('\AOP\Aspect'));
 	}
 }

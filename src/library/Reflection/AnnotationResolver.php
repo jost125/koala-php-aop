@@ -2,18 +2,28 @@
 
 namespace Reflection;
 
+use ReflectionClass;
+use ReflectionMethod;
+
 interface AnnotationResolver {
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @param AnnotationExpression $annotationExpression
 	 * @return boolean
 	 */
-	public function hasClassAnnotation($className, AnnotationExpression $annotationExpression);
+	public function hasClassAnnotation(ReflectionClass $reflectionClass, AnnotationExpression $annotationExpression);
 
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @param AnnotationExpression $annotationExpression
-	 * @return \ReflectionMethod[]
+	 * @return ReflectionMethod[]
 	 */
-	public function getMethodsHavingAnnotation($className, AnnotationExpression $annotationExpression);
+	public function getMethodsHavingAnnotation(ReflectionClass $reflectionClass, AnnotationExpression $annotationExpression);
+
+	/**
+	 * @param ReflectionMethod $reflectionMethod
+	 * @param AnnotationExpression $annotationExpression
+	 * @return Annotation[]
+	 */
+	public function getMethodAnnotations(ReflectionMethod $reflectionMethod, $annotationExpression);
 }

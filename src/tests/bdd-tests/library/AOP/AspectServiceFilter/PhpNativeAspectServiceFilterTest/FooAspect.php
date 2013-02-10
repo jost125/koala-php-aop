@@ -1,6 +1,6 @@
 <?php
 
-namespace PhpNativeAspectReflectionResolverTest;
+namespace AOP\AspectServiceFilter\PhpNativeAspectServiceFilterTest;
 
 /**
  * @\AOP\Aspect

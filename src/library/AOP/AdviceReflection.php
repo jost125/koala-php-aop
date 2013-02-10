@@ -2,11 +2,13 @@
 
 namespace AOP;
 
+use ReflectionClass;
+
 interface AdviceReflection {
 
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @return \AOP\Abstraction\Advice[]
 	 */
-	public function getAdvices($className);
+	public function getAdvices(ReflectionClass $reflectionClass);
 }

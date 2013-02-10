@@ -2,6 +2,9 @@
 
 namespace Reflection\AnnotationResolver;
 
+use ReflectionClass;
+use ReflectionMethod;
+
 class CommentParserAnnotationResolver implements \Reflection\AnnotationResolver {
 
 	private $annotationExpressionMatcher;
@@ -11,25 +14,23 @@ class CommentParserAnnotationResolver implements \Reflection\AnnotationResolver 
 	}
 
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @param \Reflection\AnnotationExpression $annotationExpression
 	 * @return boolean
 	 */
-	public function hasClassAnnotation($className, \Reflection\AnnotationExpression $annotationExpression) {
-		$classReflection = new \ReflectionClass($className);
-		$comment = $classReflection->getDocComment();
+	public function hasClassAnnotation(ReflectionClass $reflectionClass, \Reflection\AnnotationExpression $annotationExpression) {
+		$comment = $reflectionClass->getDocComment();
 		$matches = $this->annotationExpressionMatcher->match($annotationExpression, $comment);
 		return $matches === null ? false : !empty($matches);
 	}
 
 	/**
-	 * @param string $className
+	 * @param ReflectionClass $reflectionClass
 	 * @param \Reflection\AnnotationExpression $annotationExpression
 	 * @return \ReflectionMethod[]
 	 */
-	public function getMethodsHavingAnnotation($className, \Reflection\AnnotationExpression $annotationExpression) {
-		$classReflection = new \ReflectionClass($className);
-		$allMethods = $classReflection->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
+	public function getMethodsHavingAnnotation(ReflectionClass $reflectionClass, \Reflection\AnnotationExpression $annotationExpression) {
+		$allMethods = $reflectionClass->getMethods(\ReflectionMethod::IS_PUBLIC | \ReflectionMethod::IS_PROTECTED);
 		$methodsHavingAnnotation = array();
 		foreach ($allMethods as $method) {
 			$comment = $method->getDocComment();
@@ -40,5 +41,17 @@ class CommentParserAnnotationResolver implements \Reflection\AnnotationResolver 
 		}
 
 		return $methodsHavingAnnotation;
+	}
+
+	/**
+	 * @param ReflectionMethod $reflectionMethod
+	 * @param \Reflection\AnnotationExpression $annotationExpression
+	 * @return \Reflection\Annotation[]
+	 */
+	public function getMethodAnnotations(ReflectionMethod $reflectionMethod, $annotationExpression) {
+		$comment = $reflectionMethod->getDocComment();
+		$matches = $this->annotationExpressionMatcher->match($annotationExpression, $comment);
+
+
 	}
 }
