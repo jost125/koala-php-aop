@@ -2,12 +2,13 @@
 
 namespace AOP\ProxyFinder;
 
+use AOP\TestCase;
 use ReflectionClass;
 
 require_once __DIR__ . '/SimpleProxyFinderTest/FooService.php';
 require_once __DIR__ . '/SimpleProxyFinderTest/FooAspect.php';
 
-class SimpleProxyFinderTest extends \PHPUnit_Framework_TestCase {
+class SimpleProxyFinderTest extends TestCase {
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
 	private $aspectReflectionMock;

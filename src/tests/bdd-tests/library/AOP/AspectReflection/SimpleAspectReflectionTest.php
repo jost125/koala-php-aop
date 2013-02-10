@@ -2,11 +2,12 @@
 
 namespace AOP\AspectReflection;
 
+use AOP\TestCase;
 use ReflectionClass;
 
 require_once __DIR__ . '/SimpleAspectReflectionTest/BarAspect.php';
 
-class SimpleAspectReflectionTest extends \PHPUnit_Framework_TestCase {
+class SimpleAspectReflectionTest extends TestCase {
 
 	/** @var SimpleAspectReflection */
 	private $pregAspectReflection;

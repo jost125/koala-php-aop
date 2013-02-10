@@ -2,7 +2,9 @@
 
 namespace AOP\ProxyBuilder;
 
-class SimpleProxyBuilderTest extends \PHPUnit_Framework_TestCase {
+use AOP\TestCase;
+
+class SimpleProxyBuilderTest extends TestCase {
 
 	/** @var SimpleProxyBuilder */
 	private $simpleProxyBuilder;

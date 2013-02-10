@@ -2,7 +2,9 @@
 
 namespace Reflection\AnnotationExpressionMatcher;
 
-class PregAnnotationExpressionMatcherTest extends \PHPUnit_Framework_TestCase {
+use AOP\TestCase;
+
+class PregAnnotationExpressionMatcherTest extends TestCase {
 	/** @var PregAnnotationExpressionMatcher */
 	private $pregAnnotationExpressionMatcher;
 

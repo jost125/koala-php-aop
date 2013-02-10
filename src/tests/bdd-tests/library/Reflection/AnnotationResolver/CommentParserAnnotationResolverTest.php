@@ -2,10 +2,10 @@
 
 namespace Reflection\AnnotationResolver;
 
-use Reflection\Annotation\MethodAnnotation;
+use AOP\TestCase;
 use ReflectionClass;
 
-class CommentParserAnnotationResolverTest extends \PHPUnit_Framework_TestCase {
+class CommentParserAnnotationResolverTest extends TestCase {
 
 	/** @var CommentParserAnnotationResolver */
 	private $commentParserAnnotationResolver;

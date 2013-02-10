@@ -2,7 +2,9 @@
 
 namespace AOP\ProxyReplacer;
 
-class SimpleProxyReplacerTest extends \PHPUnit_Framework_TestCase {
+use AOP\TestCase;
+
+class SimpleProxyReplacerTest extends TestCase {
 
 	/** @var SimpleProxyReplacer */
 	private $simpleProxyReplacer;

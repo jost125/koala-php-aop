@@ -2,12 +2,13 @@
 
 namespace AOP\AspectServiceFilter;
 
+use AOP\TestCase;
 use ReflectionClass;
 
 require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/FooAspect.php';
 require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/Foo.php';
 
-class PhpNativeAspectServiceFilterTest extends \PHPUnit_Framework_TestCase {
+class PhpNativeAspectServiceFilterTest extends TestCase {
 
 	/** @var PhpNativeAspectServiceFilter */
 	private $phpNativeAspectServiceFilter;
