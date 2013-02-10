@@ -56,8 +56,10 @@ class SimpleProxyFinderTest extends TestCase {
 	}
 
 	public function getJoinpointsFixtures() {
+		$reflectionClass = new ReflectionClass('\AOP\ProxyFinder\SimpleProxyFinderTest\FooAspect');
+		$reflectionMethod = $reflectionClass->getMethod('bar');
 		return array(
-			new \AOP\Abstraction\Joinpoint('\AOP\ProxyFinder\SimpleProxyFinderTest\FooAspect', 'bar')
+			new \AOP\Abstraction\Joinpoint($reflectionMethod)
 		);
 	}
 

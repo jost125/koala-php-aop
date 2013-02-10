@@ -2,21 +2,18 @@
 
 namespace AOP\Abstraction;
 
+use ReflectionMethod;
+
 class Joinpoint {
 
-	private $className;
-	private $methodName;
+	private $reflectionMethod;
 
-	public function __construct($className, $methodName) {
-		$this->className = $className;
-		$this->methodName = $methodName;
+	public function __construct(ReflectionMethod $reflectionMethod) {
+		$this->reflectionMethod;
 	}
 
-	public function getClassName() {
-		return $this->className;
+	public function getReflectionMethod() {
+		return $this->reflectionMethod;
 	}
 
-	public function getMethodName() {
-		return $this->methodName;
-	}
 }
