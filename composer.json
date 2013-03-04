@@ -1,0 +1,14 @@
+{
+	"name":"aop/aop",
+	"type": "library",
+	"description":"Aspect-oriented programming library",
+	"keywords": ["aop"],
+	"authors":[
+		{"name":"Jan Machala", "email":"jan.machala@email.cz"}
+	],
+	"minimum-stability":"dev",
+	"require": {
+		"php": ">=5.3.2",
+		"doctrine/annotations": "dev-master"
+	}
+}
