@@ -55,4 +55,9 @@ class DoctrineWrappedAnnotation implements Annotation {
 
 		return $properties;
 	}
+
+	public function getParameter($name) {
+		$parameters = $this->getParameters();
+		return $parameters[$name];
+	}
 }

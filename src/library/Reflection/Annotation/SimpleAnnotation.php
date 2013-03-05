@@ -35,4 +35,8 @@ class SimpleAnnotation implements Annotation {
 
 		return $namePart . (count($valuesParts) ? '(' . implode(', ', $valuesParts) . ')' : '');
 	}
+
+	public function getParameter($name) {
+		return $this->parameters[$name];
+	}
 }
