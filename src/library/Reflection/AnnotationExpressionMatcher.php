@@ -5,8 +5,8 @@ namespace Reflection;
 interface AnnotationExpressionMatcher {
 	/**
 	 * @param AnnotationExpression $annotationExpression
-	 * @param string $comment
+	 * @param Annotation $annotation
 	 * @return string
 	 */
-	public function match(AnnotationExpression $annotationExpression, $comment);
+	public function match(AnnotationExpression $annotationExpression, Annotation $annotation);
 }
