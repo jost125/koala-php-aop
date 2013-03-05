@@ -34,13 +34,8 @@ class DoctrineWrappedAnnotation implements Annotation {
 	}
 
 	public function toExpression() {
-		$namePart = $this->getName();
-		$valuesParts = array();
-		foreach ($this->getParameters() as $parameterName => $parameterValue) {
-			$valuesParts[] = $parameterName . '="' . str_replace('"', '\"', $parameterValue) . '"';
-		}
-
-		return $namePart . '(' . implode(', ', $valuesParts) . ')';
+		$simple = new SimpleAnnotation($this->getName(), $this->getParameters());
+		return $simple->toExpression();
 	}
 
 	private function getClassReflection() {
