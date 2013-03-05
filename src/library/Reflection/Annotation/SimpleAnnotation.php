@@ -33,6 +33,6 @@ class SimpleAnnotation implements Annotation {
 			$valuesParts[] = $parameterName . '="' . str_replace('"', '\"', $parameterValue) . '"';
 		}
 
-		return $namePart . '(' . implode(', ', $valuesParts) . ')';
+		return $namePart . (count($valuesParts) ? '(' . implode(', ', $valuesParts) . ')' : '');
 	}
 }
