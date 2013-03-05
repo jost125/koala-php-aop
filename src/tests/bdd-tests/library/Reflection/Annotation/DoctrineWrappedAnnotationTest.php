@@ -38,6 +38,18 @@ class DoctrineWrappedAnnotationTest extends TestCase {
 		$this->assertEquals('Reflection\Annotation\BarAnnotation(baz="I have \" inside", value="foo")', $annotation->toExpression());
 	}
 
+	public function testGetParameter() {
+		$annotation = new DoctrineWrappedAnnotation(new BarAnnotation(array('value' => 'foo', 'baz' => 'I have " inside')));
+		$this->assertEquals('foo', $annotation->getParameter('value'));
+		$this->assertEquals('I have " inside', $annotation->getParameter('baz'));
+		try {
+			$annotation->getParameter('nonexisting');
+			$this->fail('Expected exception');
+		} catch (ParameterNotDefinedException $ex) {
+			$this->assertEquals('Property "nonexisting" is not defined in Reflection\Annotation\BarAnnotation annotation', $ex->getMessage());
+		}
+	}
+
 }
 
 class FooAnnotation extends Annotation {

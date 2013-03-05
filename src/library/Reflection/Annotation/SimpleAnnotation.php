@@ -37,6 +37,9 @@ class SimpleAnnotation implements Annotation {
 	}
 
 	public function getParameter($name) {
+		if (!array_key_exists($name, $this->parameters)) {
+			throw new ParameterNotDefinedException('Property "' . $name . '" is not defined in ' . $this->getName() . ' annotation');
+		}
 		return $this->parameters[$name];
 	}
 }
