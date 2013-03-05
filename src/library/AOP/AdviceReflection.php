@@ -7,8 +7,8 @@ use ReflectionClass;
 interface AdviceReflection {
 
 	/**
-	 * @param ReflectionClass $reflectionClass
+	 * @param ReflectionClass $aspect
 	 * @return \AOP\Abstraction\Advice[]
 	 */
-	public function getAdvices(ReflectionClass $reflectionClass);
+	public function getAdvices(ReflectionClass $aspect);
 }
