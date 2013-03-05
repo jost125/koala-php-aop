@@ -6,8 +6,8 @@ use ReflectionClass;
 
 interface AspectReflection {
 	/**
-	 * @param ReflectionClass $reflectionClass
+	 * @param ReflectionClass $aspectReflection
 	 * @return \AOP\Abstraction\Aspect
 	 */
-	public function getAspect(ReflectionClass $reflectionClass);
+	public function getAspect(ReflectionClass $aspectReflection);
 }

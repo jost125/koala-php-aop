@@ -13,11 +13,11 @@ class SimpleAspectReflection implements \AOP\AspectReflection {
 	}
 
 	/**
-	 * @param ReflectionClass $reflectionClass
+	 * @param ReflectionClass $aspectReflection
 	 * @return \AOP\Abstraction\Aspect
 	 */
-	public function getAspect(ReflectionClass $reflectionClass) {
-		$advices = $this->adviceReflection->getAdvices($reflectionClass);
+	public function getAspect(ReflectionClass $aspectReflection) {
+		$advices = $this->adviceReflection->getAdvices($aspectReflection);
 		$aspect = new \AOP\Abstraction\Aspect($advices);
 
 		return $aspect;
