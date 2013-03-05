@@ -19,7 +19,7 @@ class SimpleAnnotation implements Annotation {
 	}
 
 	public function hasParameters() {
-		return count($this->parameters);
+		return (bool)count($this->parameters);
 	}
 
 	public function getParameters() {
