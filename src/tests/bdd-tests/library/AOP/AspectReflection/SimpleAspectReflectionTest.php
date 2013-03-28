@@ -2,10 +2,11 @@
 
 namespace AOP\AspectReflection;
 
+use AOP\Abstraction\InterceptingMethod;
+use AOP\Aspect;
+use AOP\Before;
 use AOP\TestCase;
 use ReflectionClass;
-
-require_once __DIR__ . '/SimpleAspectReflectionTest/BarAspect.php';
 
 class SimpleAspectReflectionTest extends TestCase {
 
@@ -21,7 +22,7 @@ class SimpleAspectReflectionTest extends TestCase {
 	}
 
 	public function testGetAspect() {
-		$reflectionClass = new ReflectionClass('AOP\AspectReflection\SimpleAspectReflectionTest\BarAspect');
+		$reflectionClass = new ReflectionClass('\AOP\AspectReflection\Bar');
 
 		$this->adviceReflectionMock->expects($this->once())
 			->method('getAdvices')
@@ -42,8 +43,22 @@ class SimpleAspectReflectionTest extends TestCase {
 	private function getAdvicesFixtures() {
 		return array(new \AOP\Abstraction\Advice(
 			new \AOP\Abstraction\Pointcut(new \AOP\Pointcut\PointcutExpression('\AOP\Before("execution(public *(..))")')),
-			'beforeAdvice'
+			new InterceptingMethod(new \ReflectionMethod('\AOP\AspectReflection\Bar', 'beforeAdvice'))
 		));
+	}
+
+}
+
+/**
+ * @Aspect
+ */
+class Bar {
+
+	/**
+	 * @Before("execution(public *(..))")
+	 */
+	public function beforeAdvice() {
+
 	}
 
 }

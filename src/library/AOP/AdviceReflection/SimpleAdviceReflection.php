@@ -2,6 +2,7 @@
 
 namespace AOP\AdviceReflection;
 
+use AOP\Abstraction\InterceptingMethod;
 use AOP\Pointcut\PointcutExpression;
 use Reflection\Annotation;
 use InvalidArgumentException;
@@ -38,7 +39,7 @@ class SimpleAdviceReflection implements \AOP\AdviceReflection {
 				foreach ($methods as $method) {
 					$annotations = $this->annotationResolver->getMethodAnnotations($method, $annotationExpression);
 					foreach ($annotations as $annotation) {
-						$advices[] = new Advice($this->createPoincutExpression($annotation), $method->getName());
+						$advices[] = new Advice($this->createPoincutExpression($annotation), new InterceptingMethod($method));
 					}
 				}
 			}

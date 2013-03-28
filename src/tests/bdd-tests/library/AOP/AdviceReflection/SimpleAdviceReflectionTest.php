@@ -2,11 +2,16 @@
 
 namespace AOP\AdviceReflection;
 
+use AOP\Abstraction\Advice;
+use AOP\Abstraction\InterceptingMethod;
+use AOP\Abstraction\Pointcut\BeforePointcut;
+use AOP\Pointcut\PointcutExpression;
 use AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;
 use ReflectionClass;
 use Reflection\AnnotationExpressionMatcher\SimpleAnnotationExpressionMatcher;
 use Reflection\AnnotationResolver\DoctrineAnnotationResolver;
+use ReflectionMethod;
 
 class SimpleAdviceReflectionTest extends TestCase {
 
@@ -28,8 +33,9 @@ class SimpleAdviceReflectionTest extends TestCase {
 
 	private function getExpectedAdvices() {
 		return array(
-			new \AOP\Abstraction\Advice(
-				new \AOP\Abstraction\Pointcut\BeforePointcut(new \AOP\Pointcut\PointcutExpression('execution(public *(..))'))
+			new Advice(
+				new BeforePointcut(new PointcutExpression('execution(public *(..))')),
+				new InterceptingMethod(new ReflectionMethod('\AOP\AdviceReflection\Bar', 'fooAdvice'))
 			)
 		);
 	}
