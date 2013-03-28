@@ -11,29 +11,29 @@ spl_autoload_register(function($className) {
 });
 
 require_once __DIR__ . '/../../library/loader.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 $diContainer = new \DI\Container(
 	new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(
 		array(
 			'services' => array(
 				'articleController' => array(
+					'serviceId' => 'articleController',
 					'class' => '\Example\Controller\ArticleController',
 					'arguments' => array(
 						array('service' => 'articleModelFacade'),
 					),
 				),
 				'articleModelFacade' => array(
+					'serviceId' => 'articleModelFacade',
 					'class' => '\Example\Model\Facade\ArticleModelFacade',
 					'arguments' => array(),
 				),
 				'logger' => array(
+					'serviceId' => 'logger',
 					'class' => '\Example\Logger\StdLogger',
 					'arguments' => array(),
 				),
-				'stopwatchFactory' => array(
-					'class' => '\Example\Stopwatch\StopwatchFactory',
-					'arguments' => array(),
-				)
 			)
 		)
 	),
