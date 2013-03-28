@@ -2,31 +2,35 @@
 
 namespace GeneratedAOPProxy\Example\Model\Facade;
 
+use AOP\Joinpoint;
+use ReflectionMethod;
+
 class ArticleModelFacade extends \Example\Model\Facade\ArticleModelFacade {
 
-	private $logger;
-	private $stopwatchFactory;
+	private $aspect;
+	private $interceptedService;
 
-	public function __construct(\Example\Logger $logger, \Example\Stopwatch\StopwatchFactory $stopwatchFactory) {
-		$this->logger = $logger;
-		$this->stopwatchFactory = $stopwatchFactory;
+	/**
+	 * @var ReflectionMethod[]
+	 */
+	private $interceptingMethods;
+
+	public function __construct($aspect, $interceptedService, array $interceptingMethods) {
+		$this->aspect = $aspect;
+		$this->interceptedService = $interceptedService;
+		$this->interceptingMethods = $interceptingMethods;
 	}
 
 	/**
 	 * @override
 	 */
 	public function fetchArticleById($articleId) {
+		$joinpoint = new Joinpoint($this->interceptedService, new ReflectionMethod('\Example\Model\Facade\ArticleModelFacade', 'fetchArticleById'), array($articleId));
 
-		$stopwatch = $this->stopwatchFactory->createStopwatch();
-
-		$stopwatch->start();
-		$result = parent::fetchArticleById($articleId);
-
-		$this->logger->log(sprintf('class: %s, method: %s, execution time: %s',
-			'\Example\Model\Facade\ArticleModelFacade',
-			'fetchArticleById',
-			$stopwatch->stop()
-		), 'info');
+		$result = null;
+		foreach ($this->interceptingMethods as $interceptingMethod) {
+			$result = $interceptingMethod->invokeArgs($this->aspect, array($joinpoint));
+		}
 
 		return $result;
 	}
