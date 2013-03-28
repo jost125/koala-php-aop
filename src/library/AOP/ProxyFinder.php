@@ -2,12 +2,15 @@
 
 namespace AOP;
 
+use AOP\Abstraction\ProxyList;
+use DI\Definition\ServiceDefinition;
+
 interface ProxyFinder {
 
 	/**
-	 * @param \DI\Definition\ServiceDefinition[] $aspectDefinitions
-	 * @param \DI\Definition\ServiceDefinition[] $targetDefinitions
-	 * @return \AOP\Abstraction\ProxyList
+	 * @param ServiceDefinition[] $aspectDefinitions
+	 * @param ServiceDefinition[] $targetDefinitions
+	 * @return ProxyList
 	 */
 	public function findProxies(array $aspectDefinitions, array $targetDefinitions);
 }

@@ -2,16 +2,18 @@
 
 namespace AOP\Abstraction;
 
+use AOP\Pointcut\PointcutExpression;
+
 class Pointcut {
 
 	private $pointcutExpression;
 
-	public function __construct(\AOP\Pointcut\PointcutExpression $pointcutExpression) {
+	public function __construct(PointcutExpression $pointcutExpression) {
 		$this->pointcutExpression = $pointcutExpression;
 	}
 
 	/**
-	 * @return \AOP\Pointcut\PointcutExpression
+	 * @return PointcutExpression
 	 */
 	public function getPointcutExpression() {
 		return $this->pointcutExpression;

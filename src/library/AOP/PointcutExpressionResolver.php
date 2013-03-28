@@ -2,13 +2,15 @@
 
 namespace AOP;
 
+use AOP\Abstraction\Joinpoint;
+use AOP\Pointcut\PointcutExpression;
 use ReflectionClass;
 
 interface PointcutExpressionResolver {
 	/**
 	 * @param ReflectionClass $reflectionClass
-	 * @param Pointcut\PointcutExpression $pointcutExpression
-	 * @return \AOP\Abstraction\Joinpoint[]
+	 * @param PointcutExpression $pointcutExpression
+	 * @return Joinpoint[]
 	 */
-	public function findJoinpoints(ReflectionClass $reflectionClass, \AOP\Pointcut\PointcutExpression $pointcutExpression);
+	public function findJoinpoints(ReflectionClass $reflectionClass, PointcutExpression $pointcutExpression);
 }

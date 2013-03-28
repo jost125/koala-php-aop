@@ -2,19 +2,23 @@
 
 namespace AOP\AspectServiceFilter;
 
+use AOP\AspectServiceFilter;
+use DI\Definition\ServiceDefinition;
+use Reflection\AnnotationExpression;
+use Reflection\AnnotationResolver;
 use ReflectionClass;
 
-class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
+class PhpNativeAspectServiceFilter implements AspectServiceFilter {
 
 	private $annotationResolver;
 
-	public function __construct(\Reflection\AnnotationResolver $annotationResolver) {
+	public function __construct(AnnotationResolver $annotationResolver) {
 		$this->annotationResolver = $annotationResolver;
 	}
 
 	/**
-	 * @param \DI\Definition\ServiceDefinition[] $serviceDefinitions
-	 * @return \DI\Definition\ServiceDefinition[]
+	 * @param ServiceDefinition[] $serviceDefinitions
+	 * @return ServiceDefinition[]
 	 */
 	public function filterAspectServices(array $serviceDefinitions) {
 		$aspectDefinitions = array();
@@ -27,7 +31,7 @@ class PhpNativeAspectServiceFilter implements \AOP\AspectServiceFilter {
 		return $aspectDefinitions;
 	}
 
-	private function isAspect(\DI\Definition\ServiceDefinition $serviceDefinition) {
-		return $this->annotationResolver->hasClassAnnotation(new ReflectionClass($serviceDefinition->getClassName()), new \Reflection\AnnotationExpression('\AOP\Aspect'));
+	private function isAspect(ServiceDefinition $serviceDefinition) {
+		return $this->annotationResolver->hasClassAnnotation(new ReflectionClass($serviceDefinition->getClassName()), new AnnotationExpression('\AOP\Aspect'));
 	}
 }

@@ -2,12 +2,17 @@
 
 namespace DI;
 
+use AOP\ProxyReplacer;
+use DI\Definition\ConfigurationDefinition;
+use DI\Definition\ServiceDefinition;
+use DI\Exception\ServiceNotExistsException;
+
 class Container {
 	private $services = array();
 	private $configurationDefinition;
 	private $proxyReplacer;
 
-	public function __construct(\DI\Definition\ConfigurationDefinition $configurationDefinition, \AOP\ProxyReplacer $proxyReplacer) {
+	public function __construct(ConfigurationDefinition $configurationDefinition, ProxyReplacer $proxyReplacer) {
 		$this->proxyReplacer = $proxyReplacer;
 		$this->configurationDefinition = $proxyReplacer->replaceProxies($configurationDefinition);
 	}
@@ -35,11 +40,11 @@ class Container {
 				$this->services[$serviceId] = $reflectionClass->newInstance();
 			}
 		} else {
-			throw new \DI\Exception\ServiceNotExistsException();
+			throw new ServiceNotExistsException();
 		}
 	}
 
-	private function getConstructorArgumentValues(\DI\Definition\ServiceDefinition $serviceDefinition) {
+	private function getConstructorArgumentValues(ServiceDefinition $serviceDefinition) {
 		$constructorArgumentValues = array();
 		foreach ($serviceDefinition->getConstructorArguments() as $constructorArgument) {
 			$constructorArgumentValues[] = $constructorArgument->getValue($this);

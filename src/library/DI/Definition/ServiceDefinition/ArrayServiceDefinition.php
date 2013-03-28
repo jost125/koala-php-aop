@@ -2,7 +2,12 @@
 
 namespace DI\Definition\ServiceDefinition;
 
-class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
+use DI\Definition\ConstructorArgument\ServiceDependency;
+use DI\Definition\ServiceDefinition;
+use InvalidArgumentException;
+use ReflectionClass;
+
+class ArrayServiceDefinition implements ServiceDefinition {
 
 	private $serviceDefinition;
 
@@ -31,7 +36,7 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 			$argumentValue = $argumentEntry[$argumentType];
 			switch ($argumentType) {
 				case 'service':
-					$arguments[] = new \DI\Definition\ConstructorArgument\ServiceDependency($argumentValue);
+					$arguments[] = new ServiceDependency($argumentValue);
 					break;
 			}
 		}
@@ -40,10 +45,10 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 	}
 
 	/**
-	 * @return \ReflectionClass
+	 * @return ReflectionClass
 	 */
 	public function getClassReflection() {
-		return new \ReflectionClass($this->serviceDefinition['class']);
+		return new ReflectionClass($this->serviceDefinition['class']);
 	}
 
 	/**
@@ -69,7 +74,7 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 
 	private function checkDefinition($serviceDefinition) {
 		if (!array_key_exists('serviceId', $serviceDefinition) || !array_key_exists('class', $serviceDefinition)) {
-			throw new \InvalidArgumentException('Provide serviceId and class');
+			throw new InvalidArgumentException('Provide serviceId and class');
 		}
 
 		if (array_key_exists('arguments', $serviceDefinition)) {
@@ -78,7 +83,7 @@ class ArrayServiceDefinition implements \DI\Definition\ServiceDefinition {
 					case 'service':
 						break;
 					default:
-						throw new \InvalidArgumentException('Invalid argument ' . $argument);
+						throw new InvalidArgumentException('Invalid argument ' . $argument);
 				}
 			}
 		}

@@ -2,10 +2,12 @@
 
 namespace DI\Definition;
 
+use DI\Container;
+
 interface ConstructorArgument {
 	/**
-	 * @param \DI\Container $container
+	 * @param Container $container
 	 * @return mixed
 	 */
-	public function getValue(\DI\Container $container);
+	public function getValue(Container $container);
 }

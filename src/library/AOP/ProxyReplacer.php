@@ -2,10 +2,12 @@
 
 namespace AOP;
 
+use DI\Definition\ConfigurationDefinition;
+
 interface ProxyReplacer {
 	/**
-	 * @param \DI\Definition\ConfigurationDefinition $configurationDefinition
-	 * @return \DI\Definition\ConfigurationDefinition
+	 * @param ConfigurationDefinition $configurationDefinition
+	 * @return ConfigurationDefinition
 	 */
-	public function replaceProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition);
+	public function replaceProxies(ConfigurationDefinition $configurationDefinition);
 }

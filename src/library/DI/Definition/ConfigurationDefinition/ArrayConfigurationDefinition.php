@@ -2,7 +2,11 @@
 
 namespace DI\Definition\ConfigurationDefinition;
 
-class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefinition {
+use DI\Definition\ConfigurationDefinition;
+use DI\Definition\ServiceDefinition;
+use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
+
+class ArrayConfigurationDefinition implements ConfigurationDefinition {
 
 	public function __construct(array $configuration) {
 		$this->configuration = $configuration;
@@ -18,14 +22,14 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 
 	/**
 	 * @param string $serviceId
-	 * @return \DI\Definition\ServiceDefinition
+	 * @return ServiceDefinition
 	 */
 	public function getServiceDefinition($serviceId) {
-		return new \DI\Definition\ServiceDefinition\ArrayServiceDefinition($this->configuration['services'][$serviceId]);
+		return new ArrayServiceDefinition($this->configuration['services'][$serviceId]);
 	}
 
 	/**
-	 * @return \DI\Definition\ServiceDefinition[]
+	 * @return ServiceDefinition[]
 	 */
 	public function getServiceDefinitions() {
 		$serviceDefinitions = array();
@@ -38,10 +42,10 @@ class ArrayConfigurationDefinition implements \DI\Definition\ConfigurationDefini
 
 	/**
 	 * @param string $serviceId
-	 * @param \DI\Definition\ServiceDefinition $proxyServiceDefinition
+	 * @param ServiceDefinition $proxyServiceDefinition
 	 * @return void
 	 */
-	public function replaceServiceDefinition($serviceId, \DI\Definition\ServiceDefinition $proxyServiceDefinition) {
+	public function replaceServiceDefinition($serviceId, ServiceDefinition $proxyServiceDefinition) {
 		$this->configuration['services'][$serviceId] = array(
 			'serviceId' => $serviceId,
 			'class' => $proxyServiceDefinition->getClassName(),

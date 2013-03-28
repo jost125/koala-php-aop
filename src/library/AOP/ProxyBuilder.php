@@ -2,12 +2,14 @@
 
 namespace AOP;
 
+use DI\Definition\ServiceDefinition;
+
 interface ProxyBuilder {
 
 	/**
-	 * @param \DI\Definition\ServiceDefinition[] $aspectDefinitions
-	 * @param \DI\Definition\ServiceDefinition[] $targetDefinitions
-	 * @return \DI\Definition\ServiceDefinition[]
+	 * @param ServiceDefinition[] $aspectDefinitions
+	 * @param ServiceDefinition[] $targetDefinitions
+	 * @return ServiceDefinition[]
 	 */
 	public function buildProxies(array $aspectDefinitions, array $targetDefinitions);
 }

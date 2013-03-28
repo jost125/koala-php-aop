@@ -2,10 +2,12 @@
 
 namespace Example\Controller;
 
+use Example\Model\Facade\ArticleModelFacade;
+
 class ArticleController {
 	private $articleModelFacade;
 
-	public function __construct(\Example\Model\Facade\ArticleModelFacade $articleModelFacade) {
+	public function __construct(ArticleModelFacade $articleModelFacade) {
 		$this->articleModelFacade = $articleModelFacade;
 	}
 

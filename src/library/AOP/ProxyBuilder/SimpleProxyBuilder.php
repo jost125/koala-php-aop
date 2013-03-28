@@ -2,14 +2,18 @@
 
 namespace AOP\ProxyBuilder;
 
-class SimpleProxyBuilder implements \AOP\ProxyBuilder {
+use AOP\ProxyBuilder;
+use AOP\ProxyFinder;
+use AOP\ProxyGenerator;
+
+class SimpleProxyBuilder implements ProxyBuilder {
 
 	private $proxyGenerator;
 	private $proxyFinder;
 
 	public function __construct(
-		\AOP\ProxyGenerator $proxyGenerator,
-		\AOP\ProxyFinder $proxyFinder
+		ProxyGenerator $proxyGenerator,
+		ProxyFinder $proxyFinder
 	) {
 		$this->proxyGenerator = $proxyGenerator;
 		$this->proxyFinder = $proxyFinder;

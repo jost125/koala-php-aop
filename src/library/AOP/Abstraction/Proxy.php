@@ -2,6 +2,8 @@
 
 namespace AOP\Abstraction;
 
+use DI\Definition\ServiceDefinition;
+
 class Proxy {
 
 	private $targetDefinition;
@@ -11,9 +13,9 @@ class Proxy {
 	/**
 	 * @param Advice $advice
 	 * @param Joinpoint[] $joinpoints
-	 * @param \DI\Definition\ServiceDefinition $targetDefinition
+	 * @param ServiceDefinition $targetDefinition
 	 */
-	public function __construct(Advice $advice, array $joinpoints, \DI\Definition\ServiceDefinition $targetDefinition) {
+	public function __construct(Advice $advice, array $joinpoints, ServiceDefinition $targetDefinition) {
 		$this->advice = $advice;
 		$this->joinpoints = $joinpoints;
 		$this->targetDefinition = $targetDefinition;
@@ -34,7 +36,7 @@ class Proxy {
 	}
 
 	/**
-	 * @return \DI\Definition\ServiceDefinition
+	 * @return ServiceDefinition
 	 */
 	public function getTargetDefinition() {
 		return $this->targetDefinition;

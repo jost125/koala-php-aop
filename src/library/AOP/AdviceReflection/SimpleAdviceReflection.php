@@ -3,6 +3,7 @@
 namespace AOP\AdviceReflection;
 
 use AOP\Abstraction\InterceptingMethod;
+use AOP\AdviceReflection;
 use AOP\Pointcut\PointcutExpression;
 use Reflection\Annotation;
 use InvalidArgumentException;
@@ -14,13 +15,14 @@ use AOP\Abstraction\Pointcut\BeforePointcut;
 use Reflection\AnnotationExpression;
 use AOP\Abstraction\Advice;
 use AOP\Abstraction\Pointcut;
+use Reflection\AnnotationResolver;
 use ReflectionClass;
 
-class SimpleAdviceReflection implements \AOP\AdviceReflection {
+class SimpleAdviceReflection implements AdviceReflection {
 
 	private $annotationResolver;
 
-	public function __construct(\Reflection\AnnotationResolver $annotationResolver) {
+	public function __construct(AnnotationResolver $annotationResolver) {
 		$this->annotationResolver = $annotationResolver;
 	}
 

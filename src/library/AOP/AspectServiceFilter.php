@@ -2,11 +2,13 @@
 
 namespace AOP;
 
+use DI\Definition\ServiceDefinition;
+
 interface AspectServiceFilter {
 
 	/**
-	 * @param \DI\Definition\ServiceDefinition[] $serviceDefinitions
-	 * @return \DI\Definition\ServiceDefinition[]
+	 * @param ServiceDefinition[] $serviceDefinitions
+	 * @return ServiceDefinition[]
 	 */
 	public function filterAspectServices(array $serviceDefinitions);
 }

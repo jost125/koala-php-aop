@@ -2,6 +2,8 @@
 
 namespace DI\Exception;
 
-class ServiceNotExistsException extends \Exception {
+use Exception;
+
+class ServiceNotExistsException extends Exception {
 
 }
