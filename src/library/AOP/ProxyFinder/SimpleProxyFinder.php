@@ -54,8 +54,8 @@ class SimpleProxyFinder implements ProxyFinder {
 
 	private function groupByJoinpoints(SplObjectStorage $advicesJoinpoints) {
 		$groupedByJoinpoints = new SplObjectStorage();
-		foreach ($advicesJoinpoints as $joinpoints) {
-			$advice = $advicesJoinpoints->offsetGet($joinpoints);
+		foreach ($advicesJoinpoints as $advice) {
+			$joinpoints = $advicesJoinpoints->offsetGet($advice);
 			foreach ($joinpoints as $joinpoint) {
 				if (!$groupedByJoinpoints->contains($joinpoint)) {
 					$groupedByJoinpoints->offsetSet($joinpoint, new SplObjectStorage());

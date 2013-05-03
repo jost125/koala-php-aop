@@ -2,11 +2,19 @@
 
 namespace AOP\ProxyFinder;
 
+use AOP\Abstraction\Advice;
+use AOP\Abstraction\InterceptingMethod;
+use AOP\Abstraction\Joinpoint;
+use AOP\Abstraction\Pointcut;
+use AOP\Abstraction\Proxy;
+use AOP\Abstraction\ProxyList;
 use AOP\TestCase;
 use ReflectionClass;
+use ReflectionMethod;
+use AOP\Around;
+use SplObjectStorage;
 
 require_once __DIR__ . '/SimpleProxyFinderTest/FooService.php';
-require_once __DIR__ . '/SimpleProxyFinderTest/FooAspect.php';
 
 class SimpleProxyFinderTest extends TestCase {
 
@@ -17,7 +25,7 @@ class SimpleProxyFinderTest extends TestCase {
 	private $pointcutExpressionResolverMock;
 
 	/** @var \PHPUnit_Framework_MockObject_MockObject */
-	private $proxyListFactoryMock;
+	private $proxyListFactory;
 
 	/** @var SimpleProxyFinder */
 	private $simpleProxyFinder;
@@ -25,21 +33,16 @@ class SimpleProxyFinderTest extends TestCase {
 	protected function setUp() {
 		$this->aspectReflectionMock = $this->createMock('\AOP\AspectReflection');
 		$this->pointcutExpressionResolverMock = $this->createMock('\AOP\PointcutExpressionResolver');
-		$this->proxyListFactoryMock = $this->createMock('\AOP\Abstraction\ProxyListFactory');
 		$this->simpleProxyFinder = new SimpleProxyFinder(
 			$this->aspectReflectionMock,
 			$this->pointcutExpressionResolverMock,
-			$this->proxyListFactoryMock
+			$this->proxyListFactory
 		);
 	}
 
 	public function testFindProxies() {
 		$aspectDefinitionsFixtures = $this->getAspectDefinitionsFixtures();
 		$aspectFixtures = $this->getAspectFixtures();
-
-		$this->proxyListFactoryMock->expects($this->once())
-			->method('createProxyList')
-			->will($this->returnValue(new \AOP\Abstraction\ProxyList\ProxyArrayList()));
 
 		$this->aspectReflectionMock->expects($this->once())
 			->method('getAspect')
@@ -52,19 +55,52 @@ class SimpleProxyFinderTest extends TestCase {
 			->will($this->returnValue($this->getJoinpointsFixtures()));
 
 		$proxyList = $this->simpleProxyFinder->findProxies($aspectDefinitionsFixtures, $this->getTargetDefinitionsFixtures());
-		$this->assertEquals($this->getExpectedProxyList(), $proxyList);
+		$it = $proxyList->getIterator();
+		foreach ($this->getExpectedProxyList() as $expectedProxy) {
+			$proxy = $it->current();
+			$this->assertEquals($expectedProxy->getTargetDefinition(), $proxy->getTargetDefinition());
+
+			$it2 = $proxy->getJoinpointsAdvices();
+			$it2->rewind();
+			foreach ($expectedProxy->getJoinpointsAdvices() as $expectedJoinpointsAdvices) {
+				$joinpointsAdvices = $it2->current();
+				$this->assertEquals($expectedJoinpointsAdvices, $joinpointsAdvices);
+				$it2->next();
+			}
+			$it->next();
+		}
 	}
 
 	public function getJoinpointsFixtures() {
-		$reflectionClass = new ReflectionClass('\AOP\ProxyFinder\SimpleProxyFinderTest\FooAspect');
-		$reflectionMethod = $reflectionClass->getMethod('bar');
+		$reflectionClass = new ReflectionClass('\AOP\ProxyFinder\FooAspect');
+		$reflectionMethod = $reflectionClass->getMethod('fooAdvice');
 		return array(
 			new \AOP\Abstraction\Joinpoint($reflectionMethod)
 		);
 	}
 
 	private function getExpectedProxyList() {
-		return new \AOP\Abstraction\ProxyList\ProxyArrayList();
+		$reflectionClass = new ReflectionClass('\AOP\ProxyFinder\FooAspect');
+		$reflectionMethod = $reflectionClass->getMethod('fooAdvice');
+		$joinpoint = new Joinpoint($reflectionMethod);
+
+		$advice = new Advice(
+			new Pointcut($this->getPointcutExpressionFixtures()),
+			new InterceptingMethod(new ReflectionMethod('\AOP\ProxyFinder\FooAspect', 'fooAdvice'))
+		);
+
+		$joinpointsAdvices = new SplObjectStorage();
+		$joinpointsAdvices->offsetSet($joinpoint, new SplObjectStorage());
+		$joinpointsAdvices->offsetGet($joinpoint)->attach($advice);
+
+		$targetDefinition = new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'serviceId' => 'fooService',
+			'class' => '\AOP\ProxyFinder\SimpleProxyFinderTest\FooService',
+		));
+
+		$proxyArrayList = new ProxyList();
+		$proxyArrayList->addProxy(new Proxy($joinpointsAdvices, $targetDefinition));
+		return $proxyArrayList;
 	}
 
 	/**
@@ -74,7 +110,7 @@ class SimpleProxyFinderTest extends TestCase {
 		return array(
 			'fooAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
 				'serviceId' => 'fooAspect',
-				'class' => '\AOP\ProxyFinder\SimpleProxyFinderTest\FooAspect',
+				'class' => '\AOP\ProxyFinder\FooAspect',
 			))
 		);
 	}
@@ -90,15 +126,26 @@ class SimpleProxyFinderTest extends TestCase {
 
 	private function getAspectFixtures() {
 		return new \AOP\Abstraction\Aspect(array(
-			new \AOP\Abstraction\Advice(
-				new \AOP\Abstraction\Pointcut($this->getPointcutExpressionFixtures()),
-				'fooAdvice'
+			new Advice(
+				new Pointcut($this->getPointcutExpressionFixtures()),
+				new InterceptingMethod(new ReflectionMethod('\AOP\ProxyFinder\FooAspect', 'fooAdvice'))
 			)
 		));
 	}
 
 	private function getPointcutExpressionFixtures() {
-		return new \AOP\Pointcut\PointcutExpression('execution(public \SimpleProxyFinderTest\FooService::*(..))');
+		return new \AOP\Pointcut\PointcutExpression('\AOP\Around("execution(public \SimpleProxyFinderTest\FooService::*(..))")');
+	}
+
+}
+
+class FooAspect {
+
+	/**
+	 * @Around("execution(public \SimpleProxyFinderTest\FooService::*(..))")
+	 */
+	public function fooAdvice() {
+
 	}
 
 }
