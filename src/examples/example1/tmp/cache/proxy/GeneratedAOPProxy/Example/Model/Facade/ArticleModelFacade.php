@@ -2,36 +2,22 @@
 
 namespace GeneratedAOPProxy\Example\Model\Facade;
 
-use AOP\Joinpoint;
-use ReflectionMethod;
+use AOP\Interceptor\Loader;
+use AOP\Interceptor\MethodInvocation;
 
 class ArticleModelFacade extends \Example\Model\Facade\ArticleModelFacade {
 
-	private $aspect;
-	private $interceptedService;
+	/** @var Loader */
+	private $___aop___interceptorLoader;
 
-	/**
-	 * @var ReflectionMethod[]
-	 */
-	private $interceptingMethods;
-
-	public function __construct($aspect, $interceptedService, array $interceptingMethods) {
-		$this->aspect = $aspect;
-		$this->interceptedService = $interceptedService;
-		$this->interceptingMethods = $interceptingMethods;
+	public function fetchArticleById($articleId) {
+		$reflectionMethod = new \ReflectionMethod('\\Example\\Model\\Facade\\ArticleModelFacade', 'fetchArticleById');
+		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
+		$invocation = new MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
+		return $invocation->proceed();
 	}
 
-	/**
-	 * @override
-	 */
-	public function fetchArticleById($articleId) {
-		$joinpoint = new Joinpoint($this->interceptedService, new ReflectionMethod('\Example\Model\Facade\ArticleModelFacade', 'fetchArticleById'), array($articleId));
-
-		$result = null;
-		foreach ($this->interceptingMethods as $interceptingMethod) {
-			$result = $interceptingMethod->invokeArgs($this->aspect, array($joinpoint));
-		}
-
-		return $result;
+	public function ___aop___setInterceptorLoader(Loader $loader) {
+		$this->___aop___interceptorLoader = $loader;
 	}
 }
