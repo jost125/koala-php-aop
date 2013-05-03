@@ -2,7 +2,7 @@
 
 namespace DI;
 
-use AOP\ProxyReplacer;
+use AOP\Proxy\ProxyReplacer;
 use DI\Definition\ConfigurationDefinition;
 use DI\Definition\ServiceDefinition;
 use DI\Exception\ServiceNotExistsException;

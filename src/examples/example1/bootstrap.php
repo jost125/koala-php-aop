@@ -38,5 +38,5 @@ $configurationDefinition = new \DI\Definition\ConfigurationDefinition\ArrayConfi
 );
 $diContainer = new \DI\Container(
 	$configurationDefinition,
-	new \AOP\ProxyReplacer\NoProxyReplacer()
+	new \AOP\Proxy\NoProxyReplacer()
 );
