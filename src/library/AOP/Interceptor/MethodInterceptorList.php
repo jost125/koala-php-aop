@@ -10,6 +10,11 @@ class MethodInterceptorList {
 	private $aroundInterceptors;
 	private $afterInterceptors;
 
+	/**
+	 * @param Interceptor[] $beforeInterceptors
+	 * @param Interceptor[] $aroundInterceptors
+	 * @param Interceptor[] $afterInterceptors
+	 */
 	public function __construct(array $beforeInterceptors, array $aroundInterceptors, array $afterInterceptors) {
 		$this->beforeInterceptors = $beforeInterceptors;
 		$this->aroundInterceptors = $aroundInterceptors;
