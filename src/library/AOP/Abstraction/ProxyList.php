@@ -4,8 +4,9 @@ namespace AOP\Abstraction;
 
 use ArrayIterator;
 use AOP\Abstraction\Proxy;
+use IteratorAggregate;
 
-class ProxyList {
+class ProxyList implements IteratorAggregate {
 
 	/**
 	 * @var Proxy[]
