@@ -9,7 +9,7 @@ class Joinpoint {
 	private $reflectionMethod;
 
 	public function __construct(ReflectionMethod $reflectionMethod) {
-		$this->reflectionMethod;
+		$this->reflectionMethod = $reflectionMethod;
 	}
 
 	public function getReflectionMethod() {
