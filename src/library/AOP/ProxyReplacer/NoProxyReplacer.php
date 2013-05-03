@@ -2,13 +2,16 @@
 
 namespace AOP\ProxyReplacer;
 
-class NoProxyReplacer implements \AOP\ProxyReplacer {
+use AOP\ProxyReplacer;
+use DI\Definition\ConfigurationDefinition;
+
+class NoProxyReplacer implements ProxyReplacer {
 
 	/**
-	 * @param \DI\Definition\ConfigurationDefinition $configurationDefinition
-	 * @return \DI\Definition\ConfigurationDefinition
+	 * @param ConfigurationDefinition $configurationDefinition
+	 * @return ConfigurationDefinition
 	 */
-	public function replaceProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition) {
+	public function replaceProxies(ConfigurationDefinition $configurationDefinition) {
 		return $configurationDefinition;
 	}
 }

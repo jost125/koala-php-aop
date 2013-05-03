@@ -2,21 +2,26 @@
 
 namespace AOP\ProxyReplacer;
 
-class SimpleProxyReplacer implements \AOP\ProxyReplacer {
+use AOP\AspectServiceFilter;
+use AOP\ProxyBuilder;
+use AOP\ProxyReplacer;
+use DI\Definition\ConfigurationDefinition;
+
+class SimpleProxyReplacer implements ProxyReplacer {
 
 	private $aspectReflectionResolver;
 	private $proxyBuilder;
 
-	function __construct(\AOP\AspectServiceFilter $aspectReflectionResolver, \AOP\ProxyBuilder $proxyBuilder) {
+	function __construct(AspectServiceFilter $aspectReflectionResolver, ProxyBuilder $proxyBuilder) {
 		$this->aspectReflectionResolver = $aspectReflectionResolver;
 		$this->proxyBuilder = $proxyBuilder;
 	}
 
 	/**
-	 * @param \DI\Definition\ConfigurationDefinition $configurationDefinition
-	 * @return \DI\Definition\ConfigurationDefinition
+	 * @param ConfigurationDefinition $configurationDefinition
+	 * @return ConfigurationDefinition
 	 */
-	public function replaceProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition) {
+	public function replaceProxies(ConfigurationDefinition $configurationDefinition) {
 		$serviceDefinitions = $configurationDefinition->getServiceDefinitions();
 		if (empty($serviceDefinitions)) {
 			return $configurationDefinition;
@@ -38,7 +43,7 @@ class SimpleProxyReplacer implements \AOP\ProxyReplacer {
 		return $notAspects;
 	}
 
-	private function replaceBuildProxies(\DI\Definition\ConfigurationDefinition $configurationDefinition, array $proxyDefinitions) {
+	private function replaceBuildProxies(ConfigurationDefinition $configurationDefinition, array $proxyDefinitions) {
 		foreach ($proxyDefinitions as $serviceId => $proxyDefinition) {
 			$configurationDefinition->replaceServiceDefinition($serviceId, $proxyDefinition);
 		}
