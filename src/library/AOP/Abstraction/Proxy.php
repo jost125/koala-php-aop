@@ -3,43 +3,24 @@
 namespace AOP\Abstraction;
 
 use DI\Definition\ServiceDefinition;
+use SplObjectStorage;
 
 class Proxy {
 
+	private $joinpointsAdvices;
 	private $targetDefinition;
-	private $joinpoints;
-	private $advice;
 
-	/**
-	 * @param Advice $advice
-	 * @param Joinpoint[] $joinpoints
-	 * @param ServiceDefinition $targetDefinition
-	 */
-	public function __construct(Advice $advice, array $joinpoints, ServiceDefinition $targetDefinition) {
-		$this->advice = $advice;
-		$this->joinpoints = $joinpoints;
+	public function __construct(SplObjectStorage $joinpointsAdvices, ServiceDefinition $targetDefinition) {
+		$this->joinpointsAdvices = $joinpointsAdvices;
 		$this->targetDefinition = $targetDefinition;
 	}
 
-	/**
-	 * @return Advice
-	 */
-	public function getAdvice() {
-		return $this->advice;
-	}
-
-	/**
-	 * @return Joinpoint[]
-	 */
-	public function getJoinpoints() {
-		return $this->joinpoints;
-	}
-
-	/**
-	 * @return ServiceDefinition
-	 */
 	public function getTargetDefinition() {
 		return $this->targetDefinition;
+	}
+
+	public function getJoinpointsAdvices() {
+		return $this->joinpointsAdvices;
 	}
 
 }
