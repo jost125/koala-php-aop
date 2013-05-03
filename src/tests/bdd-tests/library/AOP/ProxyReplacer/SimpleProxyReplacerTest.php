@@ -2,7 +2,10 @@
 
 namespace AOP\ProxyReplacer;
 
+use AOP\Proxy\SimpleProxyReplacer;
 use AOP\TestCase;
+use DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition;
+use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
 
 class SimpleProxyReplacerTest extends TestCase {
 
@@ -25,13 +28,13 @@ class SimpleProxyReplacerTest extends TestCase {
 	}
 
 	public function testReplaceProxies_emptyDefinition() {
-		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array()));
+		$configuration = new ArrayConfigurationDefinition(array('services' => array()));
 		$replacedConfiguration = $this->simpleProxyReplacer->replaceProxies($configuration);
 		$this->assertEquals($configuration, $replacedConfiguration);
 	}
 
 	public function testReplaceProxies_noAspects() {
-		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
+		$configuration = new ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
 				'serviceId' => 'fooService',
 				'class' => '\Foo',
@@ -40,7 +43,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		)));
 
 		$servicesDefinitions = array(
-			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
@@ -63,7 +66,7 @@ class SimpleProxyReplacerTest extends TestCase {
 	}
 
 	public function testReplaceProxies() {
-		$configuration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
+		$configuration = new ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
 				'serviceId' => 'fooService',
 				'class' => '\Foo',
@@ -77,12 +80,12 @@ class SimpleProxyReplacerTest extends TestCase {
 		)));
 
 		$servicesDefinitions = array(
-			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
 			)),
-			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooServiceAspect' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
@@ -90,7 +93,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		);
 
 		$aspectServicesDefinitions = array(
-			'fooServiceAspect' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooServiceAspect' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooServiceAspect',
 				'class' => '\FooAspect',
 				'arguments' => array()
@@ -98,7 +101,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		);
 
 		$nonAspectServicesDefinitions = array(
-			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
 				'class' => '\Foo',
 				'arguments' => array()
@@ -106,14 +109,14 @@ class SimpleProxyReplacerTest extends TestCase {
 		);
 
 		$proxyServicesDefinitions = array(
-			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(array(
+			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
 				'class' => '\FooProxy',
 				'arguments' => array()
 			))
 		);
 
-		$expectedReplacedConfiguration = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(array('services' => array(
+		$expectedReplacedConfiguration = new ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
 				'serviceId' => 'fooService',
 				'class' => '\FooProxy',

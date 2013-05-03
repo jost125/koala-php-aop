@@ -5,6 +5,7 @@ namespace AOP\AdviceReflection;
 use AOP\Abstraction\Advice;
 use AOP\Abstraction\InterceptingMethod;
 use AOP\Abstraction\Pointcut\BeforePointcut;
+use AOP\Advice\SimpleAdviceReflection;
 use AOP\Pointcut\PointcutExpression;
 use AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;

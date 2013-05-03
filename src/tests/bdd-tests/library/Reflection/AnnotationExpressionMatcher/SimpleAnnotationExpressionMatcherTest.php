@@ -5,6 +5,7 @@ namespace Reflection\AnnotationExpressionMatcher;
 use AOP\TestCase;
 use Reflection\Annotation\SimpleAnnotation;
 use Reflection\Annotation;
+use Reflection\AnnotationExpression;
 
 class SimpleAnnotationExpressionMatcherTest extends TestCase {
 	/** @var SimpleAnnotationExpressionMatcher */
@@ -24,10 +25,10 @@ class SimpleAnnotationExpressionMatcherTest extends TestCase {
 
 	public function matchDataProvider() {
 		return array(
-			array(new SimpleAnnotation('AOP\Aspect', array()), new \Reflection\AnnotationExpression('\AOP\Aspect'), true),
-			array(new SimpleAnnotation('AOP\Before(execution(public *(..)))', array()), new \Reflection\AnnotationExpression('\AOP\Before(..)'), true),
-			array(new SimpleAnnotation('AOP\Before()', array()), new \Reflection\AnnotationExpression('\AOP\Before(..)'), true),
-			array(new SimpleAnnotation('AOP\Before', array()), new \Reflection\AnnotationExpression('\AOP\Before(..)'), false),
+			array(new SimpleAnnotation('AOP\Aspect', array()), new AnnotationExpression('\AOP\Aspect'), true),
+			array(new SimpleAnnotation('AOP\Before(execution(public *(..)))', array()), new AnnotationExpression('\AOP\Before(..)'), true),
+			array(new SimpleAnnotation('AOP\Before()', array()), new AnnotationExpression('\AOP\Before(..)'), true),
+			array(new SimpleAnnotation('AOP\Before', array()), new AnnotationExpression('\AOP\Before(..)'), false),
 		);
 	}
 }

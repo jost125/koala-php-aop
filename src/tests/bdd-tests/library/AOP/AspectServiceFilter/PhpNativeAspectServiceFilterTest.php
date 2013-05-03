@@ -2,7 +2,10 @@
 
 namespace AOP\AspectServiceFilter;
 
+use AOP\Aspect\PhpNativeAspectServiceFilter;
 use AOP\TestCase;
+use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
+use DI\Definition\ServiceDefinition;
 use ReflectionClass;
 
 require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/FooAspect.php';
@@ -27,16 +30,16 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 		require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/Foo.php';
 		require_once __DIR__ . '/PhpNativeAspectServiceFilterTest/FooAspect.php';
 
-		/** @var $serviceDefinitions \DI\Definition\ServiceDefinition[] */
+		/** @var $serviceDefinitions ServiceDefinition[] */
 		$serviceDefinitions = array(
-			'fooService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
+			'fooService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooService',
 					'class' => '\AOP\AspectServiceFilter\PhpNativeAspectServiceFilterTest\Foo',
 					'arguments' => array()
 				)
 			),
-			'fooAspectService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
+			'fooAspectService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooAspectService',
 					'class' => '\AOP\AspectServiceFilter\PhpNativeAspectServiceFilterTest\FooAspect',
@@ -46,7 +49,7 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 		);
 
 		$expectedAspectServices = array(
-			'fooAspectService' => new \DI\Definition\ServiceDefinition\ArrayServiceDefinition(
+			'fooAspectService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooAspectService',
 					'class' => '\AOP\AspectServiceFilter\PhpNativeAspectServiceFilterTest\FooAspect',
