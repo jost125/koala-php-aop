@@ -2,7 +2,7 @@
 
 namespace AOP\Proxy;
 
-use DI\Definition\ConfigurationDefinition;
+use DI\Definition\Configuration\ConfigurationDefinition;
 
 interface ProxyReplacer {
 	/**

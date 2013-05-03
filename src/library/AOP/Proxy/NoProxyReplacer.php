@@ -3,7 +3,7 @@
 namespace AOP\Proxy;
 
 use AOP\Proxy\ProxyReplacer;
-use DI\Definition\ConfigurationDefinition;
+use DI\Definition\Configuration\ConfigurationDefinition;
 
 class NoProxyReplacer implements ProxyReplacer {
 

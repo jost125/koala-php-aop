@@ -4,8 +4,8 @@ namespace AOP\Proxy;
 
 use AOP\Proxy\SimpleProxyReplacer;
 use AOP\TestCase;
-use DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition;
-use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
+use DI\Definition\Configuration\ArrayConfigurationDefinition;
+use DI\Definition\Configuration\ArrayServiceDefinition;
 
 class SimpleProxyReplacerTest extends TestCase {
 

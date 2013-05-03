@@ -2,7 +2,7 @@
 
 namespace AOP\Abstraction;
 
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 use SplObjectStorage;
 
 class Proxy {

@@ -1,9 +1,10 @@
 <?php
 
-namespace DI\Definition\ServiceDefinition;
+namespace DI\Definition\Configuration;
 
-use DI\Definition\ConstructorArgument\ServiceDependency;
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Argument\ConstructorArgument;
+use DI\Definition\Argument\ServiceDependency;
+use DI\Definition\Configuration\ServiceDefinition;
 use InvalidArgumentException;
 use ReflectionClass;
 
@@ -27,7 +28,7 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	}
 
 	/**
-	 * @return \DI\Definition\ConstructorArgument[]
+	 * @return ConstructorArgument[]
 	 */
 	public function getConstructorArguments() {
 		$arguments = array();

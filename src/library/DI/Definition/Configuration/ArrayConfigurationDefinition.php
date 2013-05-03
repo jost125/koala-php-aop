@@ -1,10 +1,10 @@
 <?php
 
-namespace DI\Definition\ConfigurationDefinition;
+namespace DI\Definition\Configuration;
 
-use DI\Definition\ConfigurationDefinition;
-use DI\Definition\ServiceDefinition;
-use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
+use DI\Definition\Configuration\ConfigurationDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
+use DI\Definition\Configuration\ArrayServiceDefinition;
 
 class ArrayConfigurationDefinition implements ConfigurationDefinition {
 

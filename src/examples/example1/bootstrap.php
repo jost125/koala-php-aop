@@ -13,7 +13,7 @@ spl_autoload_register(function($className) {
 require_once __DIR__ . '/../../library/loader.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-$configurationDefinition = new \DI\Definition\ConfigurationDefinition\ArrayConfigurationDefinition(
+$configurationDefinition = new \DI\Definition\Configuration\ArrayConfigurationDefinition(
 	array(
 		'services' => array(
 			'articleController' => array(

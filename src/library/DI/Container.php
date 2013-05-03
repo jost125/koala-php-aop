@@ -3,9 +3,9 @@
 namespace DI;
 
 use AOP\Proxy\ProxyReplacer;
-use DI\Definition\ConfigurationDefinition;
-use DI\Definition\ServiceDefinition;
-use DI\Exception\ServiceNotExistsException;
+use DI\Definition\Configuration\ConfigurationDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
+use DI\ServiceNotExistsException;
 
 class Container {
 	private $services = array();

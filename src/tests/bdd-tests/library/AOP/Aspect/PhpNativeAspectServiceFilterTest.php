@@ -4,8 +4,8 @@ namespace AOP\Aspect;
 
 use AOP\Aspect\PhpNativeAspectServiceFilter;
 use AOP\TestCase;
-use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Configuration\ArrayServiceDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 
 class PhpNativeAspectServiceFilterTest extends TestCase {

@@ -1,6 +1,8 @@
 <?php
 
-namespace DI\Definition;
+namespace DI\Definition\Configuration;
+
+use DI\Definition\Configuration\ServiceDefinition;
 
 interface ConfigurationDefinition {
 	/**

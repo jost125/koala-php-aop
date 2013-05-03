@@ -1,9 +1,9 @@
 <?php
 
-namespace DI\Definition\ConstructorArgument;
+namespace DI\Definition\Argument;
 
 use DI\Container;
-use DI\Definition\ConstructorArgument;
+use DI\Definition\Argument\ConstructorArgument;
 
 class ServiceDependency implements ConstructorArgument {
 

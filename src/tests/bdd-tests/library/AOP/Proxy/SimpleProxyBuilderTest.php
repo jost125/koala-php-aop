@@ -4,7 +4,7 @@ namespace AOP\Proxy;
 
 use AOP\Proxy\SimpleProxyBuilder;
 use AOP\TestCase;
-use DI\Definition\ServiceDefinition\ArrayServiceDefinition;
+use DI\Definition\Configuration\ArrayServiceDefinition;
 
 class SimpleProxyBuilderTest extends TestCase {
 

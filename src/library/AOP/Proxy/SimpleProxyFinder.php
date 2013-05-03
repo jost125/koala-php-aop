@@ -7,13 +7,13 @@ use AOP\Abstraction\ProxyList;
 use AOP\Aspect\AspectReflection;
 use AOP\Pointcut\PointcutExpressionResolver;
 use AOP\Proxy\ProxyFinder;
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 use SplObjectStorage;
 
 class SimpleProxyFinder implements ProxyFinder {
 
-	/** @var \AOP\AspectReflection\\AOP\Aspect\AspectReflection */
+	/** @var AspectReflection */
 	private $aspectReflection;
 
 	/** @var PointcutExpressionResolver */

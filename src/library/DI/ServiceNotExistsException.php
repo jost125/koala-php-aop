@@ -1,6 +1,6 @@
 <?php
 
-namespace DI\Exception;
+namespace DI;
 
 use Exception;
 

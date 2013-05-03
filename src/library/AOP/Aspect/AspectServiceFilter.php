@@ -2,7 +2,7 @@
 
 namespace AOP\Aspect;
 
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 
 interface AspectServiceFilter {
 

@@ -3,7 +3,7 @@
 namespace AOP\Aspect;
 
 use AOP\Aspect\AspectServiceFilter;
-use DI\Definition\ServiceDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 use Reflection\AnnotationExpression;
 use Reflection\AnnotationResolver;
 use ReflectionClass;
