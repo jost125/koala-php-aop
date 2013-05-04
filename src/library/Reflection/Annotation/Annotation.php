@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection;
+namespace Reflection\Annotation;
 
 interface Annotation {
 	public function getName();

@@ -5,17 +5,17 @@ namespace AOP\Advice;
 use AOP\Abstraction\InterceptingMethod;
 use AOP\Advice\AdviceReflection;
 use AOP\Pointcut\PointcutExpression;
-use Reflection\Annotation;
+use Reflection\Annotation\Annotation;
 use InvalidArgumentException;
 use AOP\Abstraction\Pointcut\AroundPointcut;
 use AOP\Abstraction\Pointcut\AfterThrowingPointcut;
 use AOP\Abstraction\Pointcut\AfterReturningPointcut;
 use AOP\Abstraction\Pointcut\AfterPointcut;
 use AOP\Abstraction\Pointcut\BeforePointcut;
-use Reflection\AnnotationExpression;
+use Reflection\Annotation\Parsing\AnnotationExpression;
 use AOP\Abstraction\Advice;
 use AOP\Abstraction\Pointcut;
-use Reflection\AnnotationResolver;
+use Reflection\Annotation\Parsing\AnnotationResolver;
 use ReflectionClass;
 
 class SimpleAdviceReflection implements \AOP\Advice\AdviceReflection {

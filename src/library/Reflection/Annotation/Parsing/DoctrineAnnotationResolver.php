@@ -1,15 +1,15 @@
 <?php
 
-namespace Reflection\AnnotationResolver;
+namespace Reflection\Annotation\Parsing;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Reflection\AnnotationExpressionMatcher;
+use Reflection\Annotation\Parsing\AnnotationExpressionMatcher;
 use Reflection\Annotation\DoctrineWrappedAnnotation;
 use ReflectionClass;
 use ReflectionMethod;
-use Reflection\Annotation;
-use Reflection\AnnotationExpression;
-use Reflection\AnnotationResolver;
+use Reflection\Annotation\Annotation;
+use Reflection\Annotation\Parsing\AnnotationExpression;
+use Reflection\Annotation\Parsing\AnnotationResolver;
 
 class DoctrineAnnotationResolver implements AnnotationResolver {
 

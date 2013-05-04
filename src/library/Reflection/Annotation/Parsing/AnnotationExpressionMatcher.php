@@ -1,6 +1,9 @@
 <?php
 
-namespace Reflection;
+namespace Reflection\Annotation\Parsing;
+
+use Reflection\Annotation\Annotation;
+use Reflection\Annotation\Parsing\AnnotationExpression;
 
 interface AnnotationExpressionMatcher {
 	/**

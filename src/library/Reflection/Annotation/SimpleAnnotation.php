@@ -2,7 +2,7 @@
 
 namespace Reflection\Annotation;
 
-use Reflection\Annotation;
+use Reflection\Annotation\Annotation;
 
 class SimpleAnnotation implements Annotation {
 

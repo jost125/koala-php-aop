@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection;
+namespace Reflection\Annotation\Parsing;
 
 class AnnotationExpression {
 	private $expression;

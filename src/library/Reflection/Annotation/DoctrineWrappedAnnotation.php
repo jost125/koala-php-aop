@@ -4,7 +4,7 @@ namespace Reflection\Annotation;
 
 use ReflectionClass;
 use ReflectionProperty;
-use Reflection\Annotation;
+use Reflection\Annotation\Annotation;
 
 class DoctrineWrappedAnnotation implements Annotation {
 

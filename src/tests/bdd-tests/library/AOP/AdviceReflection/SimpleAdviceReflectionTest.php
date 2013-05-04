@@ -10,8 +10,8 @@ use AOP\Pointcut\PointcutExpression;
 use AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;
 use ReflectionClass;
-use Reflection\AnnotationExpressionMatcher\SimpleAnnotationExpressionMatcher;
-use Reflection\AnnotationResolver\DoctrineAnnotationResolver;
+use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
 use ReflectionMethod;
 
 class SimpleAdviceReflectionTest extends TestCase {

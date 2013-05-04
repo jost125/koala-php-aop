@@ -4,8 +4,9 @@ namespace Reflection\AnnotationExpressionMatcher;
 
 use AOP\TestCase;
 use Reflection\Annotation\SimpleAnnotation;
-use Reflection\Annotation;
-use Reflection\AnnotationExpression;
+use Reflection\Annotation\Annotation;
+use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use Reflection\Annotation\Parsing\AnnotationExpression;
 
 class SimpleAnnotationExpressionMatcherTest extends TestCase {
 	/** @var SimpleAnnotationExpressionMatcher */

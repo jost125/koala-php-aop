@@ -4,8 +4,8 @@ namespace AOP\Aspect;
 
 use AOP\Aspect\AspectServiceFilter;
 use DI\Definition\Configuration\ServiceDefinition;
-use Reflection\AnnotationExpression;
-use Reflection\AnnotationResolver;
+use Reflection\Annotation\Parsing\AnnotationExpression;
+use Reflection\Annotation\Parsing\AnnotationResolver;
 use ReflectionClass;
 
 class PhpNativeAspectServiceFilter implements AspectServiceFilter {

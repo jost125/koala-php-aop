@@ -4,9 +4,10 @@ namespace Reflection\AnnotationResolver;
 
 use AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationRegistry;
-use Reflection\AnnotationExpression;
+use Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
+use Reflection\Annotation\Parsing\AnnotationExpression;
 use ReflectionClass;
-use Reflection\AnnotationExpressionMatcher\SimpleAnnotationExpressionMatcher;
+use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 use Doctrine\Common\Annotations\AnnotationReader;
 
 class DoctrineAnnotationResolverTest extends TestCase {
