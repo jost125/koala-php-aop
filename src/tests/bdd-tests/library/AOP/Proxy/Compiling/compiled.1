@@ -1,0 +1,26 @@
+<?php
+
+namespace GeneratedAOPProxy;
+
+class BarService extends \BarService {
+
+	private $___aop___interceptorLoader;
+
+	public function bar(FooService $foo, $bar) {
+		$reflectionMethod = new \ReflectionMethod('BarService', 'bar');
+		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
+		$invocation = new \AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
+		return $invocation->proceed();
+	}
+
+	public function foo(FooService $foo, $bar, $baz) {
+		$reflectionMethod = new \ReflectionMethod('BarService', 'foo');
+		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
+		$invocation = new \AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
+		return $invocation->proceed();
+	}
+
+	public function ___aop___setInterceptorLoader(\AOP\Interceptor\Loader $loader) {
+		$this->___aop___interceptorLoader = $loader;
+	}
+}
