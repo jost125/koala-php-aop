@@ -3,6 +3,7 @@
 namespace DI;
 
 use AOP\Proxy\ProxyReplacer;
+use DI\Definition\Argument\WiringArgument;
 use DI\Definition\Configuration\ConfigurationDefinition;
 use DI\Definition\Configuration\ServiceDefinition;
 use DI\ServiceNotExistsException;
@@ -24,6 +25,13 @@ class Container {
 		return $this->getServiceInstance($serviceId);
 	}
 
+	public function getParameter($parameterId) {
+		if (!$this->configurationDefinition->hasParameter($parameterId)) {
+			throw new ParameterNotExistsException();
+		}
+		return $this->configurationDefinition->getParameter($parameterId);
+	}
+
 	private function isServiceCreated($serviceId) {
 		return array_key_exists($serviceId, $this->services);
 	}
@@ -31,28 +39,48 @@ class Container {
 	private function createService($serviceId) {
 		if ($this->configurationDefinition->serviceExists($serviceId)) {
 			$serviceDefinition = $this->configurationDefinition->getServiceDefinition($serviceId);
-			$reflectionClass = $serviceDefinition->getClassReflection();
+			$instance = $this->initService($serviceDefinition);
+			$this->setupService($serviceDefinition, $instance);
 
-			if ($serviceDefinition->hasConstructorArguments()) {
-				$constructorArgumentValues = $this->getConstructorArgumentValues($serviceDefinition);
-				$this->services[$serviceId] = $reflectionClass->newInstanceArgs($constructorArgumentValues);
-			} else {
-				$this->services[$serviceId] = $reflectionClass->newInstance();
-			}
+			$this->services[$serviceId] = $instance;
 		} else {
 			throw new ServiceNotExistsException();
 		}
 	}
 
-	private function getConstructorArgumentValues(ServiceDefinition $serviceDefinition) {
-		$constructorArgumentValues = array();
-		foreach ($serviceDefinition->getConstructorArguments() as $constructorArgument) {
-			$constructorArgumentValues[] = $constructorArgument->getValue($this);
-		}
-		return $constructorArgumentValues;
-	}
-
 	private function getServiceInstance($serviceId) {
 		return $this->services[$serviceId];
+	}
+
+	private function initService(ServiceDefinition $serviceDefinition) {
+		$reflectionClass = $serviceDefinition->getClassReflection();
+		if ($serviceDefinition->hasConstructorArguments()) {
+			$constructorArgumentValues = $this->getArgumentValues($serviceDefinition->getConstructorArguments());
+			$instance = $reflectionClass->newInstanceArgs($constructorArgumentValues);
+			return $instance;
+		} else {
+			$instance = $reflectionClass->newInstance();
+			return $instance;
+		}
+	}
+
+	private function setupService(ServiceDefinition $serviceDefinition, $instance) {
+		if ($serviceDefinition->hasSetupMethods()) {
+			foreach($serviceDefinition->getSetupMethods() as $setupMethod) {
+				$serviceDefinition->getClassReflection()->getMethod($setupMethod->getMethodName())->invokeArgs($instance, $this->getArgumentValues($setupMethod->getArguments()));
+			}
+		}
+	}
+
+	/**
+	 * @param WiringArgument[] $arguments
+	 * @return array
+	 */
+	private function getArgumentValues(array $arguments) {
+		$argumentValues = array();
+		foreach ($arguments as $argument) {
+			$argumentValues[] = $argument->getValue($this);
+		}
+		return $argumentValues;
 	}
 }

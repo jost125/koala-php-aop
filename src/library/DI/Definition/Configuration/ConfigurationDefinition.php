@@ -12,6 +12,18 @@ interface ConfigurationDefinition {
 	public function serviceExists($serviceId);
 
 	/**
+	 * @param string $parameterId
+	 * @return boolean
+	 */
+	public function hasParameter($parameterId);
+
+	/**
+	 * @param string $parameterId
+	 * @return mixed
+	 */
+	public function getParameter($parameterId);
+
+	/**
 	 * @param string $serviceId
 	 * @return ServiceDefinition
 	 */
