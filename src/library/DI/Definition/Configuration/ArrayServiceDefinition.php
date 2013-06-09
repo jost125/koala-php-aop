@@ -2,7 +2,7 @@
 
 namespace DI\Definition\Configuration;
 
-use DI\Definition\Argument\ConstructorArgument;
+use DI\Definition\Argument\WiringArgument;
 use DI\Definition\Argument\ServiceDependency;
 use DI\Definition\Configuration\ServiceDefinition;
 use InvalidArgumentException;
@@ -15,7 +15,7 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	/**
 	 * @param array $serviceDefinition
 	 * array(
-	 * 	'serviceId' => 'serviceId'
+	 * 	'serviceId' => 'serviceId',
 	 * 	'class' => '\Namespace\ClassName',
 	 * 	'arguments' => array(
 	 * 			array('service' => 'serviceId'),
@@ -28,7 +28,7 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	}
 
 	/**
-	 * @return ConstructorArgument[]
+	 * @return WiringArgument[]
 	 */
 	public function getConstructorArguments() {
 		$arguments = array();

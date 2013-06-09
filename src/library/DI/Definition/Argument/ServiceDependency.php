@@ -3,13 +3,13 @@
 namespace DI\Definition\Argument;
 
 use DI\Container;
-use DI\Definition\Argument\ConstructorArgument;
+use DI\Definition\Argument\WiringArgument;
 
-class ServiceDependency implements ConstructorArgument {
+class ServiceDependency implements WiringArgument {
 
 	private $serviceId;
 
-	function __construct($serviceId) {
+	public function __construct($serviceId) {
 		$this->serviceId = $serviceId;
 	}
 

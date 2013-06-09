@@ -4,7 +4,7 @@ namespace DI\Definition\Argument;
 
 use DI\Container;
 
-interface ConstructorArgument {
+interface WiringArgument {
 	/**
 	 * @param Container $container
 	 * @return mixed

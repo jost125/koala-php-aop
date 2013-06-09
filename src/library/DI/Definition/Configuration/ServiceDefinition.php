@@ -2,11 +2,11 @@
 
 namespace DI\Definition\Configuration;
 
-use DI\Definition\Argument\ConstructorArgument;
+use DI\Definition\Argument\WiringArgument;
 
 interface ServiceDefinition {
 	/**
-	 * @return ConstructorArgument[]
+	 * @return WiringArgument[]
 	 */
 	public function getConstructorArguments();
 
