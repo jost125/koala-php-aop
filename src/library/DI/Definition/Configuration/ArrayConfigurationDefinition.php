@@ -52,4 +52,20 @@ class ArrayConfigurationDefinition implements ConfigurationDefinition {
 			'arguments' => $proxyServiceDefinition->getConstructorArguments()
 		);
 	}
+
+	/**
+	 * @param string $parameterId
+	 * @return boolean
+	 */
+	public function hasParameter($parameterId) {
+		return array_key_exists($parameterId, $this->configuration['params']);
+	}
+
+	/**
+	 * @param string $parameterId
+	 * @return mixed
+	 */
+	public function getParameter($parameterId) {
+		return $this->configuration['params'][$parameterId];
+	}
 }

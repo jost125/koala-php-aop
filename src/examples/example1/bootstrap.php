@@ -15,11 +15,15 @@ require_once __DIR__ . '/../../../vendor/autoload.php';
 
 $configurationDefinition = new \DI\Definition\Configuration\ArrayConfigurationDefinition(
 	array(
+		'params' => array(
+			'my.param' => 'hi',
+		),
 		'services' => array(
 			'articleController' => array(
 				'serviceId' => 'articleController',
 				'class' => '\Example\Controller\ArticleController',
 				'arguments' => array(
+					array('param' => 'my.param'),
 					array('service' => 'articleModelFacade'),
 				),
 			),

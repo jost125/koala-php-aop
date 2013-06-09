@@ -9,7 +9,6 @@ use DI\ServiceNotExistsException;
 
 class Container {
 	private $services = array();
-	private $parameters = array();
 	private $configurationDefinition;
 	private $proxyReplacer;
 
@@ -26,10 +25,10 @@ class Container {
 	}
 
 	public function getParameter($parameterId) {
-		if (!array_key_exists($parameterId, $this->parameters)) {
+		if (!$this->configurationDefinition->hasParameter($parameterId)) {
 			throw new ParameterNotExistsException();
 		}
-		return $this->parameters[$parameterId];
+		return $this->configurationDefinition->getParameter($parameterId);
 	}
 
 	private function isServiceCreated($serviceId) {

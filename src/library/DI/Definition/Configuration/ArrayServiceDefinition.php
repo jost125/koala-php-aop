@@ -2,6 +2,7 @@
 
 namespace DI\Definition\Configuration;
 
+use DI\Definition\Argument\ParameterArgument;
 use DI\Definition\Argument\WiringArgument;
 use DI\Definition\Argument\ServiceDependency;
 use DI\Definition\Configuration\ServiceDefinition;
@@ -39,6 +40,8 @@ class ArrayServiceDefinition implements ServiceDefinition {
 				case 'service':
 					$arguments[] = new ServiceDependency($argumentValue);
 					break;
+				case 'param':
+					$arguments[] = new ParameterArgument($argumentValue);
 			}
 		}
 
@@ -82,6 +85,8 @@ class ArrayServiceDefinition implements ServiceDefinition {
 			foreach ($serviceDefinition['arguments'] as $argument) {
 				switch (key($argument)) {
 					case 'service':
+						break;
+					case 'param':
 						break;
 					default:
 						throw new InvalidArgumentException('Invalid argument ' . $argument);
