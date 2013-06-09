@@ -19,6 +19,16 @@ $configurationDefinition = new \DI\Definition\Configuration\ArrayConfigurationDe
 			'my.param' => 'hi',
 		),
 		'services' => array(
+			'hiController' => array(
+				'serviceId' => 'hiController',
+				'class' => '\Example\Controller\HiController',
+				'arguments' => array(),
+				'setup' => array(
+					'setHiMessage' => array(
+						array('param' => 'my.param')
+					)
+				),
+			),
 			'articleController' => array(
 				'serviceId' => 'articleController',
 				'class' => '\Example\Controller\ArticleController',
