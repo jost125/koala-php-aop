@@ -48,7 +48,7 @@ class LexerTest extends TestCase {
 			array('execution(private *\\ClassInAnyDepth::withMethod())'),
 			array('execution(private \\Some\\NamespacedClass::withMethod(..))'),
 			array('execution(private \\Some\\NamespacedClass::withMethod(var, var))'),
-			array('execution(private \\Some\\NamespacedClass::withMethod($captured1, var, Param $captured2))'),
+			array('execution(private \\Some\\NamespacedClass::withMethod($captured1, var, \\Some\\Param $captured2))'),
 			array('execution(* *::*(..)) and execution(* *::*(..))'),
 			array('execution(* *::*(..)) and (execution(* *::*(..)) or execution(* *::*(..)))'),
 			array('execution(* *::*(..)) and (
@@ -69,7 +69,7 @@ class LexerTest extends TestCase {
 			array('execution(privat *\\ClassInAnyDepth::withMethod())', 'Unexpected char \' \' at position 17'),
 			array('execution(private withMethod(..))', 'Unexpected char \'w\' at position 19'),
 			array('execution(\\Some\\NamespacedClass::withMethod(var, var))', 'Unexpected char \'\\\' at position 11'),
-			array('execution(private \\Some\\NamespacedClass::withMethod($captured1, var, Param ..))', 'Unexpected char \'.\' at position 76'),
+			array('execution(private \\Some\\NamespacedClass::withMethod($captured1, var, \\Param ..))', 'Unexpected char \'.\' at position 77'),
 			array('execution()', 'Unexpected char \')\' at position 11'),
 			array('execution(* *::*(..)) and (execution(* *::*(..)) or execution(* *::*(..))) a', 'Unexpected char \' \' at position 74'),
 			array('a execution(* *::*(..)) and (execution(* *::*(..)) or execution(* *::*(..)))', 'Unexpected char \'a\' at position 0'),

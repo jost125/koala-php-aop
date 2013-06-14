@@ -11,7 +11,8 @@ use AOP\Pointcut\Parser\AST\Element\Modifier;
 use AOP\Pointcut\Parser\AST\Element\NoArguments;
 use AOP\Pointcut\Parser\AST\Element\Pointcut;
 use AOP\Pointcut\Parser\AST\Element\PointcutExpression;
-use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroup;
+use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
+use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
 use AOP\Pointcut\Parser\AST\Element\PointcutOperator;
 use AOP\Pointcut\Parser\AST\Element\PointcutType;
 
@@ -48,12 +49,12 @@ class Lexer {
 				break;
 			case '(':
 				$this->skipChar('(');
+				$pointcutExpression->addElement(new PointcutExpressionGroupStart(''));
 				$this->skipWs();
-				$pointcutExpressionGroup = new PointcutExpressionGroup();
-				$pointcutExpressionGroup->addElement($this->pointcutExpression());
-				$pointcutExpression->addElement($pointcutExpressionGroup);
+				$pointcutExpression->addElement($this->pointcutExpression());
 				$this->skipWs();
 				$this->skipChar(')');
+				$pointcutExpression->addElement(new PointcutExpressionGroupEnd(''));
 		}
 
 		return $pointcutExpression;
@@ -75,7 +76,7 @@ class Lexer {
 		$this->skipWs();
 
 		$c = $this->stream->peek();
-		if (in_array($c, array('.', 'v', '$')) || $this->matchIdBegin($c)) {
+		if (in_array($c, array('.', 'v', '$', '\\'))) {
 			$pointcut->addElement($this->argumentsExpression());
 			$this->skipWs();
 		} else {
@@ -193,13 +194,16 @@ class Lexer {
 		switch ($this->stream->peek()) {
 			case 'v': $this->skipWord('var'); break;
 			case '$': $this->skipChar('$'); $this->id(); break;
-		}
-		if ($this->matchIdBegin($this->stream->peek())) {
-			$this->id();
-			$this->ws();
-			$this->skipWs();
-			$this->skipChar('$');
-			$this->id();
+			case '\\':
+				while ($this->stream->peek() === '\\') {
+					$this->skipChar('\\');
+					$this->id();
+				}
+				$this->ws();
+				$this->skipWs();
+				$this->skipChar('$');
+				$this->id();
+				break;
 		}
 		$this->stream->stopRecording();
 		return new Argument($this->stream->getRecord());

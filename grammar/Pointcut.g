@@ -48,7 +48,7 @@ ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
 
 fragment
 ARGUMENT
-	:	('var' | ID WS+ '$' ID | '$' ID);
+	:	('var' | (('\\') ID)+ ) WS+ '$' ID | '$' ID);
 
 fragment
 ARGUMENTS_EXPRESSION

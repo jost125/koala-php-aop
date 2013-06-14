@@ -11,7 +11,8 @@ use AOP\Pointcut\Parser\AST\Element\Modifier;
 use AOP\Pointcut\Parser\AST\Element\NoArguments;
 use AOP\Pointcut\Parser\AST\Element\Pointcut;
 use AOP\Pointcut\Parser\AST\Element\PointcutExpression;
-use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroup;
+use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
+use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
 use AOP\Pointcut\Parser\AST\Element\PointcutOperator;
 use AOP\Pointcut\Parser\AST\Element\PointcutType;
 
@@ -26,7 +27,8 @@ interface ElementVisitor {
 	public function acceptNoArguments(NoArguments $noArguments);
 	public function acceptPointcut(Pointcut $pointcut);
 	public function acceptPointcutExpression(PointcutExpression $pointcutExpression);
-	public function acceptPointcutExpressionGroup(PointcutExpressionGroup $pointcutExpressionGroup);
+	public function acceptPointcutExpressionGroupStart(PointcutExpressionGroupStart $pointcutExpressionGroupStart);
+	public function acceptPointcutExpressionGroupEnd(PointcutExpressionGroupEnd $pointcutExpressionGroupEnd);
 	public function acceptPointcutOperator(PointcutOperator $pointcutOperator);
 	public function acceptPointcutType(PointcutType $pointcutType);
 

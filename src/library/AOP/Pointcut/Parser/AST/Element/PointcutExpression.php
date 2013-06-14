@@ -15,7 +15,8 @@ class PointcutExpression extends ContainerElement {
 			'AOP\Pointcut\Parser\AST\Element\Pointcut',
 			'AOP\Pointcut\Parser\AST\Element\PointcutOperator',
 			'AOP\Pointcut\Parser\AST\Element\PointcutExpression',
-			'AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroup',
+			'AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart',
+			'AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd',
 		));
 	}
 
