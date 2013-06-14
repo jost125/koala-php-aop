@@ -23,7 +23,7 @@ class Lexer {
 		$this->stream = $stream;
 	}
 
-	public function parseTokens() {
+	public function buildTree() {
 		$pointcutExpression = $this->pointcutExpression();
 		if ($this->stream->peek() !== Stream::EOF) {
 			$this->throwUnexpectedChar($this->stream->peek());

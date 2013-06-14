@@ -21,7 +21,7 @@ class LexerTest extends TestCase {
 	 */
 	public function testParse($expression) {
 		$lexer = new Lexer(new StringStream($expression));
-		$lexer->parseTokens();
+		$lexer->buildTree();
 	}
 
 	/**
@@ -30,7 +30,7 @@ class LexerTest extends TestCase {
 	public function testParse_invalid($expression, $exMessage) {
 		try {
 			$lexer = new Lexer(new StringStream($expression));
-			$lexer->parseTokens();
+			$lexer->buildTree();
 			$this->fail('Exception expected');
 		} catch (Exception $ex) {
 			$this->assertEquals($ex->getMessage(), $exMessage);
