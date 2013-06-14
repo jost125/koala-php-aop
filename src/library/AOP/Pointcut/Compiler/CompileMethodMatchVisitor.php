@@ -31,6 +31,7 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 		$this->compiled = '';
 		$this->arguments = array();
 		$this->canHaveArgument = true;
+		$this->modifier = null;
 	}
 
 	public function acceptAnyArguments(AnyArguments $anyArguments) {
@@ -81,6 +82,9 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 
 	public function acceptPointcut(Pointcut $pointcut) {
 		$this->compiled .= ')';
+		$this->arguments = array();
+		$this->canHaveArgument = true;
+		$this->modifier = null;
 	}
 
 	public function acceptPointcutExpressionGroupStart(PointcutExpressionGroupStart $pointcutExpressionGroupStart) {
