@@ -17,7 +17,4 @@ class ArgumentsExpression extends ContainerElement {
 		));
 	}
 
-	public function generateCode() {
-		// TODO: Implement generateCode() method.
-	}
 }

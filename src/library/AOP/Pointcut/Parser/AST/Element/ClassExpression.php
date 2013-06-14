@@ -8,7 +8,4 @@ use AOP\Pointcut\Parser\AST\TypeList;
 
 class ClassExpression extends ListElement {
 
-	public function generateCode() {
-		// TODO: Implement generateCode() method.
-	}
 }

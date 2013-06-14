@@ -20,8 +20,4 @@ class Pointcut extends ContainerElement {
 			'AOP\Pointcut\Parser\AST\Element\NoArguments',
 		));
 	}
-
-	public function generateCode() {
-		// TODO: Implement generateCode() method.
-	}
 }

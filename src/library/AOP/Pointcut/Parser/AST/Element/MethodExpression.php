@@ -6,7 +6,4 @@ use AOP\Pointcut\Parser\AST\ListElement;
 
 class MethodExpression extends ListElement {
 
-	public function generateCode() {
-		// TODO: Implement generateCode() method.
-	}
 }

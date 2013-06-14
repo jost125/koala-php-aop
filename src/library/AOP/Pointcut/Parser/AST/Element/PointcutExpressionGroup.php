@@ -16,7 +16,4 @@ class PointcutExpressionGroup extends ContainerElement {
 		));
 	}
 
-	public function generateCode() {
-		// TODO: Implement generateCode() method.
-	}
 }
