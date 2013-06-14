@@ -4,6 +4,8 @@ namespace AOP\Pointcut\Parser;
 
 class StringStream implements Stream {
 
+	private $recording;
+	private $record;
 	private $string;
 	private $pointer;
 	private $length;
@@ -12,6 +14,8 @@ class StringStream implements Stream {
 		$this->string = $string;
 		$this->pointer = 0;
 		$this->length = strlen($string);
+		$this->record = "";
+		$this->recording = false;
 	}
 
 	public function peek() {
@@ -25,7 +29,9 @@ class StringStream implements Stream {
 		if (!$this->isInside()) {
 			return Stream::EOF;
 		}
-		return $this->string[$this->pointer++];
+		$c = $this->string[$this->pointer++];
+		$this->record .= $c;
+		return $c;
 	}
 
 	private function isInside() {
@@ -38,5 +44,24 @@ class StringStream implements Stream {
 
 	public function readSection($start, $end) {
 		return substr($this->string, $start, $end);
+	}
+
+	public function startRecording() {
+		if ($this->recording) {
+			throw new AlreadyRecordingException();
+		}
+		$this->recording = true;
+		$this->record = "";
+	}
+
+	public function stopRecording() {
+		if (!$this->recording) {
+			throw new NoRecordingStartedException();
+		}
+		$this->recording = false;
+	}
+
+	public function getRecord() {
+		return $this->record;
 	}
 }

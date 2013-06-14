@@ -10,5 +10,8 @@ interface Stream {
 	public function read();
 	public function pointer();
 	public function readSection($start, $end);
+	public function startRecording();
+	public function stopRecording();
+	public function getRecord();
 
 }
