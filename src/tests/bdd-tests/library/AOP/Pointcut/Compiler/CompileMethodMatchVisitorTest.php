@@ -3,7 +3,7 @@
 namespace AOP\Pointcut\Compiler;
 
 use AOP\Pointcut\Parser\Lexer;
-use AOP\Pointcut\Parser\StringStream;
+use IO\Stream\StringStream;
 use AOP\TestCase;
 
 class CompileMethodMatchVisitorTest extends TestCase {

@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Pointcut\Parser;
+namespace IO\Stream;
 
-interface Stream {
+interface InputStream {
 
 	const EOF = -1;
 

@@ -1,8 +1,13 @@
 <?php
 
-namespace AOP\Pointcut\Parser;
+namespace IO\Stream;
 
-class StringStream implements Stream {
+use AOP\Pointcut\Parser\AlreadyRecordingException;
+use AOP\Pointcut\Parser\NoRecordingStartedException;
+use IO\Stream\InputStream;
+use IO\Stream;
+
+class StringStream implements Stream\InputStream {
 
 	private $recording;
 	private $record;
@@ -20,14 +25,14 @@ class StringStream implements Stream {
 
 	public function peek() {
 		if (!$this->isInside()) {
-			return Stream::EOF;
+			return Stream\InputStream::EOF;
 		}
 		return $this->string[$this->pointer];
 	}
 
 	public function read() {
 		if (!$this->isInside()) {
-			return Stream::EOF;
+			return Stream\InputStream::EOF;
 		}
 		$c = $this->string[$this->pointer++];
 		$this->record .= $c;

@@ -7,7 +7,7 @@ use AOP\Abstraction\Aspect;
 use AOP\Abstraction\InterceptingMethod;
 use AOP\Abstraction\Pointcut;
 use AOP\Pointcut\Parser\Lexer;
-use AOP\Pointcut\Parser\StringStream;
+use IO\Stream\StringStream;
 use AOP\Pointcut\PointcutExpression;
 use AOP\TestCase;
 use Exception;

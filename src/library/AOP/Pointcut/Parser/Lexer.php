@@ -15,18 +15,19 @@ use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
 use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
 use AOP\Pointcut\Parser\AST\Element\PointcutOperator;
 use AOP\Pointcut\Parser\AST\Element\PointcutType;
+use IO\Stream\InputStream;
 
 class Lexer {
 
 	private $stream;
 
-	public function __construct(Stream $stream) {
+	public function __construct(InputStream $stream) {
 		$this->stream = $stream;
 	}
 
 	public function buildTree() {
 		$pointcutExpression = $this->pointcutExpression();
-		if ($this->stream->peek() !== Stream::EOF) {
+		if ($this->stream->peek() !== InputStream::EOF) {
 			$this->throwUnexpectedChar($this->stream->peek());
 		}
 		return $pointcutExpression;
@@ -255,7 +256,7 @@ class Lexer {
 	}
 
 	private function throwUnexpectedChar($c) {
-		throw new UnexpectedCharException('Unexpected ' . ($c === Stream::EOF ? 'EOF' : 'char \'' . $c . '\'') . ' at position ' . $this->stream->pointer());
+		throw new UnexpectedCharException('Unexpected ' . ($c === InputStream::EOF ? 'EOF' : 'char \'' . $c . '\'') . ' at position ' . $this->stream->pointer());
 	}
 
 }
