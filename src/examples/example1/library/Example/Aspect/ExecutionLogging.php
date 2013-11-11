@@ -2,9 +2,9 @@
 
 namespace Example\Aspect;
 
-use AOP\Joinpoint;
 use AOP\Aspect;
 use AOP\Around;
+use AOP\Joinpoint;
 use Example\Logger;
 
 /**
@@ -19,7 +19,7 @@ class ExecutionLogging {
 	}
 
 	/**
-	 * @Around("execution(public \Example\Model\Facade\*::fetch*(..))")
+	 * @Around("execution(public *::*Action(..))")
 	 */
 	public function logExecution(Joinpoint $joinpoint) {
 		$result = $joinpoint->proceed();
