@@ -30,7 +30,7 @@ class ProxyCompiler {
 			'class ' . $proxyClassName . " extends " . $fqnTargetClassName . " {\n\n" .
 			'	private $' . $this->proxyMemberPrefix . 'interceptorLoader' . ";\n\n" .
 			$this->generateProxyMethods($interceptedMethods) .
-			'	public function ' . $this->proxyMemberPrefix . 'setInterceptorLoader(\\AOP\\Interceptor\\Loader $loader) {' . "\n" .
+			'	public function set' . $this->proxyMemberPrefix . 'interceptorLoader(\\AOP\\Interceptor\\Loader $loader) {' . "\n" .
 			'		$this->' . $this->proxyMemberPrefix . 'interceptorLoader = $loader;' . "\n" .
 			'	}' . "\n" .
 			'}' . "\n";
@@ -62,7 +62,7 @@ class ProxyCompiler {
 			$code .=
 				'	public function ' . $method->getName() . '(' . $this->generateMethodArguments($method) . ') {' . "\n" .
 					'		$reflectionMethod = new \\ReflectionMethod(\'' . $method->getDeclaringClass()->getName() . '\', \'' . $method->getName() . '\');' . "\n" .
-					'		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);' . "\n" .
+					'		$interceptors = $this->' . $this->proxyMemberPrefix . 'interceptorLoader->loadInterceptors($reflectionMethod);' . "\n" .
 					'		$invocation = new \\AOP\\Interceptor\\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);' . "\n" .
 					'		return $invocation->proceed();' . "\n" .
 					'	}' . "\n\n";

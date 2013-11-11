@@ -49,7 +49,8 @@ class ArrayConfigurationDefinition implements ConfigurationDefinition {
 		$this->configuration['services'][$serviceId] = array(
 			'serviceId' => $serviceId,
 			'class' => $proxyServiceDefinition->getClassName(),
-			'arguments' => $proxyServiceDefinition->getConstructorArguments()
+			'arguments' => $proxyServiceDefinition->getConstructorArguments(),
+			'setup' => $proxyServiceDefinition->getSetupMethods(),
 		);
 	}
 
@@ -58,7 +59,7 @@ class ArrayConfigurationDefinition implements ConfigurationDefinition {
 	 * @return boolean
 	 */
 	public function hasParameter($parameterId) {
-		return array_key_exists($parameterId, $this->configuration['params']);
+		return isset($this->configuration['params'][$parameterId]);
 	}
 
 	/**
