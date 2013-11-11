@@ -35,7 +35,6 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	 * )
 	 */
 	public function __construct(array $serviceDefinition) {
-		$this->checkDefinition($serviceDefinition);
 		$this->serviceDefinition = $serviceDefinition;
 	}
 
