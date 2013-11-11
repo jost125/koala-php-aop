@@ -2,15 +2,15 @@
 
 namespace AOP\Abstraction;
 
+use Collection\IMap;
 use DI\Definition\Configuration\ServiceDefinition;
-use SplObjectStorage;
 
 class Proxy {
 
 	private $joinpointsAdvices;
 	private $targetDefinition;
 
-	public function __construct(SplObjectStorage $joinpointsAdvices, ServiceDefinition $targetDefinition) {
+	public function __construct(IMap $joinpointsAdvices, ServiceDefinition $targetDefinition) {
 		$this->joinpointsAdvices = $joinpointsAdvices;
 		$this->targetDefinition = $targetDefinition;
 	}

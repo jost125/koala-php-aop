@@ -64,7 +64,7 @@ class SimpleProxyGenerator implements ProxyGenerator {
 		$targetClass = new ReflectionClass($proxy->getTargetDefinition()->getClassName());
 		$interceptedMethods = array();
 		/** @var Joinpoint $joinpoint */
-		foreach ($proxy->getJoinpointsAdvices() as $joinpoint) {
+		foreach ($proxy->getJoinpointsAdvices()->getKeys() as $joinpoint) {
 			$interceptedMethods[] = $joinpoint->getReflectionMethod();
 		}
 		return $this->proxyCompiler->compileProxy($targetClass, $interceptedMethods);
