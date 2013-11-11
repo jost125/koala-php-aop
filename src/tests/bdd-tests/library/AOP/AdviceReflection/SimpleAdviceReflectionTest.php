@@ -2,16 +2,17 @@
 
 namespace AOP\AdviceReflection;
 
-use AOP\Abstraction\Advice;
-use AOP\Abstraction\InterceptingMethod;
-use AOP\Abstraction\Pointcut\BeforePointcut;
-use AOP\Advice\SimpleAdviceReflection;
-use AOP\Pointcut\PointcutExpression;
-use AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Koala\AOP\Abstraction\Advice;
+use Koala\AOP\Abstraction\InterceptingMethod;
+use Koala\AOP\Abstraction\Pointcut\BeforePointcut;
+use Koala\AOP\Advice\SimpleAdviceReflection;
+use Koala\AOP\Before;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\AOP\TestCase;
+use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 use ReflectionClass;
-use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
-use Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
 use ReflectionMethod;
 
 class SimpleAdviceReflectionTest extends TestCase {
@@ -45,7 +46,7 @@ class SimpleAdviceReflectionTest extends TestCase {
 
 class Bar {
 	/**
-	 * @\AOP\Before("execution(public *(..))")
+	 * @Before("execution(public *(..))")
 	 */
 	public function fooAdvice() {}
 }

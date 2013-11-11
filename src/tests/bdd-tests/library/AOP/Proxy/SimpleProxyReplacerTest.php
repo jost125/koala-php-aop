@@ -1,11 +1,13 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Proxy\SimpleProxyReplacer;
-use AOP\TestCase;
-use DI\Definition\Configuration\ArrayConfigurationDefinition;
-use DI\Definition\Configuration\ArrayServiceDefinition;
+use FooAspect;
+use Koala\AOP\Aspect\AspectServiceFilter;
+use Koala\AOP\Aspect\Foo;
+use Koala\AOP\TestCase;
+use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 
 class SimpleProxyReplacerTest extends TestCase {
 
@@ -19,8 +21,8 @@ class SimpleProxyReplacerTest extends TestCase {
 	public $proxyBuilderMock;
 
 	protected function setUp() {
-		$this->aspectServiceFilterMock = $this->createMock('\AOP\Aspect\AspectServiceFilter');
-		$this->proxyBuilderMock = $this->createMock('\AOP\Proxy\ProxyBuilder');
+		$this->aspectServiceFilterMock = $this->createMock(AspectServiceFilter::class);
+		$this->proxyBuilderMock = $this->createMock(ProxyBuilder::class);
 		$this->simpleProxyReplacer = new SimpleProxyReplacer(
 			$this->aspectServiceFilterMock,
 			$this->proxyBuilderMock
@@ -37,7 +39,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		$configuration = new ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
 				'serviceId' => 'fooService',
-				'class' => '\Foo',
+				'class' => Foo::class,
 				'arguments' => array()
 			)
 		)));
@@ -45,7 +47,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		$servicesDefinitions = array(
 			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
-				'class' => '\Foo',
+				'class' => Foo::class,
 				'arguments' => array()
 			))
 		);
@@ -69,12 +71,12 @@ class SimpleProxyReplacerTest extends TestCase {
 		$configuration = new ArrayConfigurationDefinition(array('services' => array(
 			'fooService' => array(
 				'serviceId' => 'fooService',
-				'class' => '\Foo',
+				'class' => Foo::class,
 				'arguments' => array()
 			),
 			'fooServiceAspect' => array(
 				'serviceId' => 'fooServiceAspect',
-				'class' => '\FooAspect',
+				'class' => FooAspect::class,
 				'arguments' => array()
 			)
 		)));
@@ -82,12 +84,12 @@ class SimpleProxyReplacerTest extends TestCase {
 		$servicesDefinitions = array(
 			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
-				'class' => '\Foo',
+				'class' => Foo::class,
 				'arguments' => array()
 			)),
 			'fooServiceAspect' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooServiceAspect',
-				'class' => '\FooAspect',
+				'class' => FooAspect::class,
 				'arguments' => array()
 			))
 		);
@@ -95,7 +97,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		$aspectServicesDefinitions = array(
 			'fooServiceAspect' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooServiceAspect',
-				'class' => '\FooAspect',
+				'class' => FooAspect::class,
 				'arguments' => array()
 			))
 		);
@@ -103,7 +105,7 @@ class SimpleProxyReplacerTest extends TestCase {
 		$nonAspectServicesDefinitions = array(
 			'fooService' => new ArrayServiceDefinition(array(
 				'serviceId' => 'fooService',
-				'class' => '\Foo',
+				'class' => Foo::class,
 				'arguments' => array()
 			))
 		);
@@ -120,11 +122,12 @@ class SimpleProxyReplacerTest extends TestCase {
 			'fooService' => array(
 				'serviceId' => 'fooService',
 				'class' => '\FooProxy',
-				'arguments' => array()
+				'arguments' => array(),
+				'setup' => [],
 			),
 			'fooServiceAspect' => array(
 				'serviceId' => 'fooServiceAspect',
-				'class' => '\FooAspect',
+				'class' => FooAspect::class,
 				'arguments' => array()
 			)
 		)));

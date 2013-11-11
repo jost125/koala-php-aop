@@ -2,17 +2,11 @@
 
 namespace AOP\Abstraction\Pointcut;
 
-use AOP\Abstraction\Advice;
-use AOP\Abstraction\Aspect;
-use AOP\Abstraction\InterceptingMethod;
-use AOP\Abstraction\Pointcut;
-use AOP\Pointcut\Parser\Lexer;
-use IO\Stream\StringInputStream;
-use AOP\Pointcut\PointcutExpression;
-use AOP\TestCase;
 use Exception;
-use ReflectionClass;
-use ReflectionMethod;
+use Koala\AOP\Abstraction\Pointcut;
+use Koala\AOP\Pointcut\Parser\Lexer;
+use Koala\AOP\TestCase;
+use Koala\IO\Stream\StringInputStream;
 
 class LexerTest extends TestCase {
 

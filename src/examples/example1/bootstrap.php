@@ -1,20 +1,23 @@
 <?php
 
-use AOP\Advice\SimpleAdviceReflection;
-use AOP\Aspect\PhpNativeAspectServiceFilter;
-use AOP\Aspect\SimpleAspectReflection;
-use AOP\Pointcut\Compiler\MethodMatcherCompiler;
-use AOP\Pointcut\Compiler\PointcutToMatcherClassTranslation;
-use AOP\Pointcut\SimplePointcutExpressionResolver;
-use AOP\Proxy\Compiling\ProxyCompiler;
-use AOP\Proxy\SimpleProxyBuilder;
-use AOP\Proxy\SimpleProxyFinder;
-use AOP\Proxy\SimpleProxyGenerator;
-use AOP\Proxy\SimpleProxyReplacer;
-use Cache\FileCache;
-use DI\Container;
-use IO\Storage\FileStorage;
-use Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
+use Doctrine\Common\Annotations\AnnotationReader;
+use Koala\AOP\Advice\SimpleAdviceReflection;
+use Koala\AOP\Aspect\PhpNativeAspectServiceFilter;
+use Koala\AOP\Aspect\SimpleAspectReflection;
+use Koala\AOP\Pointcut\Compiler\MethodMatcherCompiler;
+use Koala\AOP\Pointcut\Compiler\PointcutToMatcherClassTranslation;
+use Koala\AOP\Pointcut\SimplePointcutExpressionResolver;
+use Koala\AOP\Proxy\Compiling\ProxyCompiler;
+use Koala\AOP\Proxy\SimpleProxyBuilder;
+use Koala\AOP\Proxy\SimpleProxyFinder;
+use Koala\AOP\Proxy\SimpleProxyGenerator;
+use Koala\AOP\Proxy\SimpleProxyReplacer;
+use Koala\Cache\FileCache;
+use Koala\DI\Container;
+use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
+use Koala\IO\Storage\FileStorage;
+use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 
 spl_autoload_register(function($className) {
 	if (preg_match('~^[\\a-zA-Z0-9]+$~', $className)) {
@@ -29,7 +32,7 @@ spl_autoload_register(function($className) {
 require_once __DIR__ . '/../../library/loader.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
 
-$configurationDefinition = new \DI\Definition\Configuration\ArrayConfigurationDefinition(
+$configurationDefinition = new ArrayConfigurationDefinition(
 	array(
 		'params' => array(
 			'my.param' => 'hi',
@@ -74,18 +77,18 @@ $configurationDefinition = new \DI\Definition\Configuration\ArrayConfigurationDe
 	)
 );
 
-new \AOP\Aspect([]); // Hack to import
-new \AOP\Around([]); // Hack to import
+new \Koala\AOP\Aspect([]); // Hack to import
+new \Koala\AOP\Around([]); // Hack to import
 
 $proxyMemberPrefix = '__aop___';
 $proxyNamespacePrefix = '__AOP__';
 $interceptorLoaderId = 'generatedInterceptorLoader';
-$doctrineAnnotationResolver = new DoctrineAnnotationResolver(new \Doctrine\Common\Annotations\AnnotationReader(), new \Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher());
+$doctrineAnnotationResolver = new DoctrineAnnotationResolver(new AnnotationReader(), new SimpleAnnotationExpressionMatcher());
 $proxyCompiler = new ProxyCompiler($proxyMemberPrefix, $proxyNamespacePrefix);
-$proxyGenerator = new SimpleProxyGenerator($proxyCompiler, $proxyMemberPrefix, $interceptorLoaderId, new FileStorage(__DIR__ . '/tmp/cache/proxy', 'php'), __DIR__ . '/tmp/cache/proxy', 'container');
+$proxyGenerator = new SimpleProxyGenerator($proxyCompiler, $proxyMemberPrefix, $interceptorLoaderId, new FileStorage(__DIR__ . '/tmp/cache/proxy'), __DIR__ . '/tmp/cache/proxy', 'container');
 $adviceReflection = new SimpleAdviceReflection($doctrineAnnotationResolver);
 $aspectReflection = new SimpleAspectReflection($adviceReflection);
-$methodMatcherFileStorage = new FileStorage(__DIR__ . '/tmp/cache/MethodMatcher', 'php');
+$methodMatcherFileStorage = new FileStorage(__DIR__ . '/tmp/cache/MethodMatcher');
 $pointcutToMatcherClassTranslation = new PointcutToMatcherClassTranslation(new FileCache(__DIR__ . '/tmp/cache/pointcutToMatcherClass.cache'));
 $methodMatcherCompiler = new MethodMatcherCompiler($methodMatcherFileStorage, $pointcutToMatcherClassTranslation, 'MethodMatcher', __DIR__ . '/tmp/cache/MethodMatcher');
 $pointcutExpressionResolver = new SimplePointcutExpressionResolver($methodMatcherCompiler);

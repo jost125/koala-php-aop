@@ -1,16 +1,15 @@
 <?php
 
-namespace Reflection\Annotation;
+namespace Koala\Reflection\Annotation;
 
-use AOP\TestCase;
 use Doctrine\Common\Annotations\Annotation;
-use Reflection\Annotation\DoctrineWrappedAnnotation;
+use Koala\AOP\TestCase;
 
 class DoctrineWrappedAnnotationTest extends TestCase {
 
 	public function testGetName() {
 		$annotation = new DoctrineWrappedAnnotation(new FooAnnotation(array()));
-		$this->assertEquals('Reflection\Annotation\FooAnnotation', $annotation->getName());
+		$this->assertEquals(FooAnnotation::class, $annotation->getName());
 	}
 
 	public function testHasParameters() {
@@ -30,12 +29,12 @@ class DoctrineWrappedAnnotationTest extends TestCase {
 
 	public function testToExpression() {
 		$annotation = new DoctrineWrappedAnnotation(new FooAnnotation(array('value' => 'foo')));
-		$this->assertEquals('Reflection\Annotation\FooAnnotation(value="foo")', $annotation->toExpression());
+		$this->assertEquals('Koala\Reflection\Annotation\FooAnnotation(value="foo")', $annotation->toExpression());
 	}
 
 	public function testToExpression_complicated() {
 		$annotation = new DoctrineWrappedAnnotation(new BarAnnotation(array('value' => 'foo', 'baz' => 'I have " inside')));
-		$this->assertEquals('Reflection\Annotation\BarAnnotation(baz="I have \" inside", value="foo")', $annotation->toExpression());
+		$this->assertEquals('Koala\Reflection\Annotation\BarAnnotation(baz="I have \" inside", value="foo")', $annotation->toExpression());
 	}
 
 	public function testGetParameter() {
@@ -46,7 +45,7 @@ class DoctrineWrappedAnnotationTest extends TestCase {
 			$annotation->getParameter('nonexisting');
 			$this->fail('Expected exception');
 		} catch (ParameterNotDefinedException $ex) {
-			$this->assertEquals('Property "nonexisting" is not defined in Reflection\Annotation\BarAnnotation annotation', $ex->getMessage());
+			$this->assertEquals('Property "nonexisting" is not defined in Koala\Reflection\Annotation\BarAnnotation annotation', $ex->getMessage());
 		}
 	}
 
