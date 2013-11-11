@@ -16,6 +16,7 @@ class Container implements IContainer {
 	public function __construct(ConfigurationDefinition $configurationDefinition, ProxyReplacer $proxyReplacer) {
 		$this->proxyReplacer = $proxyReplacer;
 		$this->configurationDefinition = $proxyReplacer->replaceProxies($configurationDefinition);
+		$this->services['container'] = $this;
 	}
 
 	public function getService($serviceId) {
