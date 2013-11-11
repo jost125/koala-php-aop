@@ -3,10 +3,10 @@
 namespace DI\Definition\Configuration;
 
 use DI\Definition\Argument\ParameterArgument;
-use DI\Definition\Argument\SetupMethod;
-use DI\Definition\Argument\WiringArgument;
 use DI\Definition\Argument\ServiceDependency;
-use DI\Definition\Configuration\ServiceDefinition;
+use DI\Definition\Argument\SetupMethod;
+use DI\Definition\Argument\ValueArgument;
+use DI\Definition\Argument\WiringArgument;
 use InvalidArgumentException;
 use ReflectionClass;
 
@@ -99,8 +99,11 @@ class ArrayServiceDefinition implements ServiceDefinition {
 					case 'param':
 						$arguments[] = new ParameterArgument($argumentValue);
 						break;
+					case 'value':
+						$arguments[] = new ValueArgument($argumentValue);
+						break;
 					default:
-						throw new InvalidArgumentException('Invalid argument ' . $argument);
+						throw new InvalidArgumentException('Invalid argument ' . $argumentType);
 				}
 			} else {
 				$arguments[] = $argumentEntry;
