@@ -7,6 +7,9 @@ use AOP\Abstraction\ProxyList;
 use AOP\Aspect\AspectReflection;
 use AOP\Pointcut\PointcutExpressionResolver;
 use AOP\Proxy\ProxyFinder;
+use Collection\ArrayList;
+use Collection\IMap;
+use Collection\Map;
 use DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 use SplObjectStorage;
@@ -36,31 +39,38 @@ class SimpleProxyFinder implements ProxyFinder {
 		$proxyList = new ProxyList();
 
 		foreach ($targetDefinitions as $targetDefinition) {
-			$advicesJoinpoints = new SplObjectStorage();
+			$advicesJoinpoints = new Map();
 			foreach ($aspectDefinitions as $aspectDefinition) {
 				$aspect = $this->aspectReflection->getAspect(new ReflectionClass($aspectDefinition->getClassName()));
 				$advices = $aspect->getAdvices();
 				foreach ($advices as $advice) {
 					$pointcutExpression = $advice->getPointcut()->getPointcutExpression();
 					$joinpoints = $this->pointcutExpressionResolver->findJoinpoints(new ReflectionClass($targetDefinition->getClassName()), $pointcutExpression);
-					$advicesJoinpoints->offsetSet($advice, $joinpoints);
+					if (count($joinpoints)) {
+						$advicesJoinpoints->put($advice, [$joinpoints, $aspectDefinition]);
+					}
 				}
 			}
-			$proxyList->addProxy(new Proxy($this->groupByJoinpoints($advicesJoinpoints), $targetDefinition));
+			$groupedJoinpoints = $this->groupByJoinpoints($advicesJoinpoints);
+			if (count($groupedJoinpoints)) {
+				$proxyList->addProxy(new Proxy($groupedJoinpoints, $targetDefinition));
+			}
 		}
 
 		return $proxyList;
 	}
 
-	private function groupByJoinpoints(SplObjectStorage $advicesJoinpoints) {
-		$groupedByJoinpoints = new SplObjectStorage();
-		foreach ($advicesJoinpoints as $advice) {
-			$joinpoints = $advicesJoinpoints->offsetGet($advice);
+	private function groupByJoinpoints(IMap $advicesJoinpoints) {
+		$groupedByJoinpoints = new Map();
+		foreach ($advicesJoinpoints->getKeys() as $advice) {
+			list($joinpoints, $aspectDefinition) = $advicesJoinpoints->getValue($advice);
 			foreach ($joinpoints as $joinpoint) {
-				if (!$groupedByJoinpoints->contains($joinpoint)) {
-					$groupedByJoinpoints->offsetSet($joinpoint, new SplObjectStorage());
+				if (!$groupedByJoinpoints->exists($joinpoint)) {
+					$groupedByJoinpoints->put($joinpoint, new ArrayList());
 				}
-				$groupedByJoinpoints->offsetGet($joinpoint)->attach($advice);
+				/** @var ArrayList $advices */
+				$advices = $groupedByJoinpoints->getValue($joinpoint);
+				$advices->put([$advice, $aspectDefinition]);
 			}
 		}
 
