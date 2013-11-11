@@ -4,7 +4,6 @@ namespace Koala\AOP\Aspect;
 
 use Koala\AOP\Abstraction\Aspect;
 use Koala\AOP\Advice\AdviceReflection;
-use Koala\AOP\Aspect\AspectReflection;
 use ReflectionClass;
 
 class SimpleAspectReflection implements AspectReflection {

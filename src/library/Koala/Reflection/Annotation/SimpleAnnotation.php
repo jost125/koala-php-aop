@@ -2,8 +2,6 @@
 
 namespace Koala\Reflection\Annotation;
 
-use Koala\Reflection\Annotation\Annotation;
-
 class SimpleAnnotation implements Annotation {
 
 	private $name;

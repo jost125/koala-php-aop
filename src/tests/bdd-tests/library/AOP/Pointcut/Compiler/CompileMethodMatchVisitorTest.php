@@ -3,8 +3,8 @@
 namespace Koala\AOP\Pointcut\Compiler;
 
 use Koala\AOP\Pointcut\Parser\Lexer;
-use Koala\IO\Stream\StringInputStream;
 use Koala\AOP\TestCase;
+use Koala\IO\Stream\StringInputStream;
 
 class CompileMethodMatchVisitorTest extends TestCase {
 

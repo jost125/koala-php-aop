@@ -2,8 +2,6 @@
 
 namespace Koala\DI\Definition\Configuration;
 
-use Koala\DI\Definition\Configuration\ServiceDefinition;
-
 interface ConfigurationDefinition {
 	/**
 	 * @param string $serviceId

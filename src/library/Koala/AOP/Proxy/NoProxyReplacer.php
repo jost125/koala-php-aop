@@ -2,7 +2,6 @@
 
 namespace Koala\AOP\Proxy;
 
-use Koala\AOP\Proxy\ProxyReplacer;
 use Koala\DI\Definition\Configuration\ConfigurationDefinition;
 
 class NoProxyReplacer implements ProxyReplacer {

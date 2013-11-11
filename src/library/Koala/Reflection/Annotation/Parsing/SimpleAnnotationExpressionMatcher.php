@@ -3,8 +3,6 @@
 namespace Koala\Reflection\Annotation\Parsing;
 
 use Koala\Reflection\Annotation\Annotation;
-use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
-use Koala\Reflection\Annotation\Parsing\AnnotationExpressionMatcher;
 
 class SimpleAnnotationExpressionMatcher implements AnnotationExpressionMatcher {
 

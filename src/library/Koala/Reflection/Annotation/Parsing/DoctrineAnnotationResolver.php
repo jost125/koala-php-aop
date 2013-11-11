@@ -3,13 +3,10 @@
 namespace Koala\Reflection\Annotation\Parsing;
 
 use Doctrine\Common\Annotations\AnnotationReader;
-use Koala\Reflection\Annotation\Parsing\AnnotationExpressionMatcher;
+use Koala\Reflection\Annotation\Annotation;
 use Koala\Reflection\Annotation\DoctrineWrappedAnnotation;
 use ReflectionClass;
 use ReflectionMethod;
-use Koala\Reflection\Annotation\Annotation;
-use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
-use Koala\Reflection\Annotation\Parsing\AnnotationResolver;
 
 class DoctrineAnnotationResolver implements AnnotationResolver {
 

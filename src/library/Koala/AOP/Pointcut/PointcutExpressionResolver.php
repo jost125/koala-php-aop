@@ -3,7 +3,6 @@
 namespace Koala\AOP\Pointcut;
 
 use Koala\AOP\Abstraction\Joinpoint;
-use Koala\AOP\Pointcut\PointcutExpression;
 use ReflectionClass;
 
 interface PointcutExpressionResolver {

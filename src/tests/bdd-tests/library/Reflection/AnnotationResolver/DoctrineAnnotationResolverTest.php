@@ -2,15 +2,15 @@
 
 namespace Koala\Reflection\AnnotationResolver;
 
-use Koala\AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Koala\AOP\Aspect;
+use Koala\AOP\After;
+use Koala\AOP\Before;
+use Koala\AOP\TestCase;
 use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
 use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
 use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 use ReflectionClass;
-use Koala\AOP\Aspect;
-use Koala\AOP\Before;
-use Koala\AOP\After;
 
 class DoctrineAnnotationResolverTest extends TestCase {
 

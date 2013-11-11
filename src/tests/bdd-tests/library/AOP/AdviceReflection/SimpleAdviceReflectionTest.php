@@ -2,17 +2,17 @@
 
 namespace AOP\AdviceReflection;
 
+use Doctrine\Common\Annotations\AnnotationReader;
 use Koala\AOP\Abstraction\Advice;
 use Koala\AOP\Abstraction\InterceptingMethod;
 use Koala\AOP\Abstraction\Pointcut\BeforePointcut;
 use Koala\AOP\Advice\SimpleAdviceReflection;
+use Koala\AOP\Before;
 use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\AOP\TestCase;
-use Doctrine\Common\Annotations\AnnotationReader;
-use ReflectionClass;
-use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
-use Koala\AOP\Before;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use ReflectionClass;
 use ReflectionMethod;
 
 class SimpleAdviceReflectionTest extends TestCase {

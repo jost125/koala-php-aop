@@ -3,7 +3,6 @@
 namespace Koala\Reflection\Annotation\Parsing;
 
 use Koala\Reflection\Annotation\Annotation;
-use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
 use ReflectionClass;
 use ReflectionMethod;
 

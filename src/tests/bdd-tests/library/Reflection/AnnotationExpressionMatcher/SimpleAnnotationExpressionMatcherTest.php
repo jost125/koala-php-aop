@@ -3,10 +3,9 @@
 namespace Reflection\AnnotationExpressionMatcher;
 
 use Koala\AOP\TestCase;
-use Koala\Reflection\Annotation\SimpleAnnotation;
-use Koala\Reflection\Annotation\Annotation;
-use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use Koala\Reflection\Annotation\SimpleAnnotation;
 
 class SimpleAnnotationExpressionMatcherTest extends TestCase {
 	/** @var SimpleAnnotationExpressionMatcher */

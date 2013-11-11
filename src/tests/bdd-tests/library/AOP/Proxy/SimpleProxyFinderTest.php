@@ -21,7 +21,6 @@ use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 use ReflectionMethod;
-use SplObjectStorage;
 
 require_once __DIR__ . '/../../../fixtures/FooAspect.php';
 require_once __DIR__ . '/../../../fixtures/FooService.php';

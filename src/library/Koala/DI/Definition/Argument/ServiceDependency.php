@@ -3,7 +3,6 @@
 namespace Koala\DI\Definition\Argument;
 
 use Koala\DI\Container;
-use Koala\DI\Definition\Argument\WiringArgument;
 
 class ServiceDependency implements WiringArgument {
 

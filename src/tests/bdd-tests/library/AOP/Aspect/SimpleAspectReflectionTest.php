@@ -9,7 +9,6 @@ use Koala\AOP\Abstraction\Pointcut;
 use Koala\AOP\Advice\AdviceReflection;
 use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\AOP\TestCase;
-use Koala\AOP\Before;
 use ReflectionClass;
 use ReflectionMethod;
 

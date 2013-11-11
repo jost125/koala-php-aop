@@ -2,10 +2,6 @@
 
 namespace Koala\DI\Definition\Configuration;
 
-use Koala\DI\Definition\Configuration\ConfigurationDefinition;
-use Koala\DI\Definition\Configuration\ServiceDefinition;
-use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
-
 class ArrayConfigurationDefinition implements ConfigurationDefinition {
 
 	public function __construct(array $configuration) {

@@ -6,7 +6,6 @@ use Koala\AOP\Proxy\ProxyReplacer;
 use Koala\DI\Definition\Argument\WiringArgument;
 use Koala\DI\Definition\Configuration\ConfigurationDefinition;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
-use Koala\DI\ServiceNotExistsException;
 
 class Container implements IContainer {
 	private $services = array();

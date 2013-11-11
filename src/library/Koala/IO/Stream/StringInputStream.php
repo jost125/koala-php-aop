@@ -4,7 +4,6 @@ namespace Koala\IO\Stream;
 
 use Koala\AOP\Pointcut\Parser\AlreadyRecordingException;
 use Koala\AOP\Pointcut\Parser\NoRecordingStartedException;
-use Koala\IO\Stream\InputStream;
 use Koala\IO\Stream;
 
 class StringInputStream implements Stream\InputStream {

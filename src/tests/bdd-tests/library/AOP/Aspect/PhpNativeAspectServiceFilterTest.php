@@ -2,7 +2,6 @@
 
 namespace Koala\AOP\Aspect;
 
-use Koala\AOP\Aspect\PhpNativeAspectServiceFilter;
 use Koala\AOP\TestCase;
 use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 use Koala\DI\Definition\Configuration\ServiceDefinition;

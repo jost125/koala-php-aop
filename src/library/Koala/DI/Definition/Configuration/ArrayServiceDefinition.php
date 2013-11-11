@@ -2,12 +2,12 @@
 
 namespace Koala\DI\Definition\Configuration;
 
+use InvalidArgumentException;
 use Koala\DI\Definition\Argument\ParameterArgument;
 use Koala\DI\Definition\Argument\ServiceDependency;
 use Koala\DI\Definition\Argument\SetupMethod;
 use Koala\DI\Definition\Argument\ValueArgument;
 use Koala\DI\Definition\Argument\WiringArgument;
-use InvalidArgumentException;
 use ReflectionClass;
 
 class ArrayServiceDefinition implements ServiceDefinition {

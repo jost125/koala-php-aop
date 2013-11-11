@@ -4,7 +4,6 @@ namespace Koala\AOP\Pointcut;
 
 use Koala\AOP\Abstraction\Joinpoint;
 use Koala\AOP\Pointcut\Compiler\MethodMatcherCompiler;
-use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\Reflection\MethodMatcher;
 use ReflectionClass;
 

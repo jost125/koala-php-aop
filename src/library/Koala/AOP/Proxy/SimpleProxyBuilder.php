@@ -2,9 +2,6 @@
 
 namespace Koala\AOP\Proxy;
 
-use Koala\AOP\Proxy\ProxyBuilder;
-use Koala\AOP\Proxy\ProxyFinder;
-use Koala\AOP\Proxy\ProxyGenerator;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 class SimpleProxyBuilder implements ProxyBuilder {

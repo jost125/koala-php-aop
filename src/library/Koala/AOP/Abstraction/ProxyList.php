@@ -3,7 +3,6 @@
 namespace Koala\AOP\Abstraction;
 
 use ArrayIterator;
-use Koala\AOP\Abstraction\Proxy;
 use IteratorAggregate;
 
 class ProxyList implements IteratorAggregate {

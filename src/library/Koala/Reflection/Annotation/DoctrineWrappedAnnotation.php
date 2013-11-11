@@ -4,7 +4,6 @@ namespace Koala\Reflection\Annotation;
 
 use ReflectionClass;
 use ReflectionProperty;
-use Koala\Reflection\Annotation\Annotation;
 
 class DoctrineWrappedAnnotation implements Annotation {
 

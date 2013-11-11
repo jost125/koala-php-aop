@@ -6,13 +6,11 @@ use Koala\AOP\Abstraction\Proxy;
 use Koala\AOP\Abstraction\ProxyList;
 use Koala\AOP\Aspect\AspectReflection;
 use Koala\AOP\Pointcut\PointcutExpressionResolver;
-use Koala\AOP\Proxy\ProxyFinder;
 use Koala\Collection\ArrayList;
 use Koala\Collection\IMap;
 use Koala\Collection\Map;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
-use SplObjectStorage;
 
 class SimpleProxyFinder implements ProxyFinder {
 
