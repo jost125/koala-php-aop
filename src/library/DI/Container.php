@@ -8,7 +8,7 @@ use DI\Definition\Configuration\ConfigurationDefinition;
 use DI\Definition\Configuration\ServiceDefinition;
 use DI\ServiceNotExistsException;
 
-class Container {
+class Container implements IContainer {
 	private $services = array();
 	private $configurationDefinition;
 	private $proxyReplacer;
