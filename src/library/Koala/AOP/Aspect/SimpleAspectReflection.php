@@ -1,10 +1,10 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use AOP\Abstraction\Aspect;
-use AOP\Advice\AdviceReflection;
-use AOP\Aspect\AspectReflection;
+use Koala\AOP\Abstraction\Aspect;
+use Koala\AOP\Advice\AdviceReflection;
+use Koala\AOP\Aspect\AspectReflection;
 use ReflectionClass;
 
 class SimpleAspectReflection implements AspectReflection {

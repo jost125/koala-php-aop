@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Advice;
+namespace Koala\AOP\Advice;
 
-use AOP\Abstraction\Advice;
+use Koala\AOP\Abstraction\Advice;
 use ReflectionClass;
 
 interface AdviceReflection {

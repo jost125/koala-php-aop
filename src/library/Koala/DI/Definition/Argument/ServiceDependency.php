@@ -1,9 +1,9 @@
 <?php
 
-namespace DI\Definition\Argument;
+namespace Koala\DI\Definition\Argument;
 
-use DI\Container;
-use DI\Definition\Argument\WiringArgument;
+use Koala\DI\Container;
+use Koala\DI\Definition\Argument\WiringArgument;
 
 class ServiceDependency implements WiringArgument {
 

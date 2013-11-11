@@ -2,22 +2,26 @@
 
 namespace AOP\Proxy;
 
-use AOP\Abstraction\Advice;
-use AOP\Abstraction\InterceptingMethod;
-use AOP\Abstraction\Joinpoint;
-use AOP\Abstraction\Pointcut\BeforePointcut;
-use AOP\Abstraction\Pointcut;
-use AOP\Abstraction\Proxy;
-use AOP\Abstraction\ProxyList;
-use AOP\Before;
-use AOP\Pointcut\PointcutExpression;
-use AOP\Proxy\Compiling\ProxyCompiler;
-use AOP\Proxy\SimpleProxyGenerator;
-use AOP\TestCase;
-use DI\Definition\Configuration\ArrayServiceDefinition;
+use FooAspect;
+use FooService;
+use Koala\AOP\Abstraction\Advice;
+use Koala\AOP\Abstraction\InterceptingMethod;
+use Koala\AOP\Abstraction\Joinpoint;
+use Koala\AOP\Abstraction\Pointcut\BeforePointcut;
+use Koala\AOP\Abstraction\Proxy;
+use Koala\AOP\Abstraction\ProxyList;
+use Koala\AOP\Interceptor\HashMapLoader;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\AOP\Proxy\Compiling\ProxyCompiler;
+use Koala\AOP\Proxy\SimpleProxyGenerator;
+use Koala\AOP\TestCase;
+use Koala\Collection\ArrayList;
+use Koala\Collection\Map;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
+use Koala\IO\Storage\FileStorage;
+use PHPUnit_Framework_Comparator_MockObject;
 use ReflectionClass;
 use ReflectionMethod;
-use SplObjectStorage;
 
 require_once __DIR__ . '/../../../fixtures/FooAspect.php';
 require_once __DIR__ . '/../../../fixtures/FooService.php';
@@ -27,8 +31,19 @@ class SimpleProxyGeneratorTest extends TestCase {
 	/** @var SimpleProxyGenerator */
 	private $simpleProxyGenerator;
 
+	/** @var PHPUnit_Framework_Comparator_MockObject */
+	private $fileStorageMock;
+
 	protected function setUp() {
-		$this->simpleProxyGenerator = new SimpleProxyGenerator(new ProxyCompiler('___aop___', 'GeneratedAOPProxy'), '___aop___', 'generatedInterceptorLoader');
+		$this->fileStorageMock = $this->createMock(FileStorage::class);
+		$this->simpleProxyGenerator = new SimpleProxyGenerator(
+			new ProxyCompiler('___aop___', 'GeneratedAOPProxy'),
+			'___aop___',
+			'generatedInterceptorLoader',
+			$this->fileStorageMock,
+			'foo',
+			'container'
+		);
 	}
 
 	public function testGenerateProxies() {
@@ -37,21 +52,26 @@ class SimpleProxyGeneratorTest extends TestCase {
 	}
 
 	private function getProxyListFixtures() {
-		$serviceReflectionClass = new ReflectionClass('FooService');
-		$aspectReflectionClass = new ReflectionClass('FooAspect');
+		$serviceReflectionClass = new ReflectionClass(FooService::class);
+		$aspectReflectionClass = new ReflectionClass(FooAspect::class);
 
 		$proxyList = new ProxyList();
 
 		$joinpoint = new Joinpoint($serviceReflectionClass->getMethod('foo'));
 
 		$advice = new Advice(
-			new Pointcut(new PointcutExpression('\AOP\Before')),
+			new BeforePointcut(new PointcutExpression('\AOP\Before')),
 			new InterceptingMethod($aspectReflectionClass->getMethod('fooAdvice'))
 		);
 
-		$joinpointsAdvices = new SplObjectStorage();
-		$joinpointsAdvices->offsetSet($joinpoint, new SplObjectStorage());
-		$joinpointsAdvices->offsetGet($joinpoint)->attach($advice);
+		$aspectDefinition = new ArrayServiceDefinition(array(
+			'serviceId' => 'fooService',
+			'class' => FooAspect::class,
+		));
+
+		$joinpointsAdvices = new Map();
+		$joinpointsAdvices->put($joinpoint, new ArrayList());
+		$joinpointsAdvices->getValue($joinpoint)->put([$advice, $aspectDefinition]);
 
 		$proxyList->addProxy(new Proxy(
 			$joinpointsAdvices,
@@ -71,11 +91,27 @@ class SimpleProxyGeneratorTest extends TestCase {
 				'class' => 'GeneratedAOPProxy\FooService',
 				'arguments' => array(),
 				'setup' => array(
-					'___aop___setInterceptorLoader' => array(
-						array('service', 'generatedInterceptorLoader')
+					'set___aop___interceptorLoader' => array(
+						array('service' => 'generatedInterceptorLoader')
 					),
 				),
-			))
+			)),
+			new ArrayServiceDefinition(array(
+				'serviceId' => 'generatedInterceptorLoader',
+				'class' => HashMapLoader::class,
+				'arguments' => [
+					['service' => 'container'],
+					[
+						'value' => [
+							'FooService::foo' => [
+								'before' => [
+									['fooService', new ReflectionMethod(FooAspect::class, 'fooAdvice')]
+								]
+							]
+						]
+					],
+				],
+			)),
 		);
 	}
 

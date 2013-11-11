@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Interceptor;
+namespace Koala\AOP\Interceptor;
 
-use DI\IContainer;
+use Koala\DI\IContainer;
 use ReflectionMethod;
 
 class HashMapLoader implements Loader {

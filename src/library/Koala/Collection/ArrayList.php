@@ -1,6 +1,6 @@
 <?php
 
-namespace Collection;
+namespace Koala\Collection;
 
 use ArrayIterator;
 use Traversable;

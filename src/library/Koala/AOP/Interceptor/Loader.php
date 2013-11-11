@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Interceptor;
+namespace Koala\AOP\Interceptor;
 
 use ReflectionMethod;
 

@@ -1,12 +1,12 @@
 <?php
 
-namespace AOP\Pointcut\Compiler;
+namespace Koala\AOP\Pointcut\Compiler;
 
-use AOP\Pointcut\Parser\Lexer;
-use AOP\Pointcut\PointcutExpression;
-use IO\Storage\FileStorage;
-use IO\Stream\StringInputStream;
-use Reflection\MethodMatcher;
+use Koala\AOP\Pointcut\Parser\Lexer;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\IO\Storage\FileStorage;
+use Koala\IO\Stream\StringInputStream;
+use Koala\Reflection\MethodMatcher;
 
 class MethodMatcherCompiler {
 
@@ -32,9 +32,9 @@ class MethodMatcherCompiler {
 
 		if (!$this->matchersStorage->exists($matcherClass)) {
 			$compiled = $this->doCompile($pointcutExpression, $matcherClass);
-			$this->matchersStorage->put($matcherClass, $compiled);
+			$this->matchersStorage->put($matcherClass . '.php', $compiled);
 		}
-		include_once $this->matcherDir . '/' . $matcherClass . '.php';
+		$this->matchersStorage->includeOnce($matcherClass . '.php');
 
 		return '\\' . $this->matcherNamespace . '\\' . $matcherClass;
 	}

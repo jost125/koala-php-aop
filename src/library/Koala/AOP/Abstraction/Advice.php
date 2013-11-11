@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Abstraction;
+namespace Koala\AOP\Abstraction;
 
 class Advice {
 

@@ -1,20 +1,20 @@
 <?php
 
-namespace AOP\Pointcut\Parser\AST;
+namespace Koala\AOP\Pointcut\Parser\AST;
 
-use AOP\Pointcut\Parser\AST\Element\AnyArguments;
-use AOP\Pointcut\Parser\AST\Element\Argument;
-use AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
-use AOP\Pointcut\Parser\AST\Element\ClassExpression;
-use AOP\Pointcut\Parser\AST\Element\MethodExpression;
-use AOP\Pointcut\Parser\AST\Element\Modifier;
-use AOP\Pointcut\Parser\AST\Element\NoArguments;
-use AOP\Pointcut\Parser\AST\Element\Pointcut;
-use AOP\Pointcut\Parser\AST\Element\PointcutExpression;
-use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
-use AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
-use AOP\Pointcut\Parser\AST\Element\PointcutOperator;
-use AOP\Pointcut\Parser\AST\Element\PointcutType;
+use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
+use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
+use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\MethodExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\Modifier;
+use Koala\AOP\Pointcut\Parser\AST\Element\NoArguments;
+use Koala\AOP\Pointcut\Parser\AST\Element\Pointcut;
+use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
+use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
+use Koala\AOP\Pointcut\Parser\AST\Element\PointcutOperator;
+use Koala\AOP\Pointcut\Parser\AST\Element\PointcutType;
 
 interface ElementVisitor {
 

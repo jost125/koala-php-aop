@@ -1,6 +1,6 @@
 <?php
 
-namespace DI;
+namespace Koala\DI;
 
 use Exception;
 

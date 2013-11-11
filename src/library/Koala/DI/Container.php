@@ -1,12 +1,12 @@
 <?php
 
-namespace DI;
+namespace Koala\DI;
 
-use AOP\Proxy\ProxyReplacer;
-use DI\Definition\Argument\WiringArgument;
-use DI\Definition\Configuration\ConfigurationDefinition;
-use DI\Definition\Configuration\ServiceDefinition;
-use DI\ServiceNotExistsException;
+use Koala\AOP\Proxy\ProxyReplacer;
+use Koala\DI\Definition\Argument\WiringArgument;
+use Koala\DI\Definition\Configuration\ConfigurationDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\ServiceNotExistsException;
 
 class Container implements IContainer {
 	private $services = array();

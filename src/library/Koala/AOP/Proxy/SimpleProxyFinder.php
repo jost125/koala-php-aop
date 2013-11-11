@@ -1,16 +1,16 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Abstraction\Proxy;
-use AOP\Abstraction\ProxyList;
-use AOP\Aspect\AspectReflection;
-use AOP\Pointcut\PointcutExpressionResolver;
-use AOP\Proxy\ProxyFinder;
-use Collection\ArrayList;
-use Collection\IMap;
-use Collection\Map;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\AOP\Abstraction\Proxy;
+use Koala\AOP\Abstraction\ProxyList;
+use Koala\AOP\Aspect\AspectReflection;
+use Koala\AOP\Pointcut\PointcutExpressionResolver;
+use Koala\AOP\Proxy\ProxyFinder;
+use Koala\Collection\ArrayList;
+use Koala\Collection\IMap;
+use Koala\Collection\Map;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 use SplObjectStorage;
 

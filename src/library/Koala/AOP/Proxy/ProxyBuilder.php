@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 interface ProxyBuilder {
 

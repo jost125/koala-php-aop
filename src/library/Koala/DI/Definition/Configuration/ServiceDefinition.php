@@ -1,9 +1,9 @@
 <?php
 
-namespace DI\Definition\Configuration;
+namespace Koala\DI\Definition\Configuration;
 
-use DI\Definition\Argument\SetupMethod;
-use DI\Definition\Argument\WiringArgument;
+use Koala\DI\Definition\Argument\SetupMethod;
+use Koala\DI\Definition\Argument\WiringArgument;
 use ReflectionClass;
 
 interface ServiceDefinition {

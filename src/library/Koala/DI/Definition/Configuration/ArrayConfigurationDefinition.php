@@ -1,10 +1,10 @@
 <?php
 
-namespace DI\Definition\Configuration;
+namespace Koala\DI\Definition\Configuration;
 
-use DI\Definition\Configuration\ConfigurationDefinition;
-use DI\Definition\Configuration\ServiceDefinition;
-use DI\Definition\Configuration\ArrayServiceDefinition;
+use Koala\DI\Definition\Configuration\ConfigurationDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 
 class ArrayConfigurationDefinition implements ConfigurationDefinition {
 

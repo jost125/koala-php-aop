@@ -1,6 +1,6 @@
 <?php
 
-namespace DI;
+namespace Koala\DI;
 
 interface IContainer {
 	public function getService($serviceId);

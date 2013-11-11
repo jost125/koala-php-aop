@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Abstraction;
+namespace Koala\AOP\Abstraction;
 
-use Collection\IMap;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\Collection\IMap;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 class Proxy {
 

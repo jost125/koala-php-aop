@@ -2,11 +2,11 @@
 
 namespace Reflection\AnnotationExpressionMatcher;
 
-use AOP\TestCase;
-use Reflection\Annotation\SimpleAnnotation;
-use Reflection\Annotation\Annotation;
-use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
-use Reflection\Annotation\Parsing\AnnotationExpression;
+use Koala\AOP\TestCase;
+use Koala\Reflection\Annotation\SimpleAnnotation;
+use Koala\Reflection\Annotation\Annotation;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
 
 class SimpleAnnotationExpressionMatcherTest extends TestCase {
 	/** @var SimpleAnnotationExpressionMatcher */

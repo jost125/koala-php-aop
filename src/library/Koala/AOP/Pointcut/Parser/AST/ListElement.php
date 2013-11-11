@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Pointcut\Parser\AST;
+namespace Koala\AOP\Pointcut\Parser\AST;
 
 use ReflectionClass;
 

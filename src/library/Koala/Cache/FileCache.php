@@ -1,6 +1,6 @@
 <?php
 
-namespace Cache;
+namespace Koala\Cache;
 
 class FileCache implements ICache {
 

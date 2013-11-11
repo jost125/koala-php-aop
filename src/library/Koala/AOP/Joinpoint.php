@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP;
+namespace Koala\AOP;
 
 use ReflectionMethod;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection\Annotation\Parsing;
+namespace Koala\Reflection\Annotation\Parsing;
 
 class AnnotationExpression {
 	private $expression;

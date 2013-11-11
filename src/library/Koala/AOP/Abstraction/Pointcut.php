@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Abstraction;
+namespace Koala\AOP\Abstraction;
 
-use AOP\Pointcut\PointcutExpression;
+use Koala\AOP\Pointcut\PointcutExpression;
 
 class Pointcut {
 

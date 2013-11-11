@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Abstraction;
+namespace Koala\AOP\Abstraction;
 
 use ArrayIterator;
-use AOP\Abstraction\Proxy;
+use Koala\AOP\Abstraction\Proxy;
 use IteratorAggregate;
 
 class ProxyList implements IteratorAggregate {

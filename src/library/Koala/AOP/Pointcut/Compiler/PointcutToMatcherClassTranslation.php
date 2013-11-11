@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Pointcut\Compiler;
+namespace Koala\AOP\Pointcut\Compiler;
 
-use AOP\Pointcut\PointcutExpression;
-use Cache\ICache;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\Cache\ICache;
 
 class PointcutToMatcherClassTranslation {
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Abstraction\ProxyList;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\AOP\Abstraction\ProxyList;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 interface ProxyGenerator {
 	/**
@@ -11,6 +11,5 @@ interface ProxyGenerator {
 	 * @return ServiceDefinition[]
 	 */
 	public function generateProxies(ProxyList $proxyAbstractionList);
-
 
 }

@@ -2,9 +2,9 @@
 
 namespace Example\Aspect;
 
-use AOP\Aspect;
-use AOP\Around;
-use AOP\Joinpoint;
+use Koala\AOP\Aspect;
+use Koala\AOP\Around;
+use Koala\AOP\Joinpoint;
 use Example\Logger;
 
 /**

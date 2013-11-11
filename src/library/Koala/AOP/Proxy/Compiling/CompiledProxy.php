@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Proxy\Compiling;
+namespace Koala\AOP\Proxy\Compiling;
 
 class CompiledProxy {
 

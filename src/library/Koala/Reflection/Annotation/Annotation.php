@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection\Annotation;
+namespace Koala\Reflection\Annotation;
 
 interface Annotation {
 	public function getName();

@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Abstraction\Pointcut;
+namespace Koala\AOP\Abstraction\Pointcut;
 
-use AOP\Abstraction\Pointcut;
+use Koala\AOP\Abstraction\Pointcut;
 
 class AfterReturningPointcut extends Pointcut {
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Reflection\Annotation;
+namespace Koala\Reflection\Annotation;
 
-use Reflection\Annotation\Annotation;
+use Koala\Reflection\Annotation\Annotation;
 
 class SimpleAnnotation implements Annotation {
 

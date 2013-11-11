@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Proxy\ProxyReplacer;
-use DI\Definition\Configuration\ConfigurationDefinition;
+use Koala\AOP\Proxy\ProxyReplacer;
+use Koala\DI\Definition\Configuration\ConfigurationDefinition;
 
 class NoProxyReplacer implements ProxyReplacer {
 

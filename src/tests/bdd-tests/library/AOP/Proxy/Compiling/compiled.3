@@ -9,11 +9,11 @@ class BarService extends \Namespaced\BarService {
 	public function foobar() {
 		$reflectionMethod = new \ReflectionMethod('Namespaced\BarService', 'foobar');
 		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
-		$invocation = new \AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
+		$invocation = new \Koala\AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
 		return $invocation->proceed();
 	}
 
-	public function ___aop___setInterceptorLoader(\AOP\Interceptor\Loader $loader) {
+	public function set___aop___interceptorLoader(\Koala\AOP\Interceptor\Loader $loader) {
 		$this->___aop___interceptorLoader = $loader;
 	}
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace DI\Definition\Configuration;
+namespace Koala\DI\Definition\Configuration;
 
-use DI\Definition\Argument\ParameterArgument;
-use DI\Definition\Argument\ServiceDependency;
-use DI\Definition\Argument\SetupMethod;
-use DI\Definition\Argument\ValueArgument;
-use DI\Definition\Argument\WiringArgument;
+use Koala\DI\Definition\Argument\ParameterArgument;
+use Koala\DI\Definition\Argument\ServiceDependency;
+use Koala\DI\Definition\Argument\SetupMethod;
+use Koala\DI\Definition\Argument\ValueArgument;
+use Koala\DI\Definition\Argument\WiringArgument;
 use InvalidArgumentException;
 use ReflectionClass;
 

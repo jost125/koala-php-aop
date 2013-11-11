@@ -1,11 +1,11 @@
 <?php
 
-namespace AOP\Pointcut;
+namespace Koala\AOP\Pointcut;
 
-use AOP\Abstraction\Joinpoint;
-use AOP\Pointcut\Compiler\MethodMatcherCompiler;
-use AOP\Pointcut\PointcutExpression;
-use Reflection\MethodMatcher;
+use Koala\AOP\Abstraction\Joinpoint;
+use Koala\AOP\Pointcut\Compiler\MethodMatcherCompiler;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\Reflection\MethodMatcher;
 use ReflectionClass;
 
 class SimplePointcutExpressionResolver implements PointcutExpressionResolver {

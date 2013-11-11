@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection\Annotation;
+namespace Koala\Reflection\Annotation;
 
 use Exception;
 

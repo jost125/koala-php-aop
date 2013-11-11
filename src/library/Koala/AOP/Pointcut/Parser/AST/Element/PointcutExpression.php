@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Pointcut\Parser\AST\Element;
+namespace Koala\AOP\Pointcut\Parser\AST\Element;
 
-use AOP\Pointcut\Parser\AST\ContainerElement;
-use AOP\Pointcut\Parser\AST\TypeList;
+use Koala\AOP\Pointcut\Parser\AST\ContainerElement;
+use Koala\AOP\Pointcut\Parser\AST\TypeList;
 
 class PointcutExpression extends ContainerElement {
 
@@ -12,11 +12,11 @@ class PointcutExpression extends ContainerElement {
 	 */
 	protected function acceptElements() {
 		return new TypeList(array(
-			'AOP\Pointcut\Parser\AST\Element\Pointcut',
-			'AOP\Pointcut\Parser\AST\Element\PointcutOperator',
-			'AOP\Pointcut\Parser\AST\Element\PointcutExpression',
-			'AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart',
-			'AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd',
+			Pointcut::class,
+			PointcutOperator::class,
+			PointcutExpression::class,
+			PointcutExpressionGroupStart::class,
+			PointcutExpressionGroupEnd::class,
 		));
 	}
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use AOP\Abstraction\Aspect;
+use Koala\AOP\Abstraction\Aspect;
 use ReflectionClass;
 
 interface AspectReflection {

@@ -2,9 +2,12 @@
 
 namespace AOP\Proxy;
 
-use AOP\Proxy\SimpleProxyBuilder;
-use AOP\TestCase;
-use DI\Definition\Configuration\ArrayServiceDefinition;
+use Koala\AOP\Abstraction\ProxyList;
+use Koala\AOP\Proxy\ProxyFinder;
+use Koala\AOP\Proxy\ProxyGenerator;
+use Koala\AOP\Proxy\SimpleProxyBuilder;
+use Koala\AOP\TestCase;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 
 class SimpleProxyBuilderTest extends TestCase {
 
@@ -21,9 +24,9 @@ class SimpleProxyBuilderTest extends TestCase {
 	private $proxyListMock;
 
 	protected function setUp() {
-		$this->proxyFinderMock = $this->createMock('\AOP\Proxy\ProxyFinder');
-		$this->proxyGeneratorMock = $this->createMock('\AOP\Proxy\ProxyGenerator');
-		$this->proxyListMock = $this->createMock('\AOP\Abstraction\ProxyList');
+		$this->proxyFinderMock = $this->createMock(ProxyFinder::class);
+		$this->proxyGeneratorMock = $this->createMock(ProxyGenerator::class);
+		$this->proxyListMock = $this->createMock(ProxyList::class);
 		$this->simpleProxyBuilder = new SimpleProxyBuilder(
 			$this->proxyGeneratorMock,
 			$this->proxyFinderMock

@@ -1,6 +1,6 @@
 <?php
 
-namespace IO\Stream;
+namespace Koala\IO\Stream;
 
 interface InputStream {
 

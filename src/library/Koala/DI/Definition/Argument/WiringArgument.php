@@ -1,8 +1,8 @@
 <?php
 
-namespace DI\Definition\Argument;
+namespace Koala\DI\Definition\Argument;
 
-use DI\Container;
+use Koala\DI\Container;
 
 interface WiringArgument {
 	/**

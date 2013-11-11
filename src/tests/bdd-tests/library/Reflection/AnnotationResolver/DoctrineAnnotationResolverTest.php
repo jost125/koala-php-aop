@@ -1,14 +1,16 @@
 <?php
 
-namespace Reflection\AnnotationResolver;
+namespace Koala\Reflection\AnnotationResolver;
 
-use AOP\TestCase;
-use Doctrine\Common\Annotations\AnnotationRegistry;
-use Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
-use Reflection\Annotation\Parsing\AnnotationExpression;
-use ReflectionClass;
-use Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use Koala\AOP\TestCase;
 use Doctrine\Common\Annotations\AnnotationReader;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
+use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
+use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
+use ReflectionClass;
+use Koala\AOP\Aspect;
+use Koala\AOP\Before;
+use Koala\AOP\After;
 
 class DoctrineAnnotationResolverTest extends TestCase {
 
@@ -21,44 +23,44 @@ class DoctrineAnnotationResolverTest extends TestCase {
 	}
 
 	public function testHasClassAnnotation() {
-		$reflectionClass = new ReflectionClass('\Reflection\AnnotationResolver\Bar');
-		$result = $this->annotationResolver->hasClassAnnotation($reflectionClass, new AnnotationExpression('AOP\Aspect'));
+		$reflectionClass = new ReflectionClass(Bar::class);
+		$result = $this->annotationResolver->hasClassAnnotation($reflectionClass, new AnnotationExpression('Koala\AOP\Aspect'));
 		$this->assertTrue($result);
 	}
 
 	public function testGetMethodsHavingAnnotation() {
-		$reflectionClass = new ReflectionClass('\Reflection\AnnotationResolver\Baz');
-		$methods = $this->annotationResolver->getMethodsHavingAnnotation($reflectionClass, new AnnotationExpression('AOP\Before(..)'));
+		$reflectionClass = new ReflectionClass(Baz::class);
+		$methods = $this->annotationResolver->getMethodsHavingAnnotation($reflectionClass, new AnnotationExpression('Koala\AOP\Before(..)'));
 		$this->assertTrue(is_array($methods));
 		$this->assertCount(1, $methods);
 		$this->assertEquals($reflectionClass->getMethod('beforeAdvice'), $methods[0]);
 	}
 
 	public function testGetMethodAnnotations() {
-		$reflectionClass = new ReflectionClass('\Reflection\AnnotationResolver\Baz');
-		$annotations = $this->annotationResolver->getMethodAnnotations($reflectionClass->getMethod('beforeAdvice'), new AnnotationExpression('AOP\Before(..)'));
+		$reflectionClass = new ReflectionClass(Baz::class);
+		$annotations = $this->annotationResolver->getMethodAnnotations($reflectionClass->getMethod('beforeAdvice'), new AnnotationExpression('Koala\AOP\Before(..)'));
 		$this->assertTrue(is_array($annotations));
 		$this->assertCount(1, $annotations);
-		$this->assertEquals('AOP\Before(value="execution(public *(..))")', $annotations[0]->toExpression());
+		$this->assertEquals('Koala\AOP\Before(value="execution(public *(..))")', $annotations[0]->toExpression());
 	}
 }
 
 /**
- * @\AOP\Aspect
+ * @Aspect
  */
 class Bar {}
 
 /**
- * @\AOP\Aspect
+ * @Aspect
  */
 class Baz {
 	/**
-	 * @\AOP\Before("execution(public *(..))")
+	 * @Before("execution(public *(..))")
 	 */
 	public function beforeAdvice() {}
 
 	/**
-	 * @\AOP\After("execution(public *(..))")
+	 * @After("execution(public *(..))")
 	 */
 	public function afterAdvice() {}
 }

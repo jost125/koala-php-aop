@@ -1,11 +1,11 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use AOP\Aspect\AspectServiceFilter;
-use DI\Definition\Configuration\ServiceDefinition;
-use Reflection\Annotation\Parsing\AnnotationExpression;
-use Reflection\Annotation\Parsing\AnnotationResolver;
+use Koala\AOP\Aspect;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
+use Koala\Reflection\Annotation\Parsing\AnnotationResolver;
 use ReflectionClass;
 
 class PhpNativeAspectServiceFilter implements AspectServiceFilter {
@@ -32,6 +32,6 @@ class PhpNativeAspectServiceFilter implements AspectServiceFilter {
 	}
 
 	private function isAspect(ServiceDefinition $serviceDefinition) {
-		return $this->annotationResolver->hasClassAnnotation(new ReflectionClass($serviceDefinition->getClassName()), new AnnotationExpression('\AOP\Aspect'));
+		return $this->annotationResolver->hasClassAnnotation(new ReflectionClass($serviceDefinition->getClassName()), new AnnotationExpression(Aspect::class));
 	}
 }

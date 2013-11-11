@@ -1,10 +1,10 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Aspect\AspectServiceFilter;
-use DI\Definition\Configuration\ConfigurationDefinition;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\AOP\Aspect\AspectServiceFilter;
+use Koala\DI\Definition\Configuration\ConfigurationDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 class SimpleProxyReplacer implements ProxyReplacer {
 

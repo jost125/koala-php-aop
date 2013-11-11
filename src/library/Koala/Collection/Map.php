@@ -1,6 +1,6 @@
 <?php
 
-namespace Collection;
+namespace Koala\Collection;
 
 use ArrayIterator;
 
@@ -26,7 +26,7 @@ class Map implements IMap {
 	}
 
 	public function getKeys() {
-		return $this->keys;
+		return new ArrayList($this->keys);
 	}
 
 	public function getValues() {
@@ -35,7 +35,7 @@ class Map implements IMap {
 			$values[] = $this->getValue($key);
 		}
 
-		return $values;
+		return new ArrayList($values);
 	}
 
 	public function getValue($key) {

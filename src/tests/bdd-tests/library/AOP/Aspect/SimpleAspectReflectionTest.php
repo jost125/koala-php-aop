@@ -1,13 +1,15 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use AOP\Abstraction\Advice;
-use AOP\Abstraction\Aspect;
-use AOP\Abstraction\InterceptingMethod;
-use AOP\Abstraction\Pointcut;
-use AOP\Pointcut\PointcutExpression;
-use AOP\TestCase;
+use Koala\AOP\Abstraction\Advice;
+use Koala\AOP\Abstraction\Aspect;
+use Koala\AOP\Abstraction\InterceptingMethod;
+use Koala\AOP\Abstraction\Pointcut;
+use Koala\AOP\Advice\AdviceReflection;
+use Koala\AOP\Pointcut\PointcutExpression;
+use Koala\AOP\TestCase;
+use Koala\AOP\Before;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -20,12 +22,12 @@ class SimpleAspectReflectionTest extends TestCase {
 	private $adviceReflectionMock;
 
 	protected function setUp() {
-		$this->adviceReflectionMock = $this->createMock('\AOP\Advice\AdviceReflection');
+		$this->adviceReflectionMock = $this->createMock(AdviceReflection::class);
 		$this->pregAspectReflection = new SimpleAspectReflection($this->adviceReflectionMock);
 	}
 
 	public function testGetAspect() {
-		$reflectionClass = new ReflectionClass('\AOP\Aspect\Bar');
+		$reflectionClass = new ReflectionClass(Bar::class);
 
 		$this->adviceReflectionMock->expects($this->once())
 			->method('getAdvices')
@@ -46,7 +48,7 @@ class SimpleAspectReflectionTest extends TestCase {
 	private function getAdvicesFixtures() {
 		return array(new Advice(
 			new Pointcut(new PointcutExpression('\AOP\Before("execution(public *(..))")')),
-			new InterceptingMethod(new ReflectionMethod('\AOP\Aspect\Bar', 'beforeAdvice'))
+			new InterceptingMethod(new ReflectionMethod(Bar::class, 'beforeAdvice'))
 		));
 	}
 

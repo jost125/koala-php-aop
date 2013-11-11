@@ -1,11 +1,11 @@
 <?php
 
-namespace IO\Stream;
+namespace Koala\IO\Stream;
 
-use AOP\Pointcut\Parser\AlreadyRecordingException;
-use AOP\Pointcut\Parser\NoRecordingStartedException;
-use IO\Stream\InputStream;
-use IO\Stream;
+use Koala\AOP\Pointcut\Parser\AlreadyRecordingException;
+use Koala\AOP\Pointcut\Parser\NoRecordingStartedException;
+use Koala\IO\Stream\InputStream;
+use Koala\IO\Stream;
 
 class StringInputStream implements Stream\InputStream {
 

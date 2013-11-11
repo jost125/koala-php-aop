@@ -1,10 +1,10 @@
 <?php
 
-namespace AOP\Pointcut\Compiler;
+namespace Koala\AOP\Pointcut\Compiler;
 
-use AOP\Pointcut\Parser\Lexer;
-use IO\Stream\StringInputStream;
-use AOP\TestCase;
+use Koala\AOP\Pointcut\Parser\Lexer;
+use Koala\IO\Stream\StringInputStream;
+use Koala\AOP\TestCase;
 
 class CompileMethodMatchVisitorTest extends TestCase {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Proxy\ProxyBuilder;
-use AOP\Proxy\ProxyFinder;
-use AOP\Proxy\ProxyGenerator;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\AOP\Proxy\ProxyBuilder;
+use Koala\AOP\Proxy\ProxyFinder;
+use Koala\AOP\Proxy\ProxyGenerator;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 class SimpleProxyBuilder implements ProxyBuilder {
 

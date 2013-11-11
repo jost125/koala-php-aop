@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Pointcut\Parser;
+namespace Koala\AOP\Pointcut\Parser;
 
 use RuntimeException;
 

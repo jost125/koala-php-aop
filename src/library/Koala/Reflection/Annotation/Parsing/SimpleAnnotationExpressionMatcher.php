@@ -1,10 +1,10 @@
 <?php
 
-namespace Reflection\Annotation\Parsing;
+namespace Koala\Reflection\Annotation\Parsing;
 
-use Reflection\Annotation\Annotation;
-use Reflection\Annotation\Parsing\AnnotationExpression;
-use Reflection\Annotation\Parsing\AnnotationExpressionMatcher;
+use Koala\Reflection\Annotation\Annotation;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpressionMatcher;
 
 class SimpleAnnotationExpressionMatcher implements AnnotationExpressionMatcher {
 

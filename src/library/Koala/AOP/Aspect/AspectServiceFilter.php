@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 interface AspectServiceFilter {
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace AOP\Pointcut;
+namespace Koala\AOP\Pointcut;
 
 /**
  * Usage:

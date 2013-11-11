@@ -1,11 +1,12 @@
 <?php
 
-namespace AOP\Aspect;
+namespace Koala\AOP\Aspect;
 
-use AOP\Aspect\PhpNativeAspectServiceFilter;
-use AOP\TestCase;
-use DI\Definition\Configuration\ArrayServiceDefinition;
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\AOP\Aspect\PhpNativeAspectServiceFilter;
+use Koala\AOP\TestCase;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\Reflection\Annotation\Parsing\AnnotationResolver;
 use ReflectionClass;
 
 class PhpNativeAspectServiceFilterTest extends TestCase {
@@ -17,7 +18,7 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 	private $annotationResolverMock;
 
 	protected function setUp() {
-		$this->annotationResolverMock = $this->createMock('\Reflection\Annotation\Parsing\AnnotationResolver');
+		$this->annotationResolverMock = $this->createMock(AnnotationResolver::class);
 		$this->phpNativeAspectServiceFilter = new PhpNativeAspectServiceFilter(
 			$this->annotationResolverMock
 		);
@@ -29,14 +30,14 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 			'fooService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooService',
-					'class' => '\AOP\Aspect\Foo',
+					'class' => Foo::class,
 					'arguments' => array()
 				)
 			),
 			'fooAspectService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooAspectService',
-					'class' => '\AOP\Aspect\FooAspect',
+					'class' => FooAspect::class,
 					'arguments' => array()
 				)
 			)
@@ -46,7 +47,7 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 			'fooAspectService' => new ArrayServiceDefinition(
 				array(
 					'serviceId' => 'fooAspectService',
-					'class' => '\AOP\Aspect\FooAspect',
+					'class' => FooAspect::class,
 					'arguments' => array()
 				)
 			)
@@ -54,12 +55,12 @@ class PhpNativeAspectServiceFilterTest extends TestCase {
 
 		$this->annotationResolverMock->expects($this->at(0))
 			->method('hasClassAnnotation')
-			->with(new ReflectionClass('\AOP\Aspect\Foo'))
+			->with(new ReflectionClass(Foo::class))
 			->will($this->returnValue(false));
 
 		$this->annotationResolverMock->expects($this->at(1))
 			->method('hasClassAnnotation')
-			->with(new ReflectionClass('\AOP\Aspect\FooAspect'))
+			->with(new ReflectionClass(FooAspect::class))
 			->will($this->returnValue(true));
 
 		$filteredAspectServices = $this->phpNativeAspectServiceFilter->filterAspectServices($serviceDefinitions);

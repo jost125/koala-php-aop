@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use DI\Definition\Configuration\ConfigurationDefinition;
+use Koala\DI\Definition\Configuration\ConfigurationDefinition;
 
 interface ProxyReplacer {
 	/**

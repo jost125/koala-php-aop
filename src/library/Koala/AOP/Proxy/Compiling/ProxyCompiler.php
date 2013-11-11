@@ -1,7 +1,9 @@
 <?php
 
-namespace AOP\Proxy\Compiling;
+namespace Koala\AOP\Proxy\Compiling;
 
+use Koala\AOP\Interceptor\Loader;
+use Koala\AOP\Interceptor\MethodInvocation;
 use ReflectionClass;
 use ReflectionMethod;
 
@@ -30,7 +32,7 @@ class ProxyCompiler {
 			'class ' . $proxyClassName . " extends " . $fqnTargetClassName . " {\n\n" .
 			'	private $' . $this->proxyMemberPrefix . 'interceptorLoader' . ";\n\n" .
 			$this->generateProxyMethods($interceptedMethods) .
-			'	public function set' . $this->proxyMemberPrefix . 'interceptorLoader(\\AOP\\Interceptor\\Loader $loader) {' . "\n" .
+			'	public function set' . $this->proxyMemberPrefix . 'interceptorLoader(\\' . Loader::class . ' $loader) {' . "\n" .
 			'		$this->' . $this->proxyMemberPrefix . 'interceptorLoader = $loader;' . "\n" .
 			'	}' . "\n" .
 			'}' . "\n";
@@ -63,7 +65,7 @@ class ProxyCompiler {
 				'	public function ' . $method->getName() . '(' . $this->generateMethodArguments($method) . ') {' . "\n" .
 					'		$reflectionMethod = new \\ReflectionMethod(\'' . $method->getDeclaringClass()->getName() . '\', \'' . $method->getName() . '\');' . "\n" .
 					'		$interceptors = $this->' . $this->proxyMemberPrefix . 'interceptorLoader->loadInterceptors($reflectionMethod);' . "\n" .
-					'		$invocation = new \\AOP\\Interceptor\\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);' . "\n" .
+					'		$invocation = new \\' . MethodInvocation::class . '($this, $reflectionMethod, func_get_args(), $interceptors);' . "\n" .
 					'		return $invocation->proceed();' . "\n" .
 					'	}' . "\n\n";
 		}

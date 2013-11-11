@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Proxy\Compiling;
+namespace Koala\AOP\Proxy\Compiling;
 
-use AOP\TestCase;
+use Koala\AOP\TestCase;
 use ReflectionClass;
 use ReflectionMethod;
 

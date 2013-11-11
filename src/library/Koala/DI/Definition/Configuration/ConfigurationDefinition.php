@@ -1,8 +1,8 @@
 <?php
 
-namespace DI\Definition\Configuration;
+namespace Koala\DI\Definition\Configuration;
 
-use DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
 
 interface ConfigurationDefinition {
 	/**

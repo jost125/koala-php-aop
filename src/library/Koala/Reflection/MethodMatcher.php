@@ -1,6 +1,6 @@
 <?php
 
-namespace Reflection;
+namespace Koala\Reflection;
 
 use ReflectionMethod;
 

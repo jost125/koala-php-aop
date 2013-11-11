@@ -1,10 +1,10 @@
 <?php
 
-namespace Reflection\Annotation;
+namespace Koala\Reflection\Annotation;
 
 use ReflectionClass;
 use ReflectionProperty;
-use Reflection\Annotation\Annotation;
+use Koala\Reflection\Annotation\Annotation;
 
 class DoctrineWrappedAnnotation implements Annotation {
 

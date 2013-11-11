@@ -1,6 +1,6 @@
 <?php
 
-namespace DI\Definition\Argument;
+namespace Koala\DI\Definition\Argument;
 
 class SetupMethod {
 

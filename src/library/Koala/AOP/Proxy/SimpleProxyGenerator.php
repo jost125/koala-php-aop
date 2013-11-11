@@ -1,21 +1,22 @@
 <?php
 
-namespace AOP\Proxy;
+namespace Koala\AOP\Proxy;
 
-use AOP\Abstraction\Advice;
-use AOP\Abstraction\Joinpoint;
-use AOP\Abstraction\Pointcut\AfterPointcut;
-use AOP\Abstraction\Pointcut\AroundPointcut;
-use AOP\Abstraction\Pointcut\BeforePointcut;
-use AOP\Abstraction\Proxy;
-use AOP\Abstraction\ProxyList;
-use AOP\Interceptor\HashMapLoader;
-use AOP\Interceptor\InterceptorTypes;
-use AOP\Proxy\Compiling\CompiledProxy;
-use AOP\Proxy\Compiling\ProxyCompiler;
-use DI\Definition\Configuration\ArrayServiceDefinition;
-use DI\Definition\Configuration\ServiceDefinition;
-use IO\Storage\FileStorage;
+use InvalidArgumentException;
+use Koala\AOP\Abstraction\Advice;
+use Koala\AOP\Abstraction\Joinpoint;
+use Koala\AOP\Abstraction\Pointcut\AfterPointcut;
+use Koala\AOP\Abstraction\Pointcut\AroundPointcut;
+use Koala\AOP\Abstraction\Pointcut\BeforePointcut;
+use Koala\AOP\Abstraction\Proxy;
+use Koala\AOP\Abstraction\ProxyList;
+use Koala\AOP\Interceptor\HashMapLoader;
+use Koala\AOP\Interceptor\InterceptorTypes;
+use Koala\AOP\Proxy\Compiling\CompiledProxy;
+use Koala\AOP\Proxy\Compiling\ProxyCompiler;
+use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
+use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\IO\Storage\FileStorage;
 use ReflectionClass;
 
 class SimpleProxyGenerator implements ProxyGenerator {
@@ -54,7 +55,8 @@ class SimpleProxyGenerator implements ProxyGenerator {
 				foreach ($joinpointAdvices->getValue($joinpoint) as list($advice, $aspectDefinition)) {
 					$reflectionMethod = $joinpoint->getReflectionMethod();
 
-					switch (get_class($advice->getPointcut())) {
+					$className = get_class($advice->getPointcut());
+					switch ($className) {
 						case BeforePointcut::class:
 							$interceptorType = InterceptorTypes::BEFORE;
 							break;
@@ -65,7 +67,7 @@ class SimpleProxyGenerator implements ProxyGenerator {
 							$interceptorType = InterceptorTypes::AROUND;
 							break;
 						default:
-							throw new \InvalidArgumentException();
+							throw new InvalidArgumentException('Uknown pointcut class ' . $className);
 					}
 
 					if (!isset($interceptors[$reflectionMethod->getDeclaringClass()->getName() . '::' . $reflectionMethod->getName()][$interceptorType])) {
@@ -77,9 +79,9 @@ class SimpleProxyGenerator implements ProxyGenerator {
 			}
 
 			$compiledProxy = $this->compileProxy($proxy);
-			$key = str_replace('\\', '_', $compiledProxy->getClassName());
+			$key = str_replace('\\', '_', $compiledProxy->getClassName()) . '.php';
 			$this->fileStorage->put($key, $compiledProxy->getCode());
-			include_once $this->proxyDirectory . '/' . $key . '.php';
+			$this->fileStorage->includeOnce($key);
 
 			$arguments = $proxy->getTargetDefinition()->hasConstructorArguments() ? $proxy->getTargetDefinition()->getConstructorArguments() : array();
 

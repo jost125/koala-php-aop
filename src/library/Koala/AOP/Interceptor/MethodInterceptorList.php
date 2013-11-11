@@ -1,8 +1,8 @@
 <?php
 
-namespace AOP\Interceptor;
+namespace Koala\AOP\Interceptor;
 
-use AOP\Joinpoint;
+use Koala\AOP\Joinpoint;
 
 class MethodInterceptorList {
 

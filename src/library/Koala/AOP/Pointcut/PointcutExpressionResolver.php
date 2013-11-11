@@ -1,9 +1,9 @@
 <?php
 
-namespace AOP\Pointcut;
+namespace Koala\AOP\Pointcut;
 
-use AOP\Abstraction\Joinpoint;
-use AOP\Pointcut\PointcutExpression;
+use Koala\AOP\Abstraction\Joinpoint;
+use Koala\AOP\Pointcut\PointcutExpression;
 use ReflectionClass;
 
 interface PointcutExpressionResolver {
