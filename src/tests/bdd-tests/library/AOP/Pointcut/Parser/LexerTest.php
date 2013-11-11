@@ -7,7 +7,7 @@ use AOP\Abstraction\Aspect;
 use AOP\Abstraction\InterceptingMethod;
 use AOP\Abstraction\Pointcut;
 use AOP\Pointcut\Parser\Lexer;
-use IO\Stream\StringStream;
+use IO\Stream\StringInputStream;
 use AOP\Pointcut\PointcutExpression;
 use AOP\TestCase;
 use Exception;
@@ -20,7 +20,7 @@ class LexerTest extends TestCase {
 	 * @dataProvider validExpressions
 	 */
 	public function testParse($expression) {
-		$lexer = new Lexer(new StringStream($expression));
+		$lexer = new Lexer(new StringInputStream($expression));
 		$lexer->buildTree();
 	}
 
@@ -29,7 +29,7 @@ class LexerTest extends TestCase {
 	 */
 	public function testParse_invalid($expression, $exMessage) {
 		try {
-			$lexer = new Lexer(new StringStream($expression));
+			$lexer = new Lexer(new StringInputStream($expression));
 			$lexer->buildTree();
 			$this->fail('Exception expected');
 		} catch (Exception $ex) {

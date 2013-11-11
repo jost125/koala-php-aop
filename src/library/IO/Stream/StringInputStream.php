@@ -7,7 +7,7 @@ use AOP\Pointcut\Parser\NoRecordingStartedException;
 use IO\Stream\InputStream;
 use IO\Stream;
 
-class StringStream implements Stream\InputStream {
+class StringInputStream implements Stream\InputStream {
 
 	private $recording;
 	private $record;

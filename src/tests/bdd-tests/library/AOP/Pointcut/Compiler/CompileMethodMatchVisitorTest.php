@@ -3,7 +3,7 @@
 namespace AOP\Pointcut\Compiler;
 
 use AOP\Pointcut\Parser\Lexer;
-use IO\Stream\StringStream;
+use IO\Stream\StringInputStream;
 use AOP\TestCase;
 
 class CompileMethodMatchVisitorTest extends TestCase {
@@ -13,7 +13,7 @@ class CompileMethodMatchVisitorTest extends TestCase {
 	 */
 	public function testVisit($expression, $compiled) {
 		$visitor = new CompileMethodMatchVisitor();
-		$lexer = new Lexer(new StringStream($expression));
+		$lexer = new Lexer(new StringInputStream($expression));
 
 		$tree = $lexer->buildTree();
 		$tree->acceptVisitor($visitor);
