@@ -34,7 +34,7 @@ class Container implements IContainer {
 	}
 
 	private function isServiceCreated($serviceId) {
-		return array_key_exists($serviceId, $this->services);
+		return isset($this->services[$serviceId]);
 	}
 
 	private function createService($serviceId) {
