@@ -3,10 +3,10 @@
 namespace DI\Definition\Configuration;
 
 use DI\Definition\Argument\ParameterArgument;
-use DI\Definition\Argument\SetupMethod;
-use DI\Definition\Argument\WiringArgument;
 use DI\Definition\Argument\ServiceDependency;
-use DI\Definition\Configuration\ServiceDefinition;
+use DI\Definition\Argument\SetupMethod;
+use DI\Definition\Argument\ValueArgument;
+use DI\Definition\Argument\WiringArgument;
 use InvalidArgumentException;
 use ReflectionClass;
 
@@ -35,7 +35,6 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	 * )
 	 */
 	public function __construct(array $serviceDefinition) {
-		$this->checkDefinition($serviceDefinition);
 		$this->serviceDefinition = $serviceDefinition;
 	}
 
@@ -50,9 +49,10 @@ class ArrayServiceDefinition implements ServiceDefinition {
 	 * @return SetupMethod[]
 	 */
 	public function getSetupMethods() {
-		$methods = array();
-		foreach ($this->serviceDefinition['setup'] as $methodName => $methodArguments) {
-			$methods[] = new SetupMethod($methodName, $this->getArguments($methodArguments));
+		$methods = [];
+		$setup = isset($this->serviceDefinition['setup']) ? $this->serviceDefinition['setup'] : [];
+		foreach ($setup as $methodName => $methodArguments) {
+			$methods[] = $methodArguments instanceof SetupMethod ? $methodArguments : new SetupMethod($methodName, $this->getArguments($methodArguments));
 		}
 
 		return $methods;
@@ -86,36 +86,27 @@ class ArrayServiceDefinition implements ServiceDefinition {
 		return $this->serviceDefinition['serviceId'];
 	}
 
-	private function checkDefinition($serviceDefinition) {
-		if (!array_key_exists('serviceId', $serviceDefinition) || !array_key_exists('class', $serviceDefinition)) {
-			throw new InvalidArgumentException('Provide serviceId and class');
-		}
-
-		if (array_key_exists('arguments', $serviceDefinition)) {
-			foreach ($serviceDefinition['arguments'] as $argument) {
-				switch (key($argument)) {
-					case 'service':
-						break;
-					case 'param':
-						break;
-					default:
-						throw new InvalidArgumentException('Invalid argument ' . $argument);
-				}
-			}
-		}
-	}
-
 	public function getArguments($methodArguments) {
 		$arguments = array();
 		foreach ($methodArguments as $argumentEntry) {
-			$argumentType = key($argumentEntry);
-			$argumentValue = $argumentEntry[$argumentType];
-			switch ($argumentType) {
-				case 'service':
-					$arguments[] = new ServiceDependency($argumentValue);
-					break;
-				case 'param':
-					$arguments[] = new ParameterArgument($argumentValue);
+			if (is_array($argumentEntry)) {
+				$argumentType = key($argumentEntry);
+				$argumentValue = $argumentEntry[$argumentType];
+				switch ($argumentType) {
+					case 'service':
+						$arguments[] = new ServiceDependency($argumentValue);
+						break;
+					case 'param':
+						$arguments[] = new ParameterArgument($argumentValue);
+						break;
+					case 'value':
+						$arguments[] = new ValueArgument($argumentValue);
+						break;
+					default:
+						throw new InvalidArgumentException('Invalid argument ' . $argumentType);
+				}
+			} else {
+				$arguments[] = $argumentEntry;
 			}
 		}
 

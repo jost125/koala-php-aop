@@ -8,7 +8,7 @@ use DI\Definition\Configuration\ConfigurationDefinition;
 use DI\Definition\Configuration\ServiceDefinition;
 use DI\ServiceNotExistsException;
 
-class Container {
+class Container implements IContainer {
 	private $services = array();
 	private $configurationDefinition;
 	private $proxyReplacer;
@@ -16,6 +16,7 @@ class Container {
 	public function __construct(ConfigurationDefinition $configurationDefinition, ProxyReplacer $proxyReplacer) {
 		$this->proxyReplacer = $proxyReplacer;
 		$this->configurationDefinition = $proxyReplacer->replaceProxies($configurationDefinition);
+		$this->services['container'] = $this;
 	}
 
 	public function getService($serviceId) {
@@ -33,7 +34,7 @@ class Container {
 	}
 
 	private function isServiceCreated($serviceId) {
-		return array_key_exists($serviceId, $this->services);
+		return isset($this->services[$serviceId]);
 	}
 
 	private function createService($serviceId) {
