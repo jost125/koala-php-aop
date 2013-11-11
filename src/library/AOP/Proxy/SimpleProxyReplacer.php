@@ -3,9 +3,8 @@
 namespace AOP\Proxy;
 
 use AOP\Aspect\AspectServiceFilter;
-use AOP\Proxy\ProxyBuilder;
-use AOP\Proxy\ProxyReplacer;
 use DI\Definition\Configuration\ConfigurationDefinition;
+use DI\Definition\Configuration\ServiceDefinition;
 
 class SimpleProxyReplacer implements ProxyReplacer {
 
@@ -30,7 +29,6 @@ class SimpleProxyReplacer implements ProxyReplacer {
 		$aspectDefinitions = $this->aspectReflectionResolver->filterAspectServices($serviceDefinitions);
 		$targetDefinitions = $this->subtractAspectsFromServices($serviceDefinitions, $aspectDefinitions);
 		$proxyDefinitions = $this->proxyBuilder->buildProxies($aspectDefinitions, $targetDefinitions);
-
 		return $this->replaceBuildProxies($configurationDefinition, $proxyDefinitions);
 	}
 
@@ -44,8 +42,9 @@ class SimpleProxyReplacer implements ProxyReplacer {
 	}
 
 	private function replaceBuildProxies(ConfigurationDefinition $configurationDefinition, array $proxyDefinitions) {
-		foreach ($proxyDefinitions as $serviceId => $proxyDefinition) {
-			$configurationDefinition->replaceServiceDefinition($serviceId, $proxyDefinition);
+		/** @var ServiceDefinition $proxyDefinition */
+		foreach ($proxyDefinitions as $proxyDefinition) {
+			$configurationDefinition->replaceServiceDefinition($proxyDefinition->getServiceId(), $proxyDefinition);
 		}
 
 		return $configurationDefinition;
