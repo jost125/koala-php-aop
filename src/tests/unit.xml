@@ -8,7 +8,7 @@
 >
 	<testsuites>
 	  <testsuite name="Behavior driven tests">
-		<directory>bdd-tests</directory>
+		<directory>unit</directory>
 	  </testsuite>
 	</testsuites>
 </phpunit>
