@@ -16,7 +16,7 @@ class Interceptor {
 	}
 
 	public function invoke(Joinpoint $joinpoint) {
-		$this->adviceReflectionMethod->invokeArgs($this->aspect, array($joinpoint));
+		return $this->adviceReflectionMethod->invokeArgs($this->aspect, array($joinpoint));
 	}
 
 }

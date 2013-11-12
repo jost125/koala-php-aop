@@ -2,6 +2,7 @@
 
 namespace Koala\AOP;
 
+use Koala\AOP\Interceptor\Interceptor;
 use ReflectionMethod;
 
 class Joinpoint {
@@ -24,13 +25,13 @@ class Joinpoint {
 	 * @return mixed
 	 */
 	public function proceed() {
-		if (empty($this->aroundInterceptors) || $this->proceedIndex >= count($this->aroundInterceptors)) {
+		if (count($this->aroundInterceptors) == 0 || $this->proceedIndex == count($this->aroundInterceptors)) {
 			return $this->reflectionMethod->invokeArgs($this->interceptedObject, $this->arguments);
 		}
 		else {
+			/** @var Interceptor $interceptor */
 			$interceptor = $this->aroundInterceptors[$this->proceedIndex++];
-			$interceptor->invoke($this);
-			return $this->proceed();
+			return $interceptor->invoke($this);
 		}
 	}
 
@@ -39,6 +40,14 @@ class Joinpoint {
 	 */
 	public function getArguments() {
 		return $this->arguments;
+	}
+
+	public function getArgument($index) {
+		return $this->arguments[$index];
+	}
+
+	public function setArgument($value, $index) {
+		return $this->arguments[$index] = $value;
 	}
 
 	public function getClassName() {
