@@ -18,19 +18,6 @@ return new ArrayConfigurationDefinition(
 					)
 				),
 			),
-			'articleController' => array(
-				'serviceId' => 'articleController',
-				'class' => '\Example\Controller\ArticleController',
-				'arguments' => array(
-					array('param' => 'my.param'),
-					array('service' => 'articleModelFacade'),
-				),
-			),
-			'articleModelFacade' => array(
-				'serviceId' => 'articleModelFacade',
-				'class' => '\Example\Model\Facade\ArticleModelFacade',
-				'arguments' => array(),
-			),
 			'logger' => array(
 				'serviceId' => 'logger',
 				'class' => '\Example\Logger\StdLogger',
