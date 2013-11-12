@@ -3,6 +3,7 @@
 namespace Koala\Collection;
 
 use ArrayIterator;
+use InvalidArgumentException;
 use Traversable;
 
 class ArrayList implements IList {
@@ -51,8 +52,21 @@ class ArrayList implements IList {
 		unset($this->items[$offset]);
 	}
 
+	public function map(callable $mapCallback) {
+		$mapped = [];
+		foreach ($this->items as $item) {
+			$mapped[] = $mapCallback($item);
+		}
+
+		return new static($mapped);
+	}
+
+	public function flatMap(callable $mapCallback) {
+		return $this->map($mapCallback)->flatten();
+	}
+
 	public function flatten() {
-		return $this->doFlatten($this->items);
+		return new static($this->doFlatten($this->items));
 	}
 
 	private function doFlatten($items) {
@@ -65,7 +79,7 @@ class ArrayList implements IList {
 		else {
 			$flattened[] = $items;
 		}
-		return new static($flattened);
+		return $flattened;
 	}
 
 	public function filter(callable $filterCallback) {
@@ -123,5 +137,15 @@ class ArrayList implements IList {
 		return $this->filter(function ($item) {
 			return $item !== null;
 		});
+	}
+
+	public function append($items) {
+		if (is_array($items)) {
+			return new static(array_merge($this->items, $items));
+		} else if ($items instanceof IList) {
+			return new static(array_merge($this->items, $items->toArray()));
+		} else {
+			throw new InvalidArgumentException('Another type for appending is not yet supported.');
+		}
 	}
 }
