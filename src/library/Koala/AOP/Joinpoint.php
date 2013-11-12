@@ -51,11 +51,19 @@ class Joinpoint {
 	}
 
 	public function getClassName() {
-		return $this->reflectionMethod->getDeclaringClass()->getNamespaceName();
+		return $this->reflectionMethod->getDeclaringClass()->getName();
+	}
+
+	public function getClassShortName() {
+		return $this->reflectionMethod->getDeclaringClass()->getShortName();
 	}
 
 	public function getMethodName() {
 		return $this->reflectionMethod->getName();
+	}
+
+	public function getReflectionMethod() {
+		return $this->reflectionMethod;
 	}
 
 	public function setAroundInterceptors($aroundInterceptors) {
