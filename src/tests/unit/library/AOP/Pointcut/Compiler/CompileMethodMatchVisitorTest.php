@@ -29,11 +29,11 @@ class CompileMethodMatchVisitorTest extends TestCase {
 			),
 			array(
 				'execution(private \\Some\\NamespacedClass::withMethod())',
-				'(preg_match(\'~^\\\\Some\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
+				'(preg_match(\'~^Some\\\\\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
 			),
 			array(
 				'execution(private \\NotNamespaced::withMethod())',
-				'(preg_match(\'~^\\\\NotNamespaced$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
+				'(preg_match(\'~^NotNamespaced$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
 			),
 			array(
 				'execution(private *EndsWith::withMethod())',
@@ -41,27 +41,27 @@ class CompileMethodMatchVisitorTest extends TestCase {
 			),
 			array(
 				'execution(private \\BeginsWith*::withMethod())',
-				'(preg_match(\'~^\\\\BeginsWith.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())'
+				'(preg_match(\'~^BeginsWith.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())'
 			),
 			array(
 				'execution(private \\BeginsWith*EndsWith::withMethod())',
-				'(preg_match(\'~^\\\\BeginsWith.*?EndsWith$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())'
+				'(preg_match(\'~^BeginsWith.*?EndsWith$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())'
 			),
 			array(
 				'execution(private *\\ClassInAnyDepth::withMethod())',
-				'(preg_match(\'~^.*?\\\\ClassInAnyDepth$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
+				'(preg_match(\'~^.*?\\\\\\\\ClassInAnyDepth$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
 			),
 			array(
 				'execution(private \\Some\\NamespacedClass::withMethod(..))',
-				'(preg_match(\'~^\\\\Some\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
+				'(preg_match(\'~^Some\\\\\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate())',
 			),
 			array(
 				'execution(private \\Some\\NamespacedClass::withMethod(var, var))',
-				'(preg_match(\'~^\\\\Some\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate() && $reflectionMethod->getNumberOfParameters() === 2)'
+				'(preg_match(\'~^Some\\\\\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate() && $reflectionMethod->getNumberOfParameters() === 2)'
 			),
 			array(
 				'execution(private \\Some\\NamespacedClass::withMethod($captured1, var, \\Param $captured2))',
-				'(preg_match(\'~^\\\\Some\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate() && $reflectionMethod->getNumberOfParameters() === 3 && $this->getMethodArgument(2)->getClass() === \'\\\\Param\')'
+				'(preg_match(\'~^Some\\\\\\\\NamespacedClass$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^withMethod$~\', $reflectionMethod->getName()) && $reflectionMethod->isPrivate() && $reflectionMethod->getNumberOfParameters() === 3 && $this->getMethodArgument(2)->getClass() === \'\\\\Param\')'
 			),
 			array(
 				'execution(* *::*(..)) and execution(* *::*(..))',

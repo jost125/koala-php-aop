@@ -62,7 +62,7 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 	}
 
 	public function acceptClassExpression(ClassExpression $classExpression) {
-		$this->compiled .= 'preg_match(\'~' . $this->prepareRegex($classExpression->getValue()) . '~\', $reflectionMethod->getDeclaringClass()->getName())';
+		$this->compiled .= 'preg_match(\'~' . $this->prepareRegex(ltrim($classExpression->getValue(), '\\')) . '~\', $reflectionMethod->getDeclaringClass()->getName())';
 	}
 
 	public function acceptMethodExpression(MethodExpression $methodExpression) {
@@ -108,6 +108,6 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 	}
 
 	private function prepareRegex($expression) {
-		return '^' . str_replace('\\', '\\\\', str_replace('*', '.*?', $expression)) . '$';
+		return '^' . str_replace('\\', '\\\\\\\\', str_replace('*', '.*?', $expression)) . '$';
 	}
 }
