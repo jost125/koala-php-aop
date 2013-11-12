@@ -10,8 +10,8 @@ class HiController {
 		$this->hiMessage = $hiMessage;
 	}
 
-	public function sayHiAction() {
-		echo $this->hiMessage . "\n";
+	public function sayHiAction($name) {
+		echo $this->hiMessage . " $name\n";
 	}
 
 }
