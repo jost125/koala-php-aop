@@ -124,7 +124,7 @@ class SimpleProxyGenerator implements ProxyGenerator {
 		$interceptedMethods = array();
 		/** @var Joinpoint $joinpoint */
 		foreach ($proxy->getJoinpointsAdvices()->getKeys() as $joinpoint) {
-			$interceptedMethods[] = $joinpoint->getReflectionMethod();
+			$interceptedMethods[$joinpoint->getReflectionMethod()->getName()] = $joinpoint->getReflectionMethod();
 		}
 		return $this->proxyCompiler->compileProxy($targetClass, $interceptedMethods);
 	}
