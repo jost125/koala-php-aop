@@ -77,7 +77,7 @@ class ProxyCompiler {
 		$generated = array();
 		foreach ($parameters as $parameter) {
 			$name = $parameter->getName();
-			$generated[] = $parameter->getClass() ? $parameter->getClass()->getNamespaceName() . $parameter->getClass()->getName() . ' $' . $name : '$' . $name;
+			$generated[] = $parameter->getClass() ? '\\' . $parameter->getClass()->getName() . ' $' . $name : '$' . $name;
 		}
 
 		return implode(', ', $generated);
