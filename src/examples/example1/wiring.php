@@ -1,5 +1,6 @@
 <?php
 
+use Example\Aspect\NameWrapper;
 use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
 
 return new ArrayConfigurationDefinition(
@@ -29,6 +30,11 @@ return new ArrayConfigurationDefinition(
 				'arguments' => [
 					['service' => 'logger'],
 				],
+			],
+			'nameWrapper' => [
+				'serviceId' => 'nameWrapper',
+				'class' => NameWrapper::class,
+				'arguments' => [],
 			],
 		)
 	)
