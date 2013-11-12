@@ -35,7 +35,7 @@ class SimplePointcutExpressionResolver implements PointcutExpressionResolver {
 
 		$joinpoints = [];
 		foreach ($reflectionClass->getMethods() as $reflectionMethod) {
-			if ($matcher->match($reflectionMethod)) {
+			if ($reflectionMethod->getName() != '__construct' && $matcher->match($reflectionMethod)) {
 				$joinpoints[] = new Joinpoint($reflectionMethod);
 			}
 		}
