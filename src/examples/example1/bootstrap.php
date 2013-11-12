@@ -16,7 +16,6 @@ use Koala\AutoLoad\PSR0AutoLoader;
 use Koala\Cache\FileCache;
 use Koala\Collection\ArrayList;
 use Koala\DI\Container;
-use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
 use Koala\IO\Storage\FileStorage;
 use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
 use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
@@ -24,52 +23,10 @@ use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../../library/loader.php';
 
-$configurationDefinition = new ArrayConfigurationDefinition(
-	array(
-		'params' => array(
-			'my.param' => 'hi',
-		),
-		'services' => array(
-			'hiController' => array(
-				'serviceId' => 'hiController',
-				'class' => '\Example\Controller\HiController',
-				'arguments' => array(),
-				'setup' => array(
-					'setHiMessage' => array(
-						array('param' => 'my.param')
-					)
-				),
-			),
-			'articleController' => array(
-				'serviceId' => 'articleController',
-				'class' => '\Example\Controller\ArticleController',
-				'arguments' => array(
-					array('param' => 'my.param'),
-					array('service' => 'articleModelFacade'),
-				),
-			),
-			'articleModelFacade' => array(
-				'serviceId' => 'articleModelFacade',
-				'class' => '\Example\Model\Facade\ArticleModelFacade',
-				'arguments' => array(),
-			),
-			'logger' => array(
-				'serviceId' => 'logger',
-				'class' => '\Example\Logger\StdLogger',
-				'arguments' => array(),
-			),
-			'executionLogging' => [
-				'serviceId' => 'executionLogging',
-				'class' => '\Example\Aspect\ExecutionLogging',
-				'arguments' => [
-					['service' => 'logger'],
-				],
-			],
-		)
-	)
-);
 $autoload = new PSR0AutoLoader(new ArrayList([__DIR__ . '/library/']));
 $autoload->register();
+
+$configurationDefinition = require __DIR__ . '/wiring.php';
 
 $proxyMemberPrefix = '__aop___';
 $proxyNamespacePrefix = '__AOP__';
