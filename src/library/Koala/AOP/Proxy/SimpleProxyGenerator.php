@@ -6,6 +6,8 @@ use InvalidArgumentException;
 use Koala\AOP\Abstraction\Advice;
 use Koala\AOP\Abstraction\Joinpoint;
 use Koala\AOP\Abstraction\Pointcut\AfterPointcut;
+use Koala\AOP\Abstraction\Pointcut\AfterReturningPointcut;
+use Koala\AOP\Abstraction\Pointcut\AfterThrowingPointcut;
 use Koala\AOP\Abstraction\Pointcut\AroundPointcut;
 use Koala\AOP\Abstraction\Pointcut\BeforePointcut;
 use Koala\AOP\Abstraction\Proxy;
@@ -62,6 +64,12 @@ class SimpleProxyGenerator implements ProxyGenerator {
 							break;
 						case AfterPointcut::class:
 							$interceptorType = InterceptorTypes::AFTER;
+							break;
+						case AfterThrowingPointcut::class:
+							$interceptorType = InterceptorTypes::AFTER_THROWING;
+							break;
+						case AfterReturningPointcut::class:
+							$interceptorType = InterceptorTypes::AFTER_RETURNING;
 							break;
 						case AroundPointcut::class:
 							$interceptorType = InterceptorTypes::AROUND;

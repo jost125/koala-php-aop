@@ -32,7 +32,9 @@ class HashMapLoader implements Loader {
 		return new MethodInterceptorList(
 			isset($this->loadedInterceptors[$key][InterceptorTypes::BEFORE]) ? $this->loadedInterceptors[$key][InterceptorTypes::BEFORE] : [],
 			isset($this->loadedInterceptors[$key][InterceptorTypes::AROUND]) ? $this->loadedInterceptors[$key][InterceptorTypes::AROUND] : [],
-			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER] : []
+			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER] : [],
+			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER_RETURNING]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER_RETURNING] : [],
+			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER_THROWING]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER_THROWING] : []
 		);
 	}
 

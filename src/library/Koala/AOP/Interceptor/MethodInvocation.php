@@ -2,6 +2,7 @@
 
 namespace Koala\AOP\Interceptor;
 
+use Exception;
 use Koala\AOP\Joinpoint;
 use ReflectionMethod;
 
@@ -23,8 +24,14 @@ class MethodInvocation {
 		$this->targetMethod->setAccessible(true);
 		$joinpoint = new Joinpoint($this->proxyObject, $this->targetMethod, $this->arguments);
 		$this->interceptors->interceptBefore($joinpoint);
-		$result = $this->interceptors->interceptAround($joinpoint);
-		$this->interceptors->interceptAfter($joinpoint, $result);
+		$result = null;
+		try {
+			$result = $this->interceptors->interceptAround($joinpoint);
+			$this->interceptors->interceptAfterReturning($joinpoint, $result);
+		} catch (Exception $ex) {
+			$this->interceptors->interceptAfterThrowing($joinpoint, $ex);
+		}
+		$this->interceptors->interceptAfter($joinpoint);
 
 		return $result;
 	}
