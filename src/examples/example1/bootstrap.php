@@ -12,22 +12,14 @@ use Koala\AOP\Proxy\SimpleProxyBuilder;
 use Koala\AOP\Proxy\SimpleProxyFinder;
 use Koala\AOP\Proxy\SimpleProxyGenerator;
 use Koala\AOP\Proxy\SimpleProxyReplacer;
+use Koala\AutoLoad\PSR0AutoLoader;
 use Koala\Cache\FileCache;
+use Koala\Collection\ArrayList;
 use Koala\DI\Container;
 use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
 use Koala\IO\Storage\FileStorage;
 use Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver;
 use Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher;
-
-spl_autoload_register(function($className) {
-	if (preg_match('~^[\\a-zA-Z0-9]+$~', $className)) {
-		$fileName = preg_replace('~\\\\~', '/', $className) . '.php';
-		$filePath = __DIR__ . '/library/' . $fileName;
-		if (file_exists($filePath)) {
-			require_once $filePath;
-		}
-	}
-});
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
 require_once __DIR__ . '/../../library/loader.php';
@@ -76,6 +68,8 @@ $configurationDefinition = new ArrayConfigurationDefinition(
 		)
 	)
 );
+$autoload = new PSR0AutoLoader(new ArrayList([__DIR__ . '/library/']));
+$autoload->register();
 
 $proxyMemberPrefix = '__aop___';
 $proxyNamespacePrefix = '__AOP__';

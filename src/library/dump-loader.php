@@ -1,10 +1,10 @@
 <?php
 
-include_once __DIR__ . '/Koala/Tools/AutoLoaderCreator.php';
+include_once __DIR__ . '/Koala/AutoLoad/AutoLoaderDumper.php';
 include_once __DIR__ . '/Koala/Collection/IList.php';
 include_once __DIR__ . '/Koala/Collection/ArrayList.php';
 
-use Koala\Tools\AutoLoaderCreator;
+use Koala\AutoLoad\AutoLoaderDumper;
 
-$creator = new AutoLoaderCreator();
+$creator = new AutoLoaderDumper();
 $creator->create(__DIR__ . '/Koala', __DIR__ . '/classloader.php');

@@ -72,6 +72,8 @@ spl_autoload_register(function($className) {
 		'Koala\AOP\Proxy\SimpleProxyReplacer' => './Koala/AOP/Proxy/SimpleProxyReplacer.php',
 		'Koala\AOP\Proxy\Compiling\CompiledProxy' => './Koala/AOP/Proxy/Compiling/CompiledProxy.php',
 		'Koala\AOP\Proxy\Compiling\ProxyCompiler' => './Koala/AOP/Proxy/Compiling/ProxyCompiler.php',
+		'Koala\AutoLoad\AutoLoaderDumper' => './Koala/AutoLoad/AutoLoaderDumper.php',
+		'Koala\AutoLoad\PSR0AutoLoader' => './Koala/AutoLoad/PSR0AutoLoader.php',
 		'Koala\Cache\FileCache' => './Koala/Cache/FileCache.php',
 		'Koala\Cache\ICache' => './Koala/Cache/ICache.php',
 		'Koala\Collection\ArrayList' => './Koala/Collection/ArrayList.php',
@@ -104,7 +106,6 @@ spl_autoload_register(function($className) {
 		'Koala\Reflection\Annotation\Parsing\AnnotationResolver' => './Koala/Reflection/Annotation/Parsing/AnnotationResolver.php',
 		'Koala\Reflection\Annotation\Parsing\DoctrineAnnotationResolver' => './Koala/Reflection/Annotation/Parsing/DoctrineAnnotationResolver.php',
 		'Koala\Reflection\Annotation\Parsing\SimpleAnnotationExpressionMatcher' => './Koala/Reflection/Annotation/Parsing/SimpleAnnotationExpressionMatcher.php',
-		'Koala\Tools\AutoLoaderCreator' => './Koala/Tools/AutoLoaderCreator.php',
 
 	];
 	if (isset($classes[$className])) {

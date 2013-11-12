@@ -1,11 +1,11 @@
 <?php
 
-namespace Koala\Tools;
+namespace Koala\AutoLoad;
 
 use Koala\Collection\ArrayList;
 use Koala\Collection\IList;
 
-class AutoLoaderCreator {
+class AutoLoaderDumper {
 
 	public function create($dirToScan, $fileToDump) {
 		$classesInFiles = $this->scanFiles($dirToScan)->map(function ($file) use ($fileToDump) {
