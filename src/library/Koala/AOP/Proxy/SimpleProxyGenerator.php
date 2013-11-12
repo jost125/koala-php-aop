@@ -94,12 +94,14 @@ class SimpleProxyGenerator implements ProxyGenerator {
 			$arguments = $proxy->getTargetDefinition()->hasConstructorArguments() ? $proxy->getTargetDefinition()->getConstructorArguments() : array();
 
 			$existingSetupMethods = $proxy->getTargetDefinition()->hasSetupMethods() ? $proxy->getTargetDefinition()->getSetupMethods() : array();
-			foreach ($existingSetupMethods as $existingSetupMethod) {
-				$setupMethods[$existingSetupMethod->getMethodName()] = $existingSetupMethod->getArguments();
-			}
+			$setupMethods = [];
 			$setupMethods['set' . $this->proxyMemberPrefix . 'interceptorLoader'] = array(
 				array('service' => $this->interceptorLoaderId),
 			);
+
+			foreach ($existingSetupMethods as $existingSetupMethod) {
+				$setupMethods[$existingSetupMethod->getMethodName()] = $existingSetupMethod->getArguments();
+			}
 
 			$definition = new ArrayServiceDefinition(array(
 				'serviceId' => $proxy->getTargetDefinition()->getServiceId(),
