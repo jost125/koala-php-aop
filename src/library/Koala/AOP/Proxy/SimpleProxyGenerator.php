@@ -127,6 +127,6 @@ class SimpleProxyGenerator implements ProxyGenerator {
 			$interceptedMethods[] = $joinpoint->getReflectionMethod();
 		}
 		return $this->proxyCompiler->compileProxy($targetClass, $interceptedMethods);
-}
+	}
 
 }
