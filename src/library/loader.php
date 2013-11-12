@@ -1,11 +1,10 @@
 <?php
 
-spl_autoload_register(function($className) {
-	if (preg_match('~^[\\a-zA-Z0-9]+$~', $className)) {
-		$fileName = preg_replace('~\\\\~', '/', $className) . '.php';
-		$filePath = __DIR__ . '/' . $fileName;
-		if (file_exists($filePath)) {
-			require_once $filePath;
-		}
-	}
-});
+include_once __DIR__ . '/classloader.php';
+
+new \Koala\AOP\Aspect([]); // Hack to import
+new \Koala\AOP\Around([]); // Hack to import
+new \Koala\AOP\Before([]); // Hack to import
+new \Koala\AOP\After([]); // Hack to import
+new \Koala\AOP\AfterReturning([]); // Hack to import
+new \Koala\AOP\AfterThrowing([]); // Hack to import

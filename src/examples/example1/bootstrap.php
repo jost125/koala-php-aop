@@ -29,8 +29,8 @@ spl_autoload_register(function($className) {
 	}
 });
 
-require_once __DIR__ . '/../../library/loader.php';
 require_once __DIR__ . '/../../../vendor/autoload.php';
+require_once __DIR__ . '/../../library/loader.php';
 
 $configurationDefinition = new ArrayConfigurationDefinition(
 	array(
@@ -76,9 +76,6 @@ $configurationDefinition = new ArrayConfigurationDefinition(
 		)
 	)
 );
-
-new \Koala\AOP\Aspect([]); // Hack to import
-new \Koala\AOP\Around([]); // Hack to import
 
 $proxyMemberPrefix = '__aop___';
 $proxyNamespacePrefix = '__AOP__';
