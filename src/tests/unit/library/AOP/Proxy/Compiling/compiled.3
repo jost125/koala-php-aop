@@ -1,0 +1,19 @@
+<?php
+
+namespace GeneratedAOPProxy\Namespaced;
+
+class BarService extends \Namespaced\BarService {
+
+	private $___aop___interceptorLoader;
+
+	public function foobar() {
+		$reflectionMethod = new \ReflectionMethod('Namespaced\BarService', 'foobar');
+		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
+		$invocation = new \Koala\AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
+		return $invocation->proceed();
+	}
+
+	public function set___aop___interceptorLoader(\Koala\AOP\Interceptor\Loader $loader) {
+		$this->___aop___interceptorLoader = $loader;
+	}
+}

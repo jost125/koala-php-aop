@@ -1,2 +1,3 @@
 .idea
 /vendor/
+src/examples/example1/tmp/cache/*

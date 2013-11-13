@@ -3,4 +3,4 @@ require 'bootstrap.php';
 
 /** @var $articleController \Example\Controller\HiController */
 $articleController = $diContainer->getService('hiController');
-$articleController->sayHiAction();
+$articleController->sayHiAction('John')->render();

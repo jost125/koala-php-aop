@@ -1,0 +1,14 @@
+<phpunit bootstrap="bootstrap.php"
+	convertErrorsToExceptions="true"
+	convertNoticesToExceptions="true"
+	convertWarningsToExceptions="true"
+	stopOnFailure="false"
+	backupGlobals="false"
+	backupStaticAttributes="false"
+>
+	<testsuites>
+	  <testsuite name="Behavior driven tests">
+		<directory>unit</directory>
+	  </testsuite>
+	</testsuites>
+</phpunit>
