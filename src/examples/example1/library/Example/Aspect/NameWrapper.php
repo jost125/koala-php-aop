@@ -14,7 +14,7 @@ class NameWrapper {
 	/**
 	 * @Around("execution(public \Example\Controller\HiController::sayHiAction(var))")
 	 */
-	public function logExecution(Joinpoint $joinpoint) {
+	public function wrapName(Joinpoint $joinpoint) {
 		$joinpoint->setArgument('<b>' . $joinpoint->getArgument(0) . '</b>', 0);
 		$result = $joinpoint->proceed();
 
