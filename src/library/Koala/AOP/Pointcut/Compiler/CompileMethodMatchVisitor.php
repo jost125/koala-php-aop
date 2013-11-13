@@ -73,6 +73,9 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 	}
 
 	public function acceptModifier(Modifier $modifier) {
+		if ($modifier->getValue() == 'private') {
+			throw new NotSupportedModifierException('private modifier is not yet supported.');
+		}
 		$this->modifier = $modifier;
 	}
 
