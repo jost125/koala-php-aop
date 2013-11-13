@@ -30,6 +30,7 @@ class MethodInvocation {
 			$this->interceptors->interceptAfterReturning($joinpoint, $result);
 		} catch (Exception $ex) {
 			$this->interceptors->interceptAfterThrowing($joinpoint, $ex);
+			throw $ex;
 		}
 		$this->interceptors->interceptAfter($joinpoint);
 

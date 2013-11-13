@@ -58,11 +58,11 @@ class MethodInterceptorList {
 	}
 
 	public function interceptAfterThrowing(Joinpoint $joinpoint, Exception $exception) {
-		if (!count($this->afterInterceptors)) {
+		if (!count($this->afterThrowingInterceptors)) {
 			throw $exception;
 		}
-		foreach ($this->afterInterceptors as $afterInterceptor) {
-			$afterInterceptor->invokeWithException($joinpoint, $exception);
+		foreach ($this->afterThrowingInterceptors as $afterThrowingInterceptor) {
+			$afterThrowingInterceptor->invokeWithException($joinpoint, $exception);
 		}
 	}
 
