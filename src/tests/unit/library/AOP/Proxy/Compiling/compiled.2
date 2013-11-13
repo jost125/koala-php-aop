@@ -6,7 +6,7 @@ class BarService extends \BarService {
 
 	private $___aop___interceptorLoader;
 
-	public function foo(FooService $foo, $bar, $baz) {
+	public function foo(\FooService $foo, $bar, $baz) {
 		$reflectionMethod = new \ReflectionMethod('BarService', 'foo');
 		$interceptors = $this->___aop___interceptorLoader->loadInterceptors($reflectionMethod);
 		$invocation = new \Koala\AOP\Interceptor\MethodInvocation($this, $reflectionMethod, func_get_args(), $interceptors);
