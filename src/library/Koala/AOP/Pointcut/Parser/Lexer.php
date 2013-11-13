@@ -119,7 +119,7 @@ class Lexer {
 						$this->skipChar('r');
 						switch ($this->stream->peek()) {
 							case 'i': $this->skipWord('ivate'); break;
-							case 'o': $this->skipWord('etected'); break;
+							case 'o': $this->skipWord('otected'); break;
 						}
 						break;
 					case 'u': $this->skipWord('ublic'); break;
