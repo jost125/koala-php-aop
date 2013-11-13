@@ -6,6 +6,7 @@ use Koala\AOP\Abstraction\Joinpoint;
 use Koala\AOP\Pointcut\Compiler\MethodMatcherCompiler;
 use Koala\Reflection\MethodMatcher;
 use ReflectionClass;
+use ReflectionMethod;
 
 class SimplePointcutExpressionResolver implements PointcutExpressionResolver {
 
@@ -34,7 +35,7 @@ class SimplePointcutExpressionResolver implements PointcutExpressionResolver {
 		$matcher = $this->methodMatchers[$pointcutExpression->getExpression()];
 
 		$joinpoints = [];
-		foreach ($reflectionClass->getMethods() as $reflectionMethod) {
+		foreach ($reflectionClass->getMethods(ReflectionMethod::IS_PUBLIC | ReflectionMethod::IS_PROTECTED) as $reflectionMethod) {
 			if ($reflectionMethod->getName() != '__construct' && $matcher->match($reflectionMethod)) {
 				$joinpoints[] = new Joinpoint($reflectionMethod);
 			}
