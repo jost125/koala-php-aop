@@ -23,18 +23,16 @@ class HashMapLoader implements Loader {
 			return [];
 		}
 
-		if (isset($this->loadedInterceptors[$key])) {
-			return $this->loadedInterceptors[$key];
+		if (!isset($this->loadedInterceptors[$key])) {
+			$this->loadedInterceptors[$key] = $this->load($key);
 		}
 
-		$this->loadedInterceptors[$key] = $this->load($key);
-
 		return new MethodInterceptorList(
-			isset($this->loadedInterceptors[$key][InterceptorTypes::BEFORE]) ? $this->loadedInterceptors[$key][InterceptorTypes::BEFORE] : [],
-			isset($this->loadedInterceptors[$key][InterceptorTypes::AROUND]) ? $this->loadedInterceptors[$key][InterceptorTypes::AROUND] : [],
-			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER] : [],
-			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER_RETURNING]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER_RETURNING] : [],
-			isset($this->loadedInterceptors[$key][InterceptorTypes::AFTER_THROWING]) ? $this->loadedInterceptors[$key][InterceptorTypes::AFTER_THROWING] : []
+			$this->loadedInterceptors[$key][InterceptorTypes::BEFORE],
+			$this->loadedInterceptors[$key][InterceptorTypes::AROUND],
+			$this->loadedInterceptors[$key][InterceptorTypes::AFTER],
+			$this->loadedInterceptors[$key][InterceptorTypes::AFTER_RETURNING],
+			$this->loadedInterceptors[$key][InterceptorTypes::AFTER_THROWING]
 		);
 	}
 
@@ -44,6 +42,11 @@ class HashMapLoader implements Loader {
 
 	private function load($key) {
 		$interceptors = [];
+		$interceptors[InterceptorTypes::BEFORE] = [];
+		$interceptors[InterceptorTypes::AROUND] = [];
+		$interceptors[InterceptorTypes::AFTER] = [];
+		$interceptors[InterceptorTypes::AFTER_RETURNING] = [];
+		$interceptors[InterceptorTypes::AFTER_THROWING] = [];
 		foreach ($this->interceptors[$key] as $type => $ids) {
 			foreach ($ids as list($id, $adviceMethod)) {
 				$interceptors[$type][] = new Interceptor($this->container->getService($id), $adviceMethod);

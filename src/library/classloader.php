@@ -37,6 +37,7 @@ spl_autoload_register(function($className) {
 		'Koala\AOP\Pointcut\SimplePointcutExpressionResolver' => './Koala/AOP/Pointcut/SimplePointcutExpressionResolver.php',
 		'Koala\AOP\Pointcut\Compiler\CompileMethodMatchVisitor' => './Koala/AOP/Pointcut/Compiler/CompileMethodMatchVisitor.php',
 		'Koala\AOP\Pointcut\Compiler\MethodMatcherCompiler' => './Koala/AOP/Pointcut/Compiler/MethodMatcherCompiler.php',
+		'Koala\AOP\Pointcut\Compiler\NotSupportedModifierException' => './Koala/AOP/Pointcut/Compiler/NotSupportedModifierException.php',
 		'Koala\AOP\Pointcut\Compiler\PointcutToMatcherClassTranslation' => './Koala/AOP/Pointcut/Compiler/PointcutToMatcherClassTranslation.php',
 		'Koala\AOP\Pointcut\Parser\AlreadyRecordingException' => './Koala/AOP/Pointcut/Parser/AlreadyRecordingException.php',
 		'Koala\AOP\Pointcut\Parser\Lexer' => './Koala/AOP/Pointcut/Parser/Lexer.php',
