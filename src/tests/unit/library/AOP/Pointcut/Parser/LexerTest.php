@@ -49,6 +49,11 @@ class LexerTest extends TestCase {
 					execution(* *::*(..)) or
 					execution(* *::*(..))
 				)'),
+			array('methodAnnotated(\\Some\\Annotation) and execution(* *::*(..))'),
+			array('methodAnnotated(*AnnotationEndsWith) and execution(* *::*(..))'),
+			array('methodAnnotated(*AnnotationEndsWith)'),
+			array('methodAnnotated(*)'),
+			array('methodAnnotated(\\BeginsWith*AnnotationEndsWith)'),
 		);
 	}
 
@@ -66,6 +71,7 @@ class LexerTest extends TestCase {
 			array('execution(private \\Some\\NamespacedClass::withMethod($captured1, var, \\Param ..))', 'Unexpected char \'.\' at position 77'),
 			array('execution()', 'Unexpected char \')\' at position 11'),
 			array('execution(* *::*(..)) and (execution(* *::*(..)) or execution(* *::*(..))) a', 'Unexpected char \' \' at position 74'),
+			array('methodAnotated(*)', 'Unexpected char \'o\' at position 9'),
 			array('a execution(* *::*(..)) and (execution(* *::*(..)) or execution(* *::*(..)))', 'Unexpected char \'a\' at position 0'),
 		);
 	}
