@@ -70,4 +70,13 @@ class DoctrineAnnotationResolver implements AnnotationResolver {
 
 		return $filteredAnnotations;
 	}
+
+	/**
+	 * @param ReflectionMethod     $reflectionMethod
+	 * @param AnnotationExpression $annotationExpression
+	 * @return boolean
+	 */
+	public function hasMethodAnnotation(ReflectionMethod $reflectionMethod, AnnotationExpression $annotationExpression) {
+		return count($this->getMethodAnnotations($reflectionMethod, $annotationExpression)) !== 0;
+	}
 }

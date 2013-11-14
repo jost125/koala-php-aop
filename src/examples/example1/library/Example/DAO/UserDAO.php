@@ -3,6 +3,7 @@
 namespace Example\DAO;
 
 use Exception;
+use Example\Transactional;
 
 class UserDAO {
 
@@ -14,6 +15,9 @@ class UserDAO {
 		]
 	];
 
+	/**
+	 * @Transactional
+	 */
 	public function findByFirstName($name) {
 		$name = $this->removeWS($name);
 		if (!isset($this->users[$name])) {
