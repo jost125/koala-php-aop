@@ -154,12 +154,6 @@ class Lexer {
 		$this->stream->startRecording();
 		do {
 			switch($this->stream->peek()) {
-				case '*':
-					$this->skipChar('*');
-					if ($this->matchIdBegin($this->stream->peek())) {
-						$this->id();
-					}
-					break;
 				case '\\':
 					$this->skipChar('\\');
 					$this->id();
@@ -167,7 +161,7 @@ class Lexer {
 				default:
 					$this->throwUnexpectedChar($this->stream->read());
 			}
-		} while(in_array($this->stream->peek(), array('*', '\\')));
+		} while(in_array($this->stream->peek(), array('\\')));
 		$this->stream->stopRecording();
 		return new AnnotationClassExpression($this->stream->getRecord());
 	}

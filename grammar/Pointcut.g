@@ -21,7 +21,7 @@ POINTCUT_EXPRESSION
 fragment
 POINTCUT
 	:	'execution' WS* '(' WS* MODIFIER WS+ CLASS_EXPRESSION '::' METHOD_EXPRESSION '(' WS* (ARGUMENTS_EXPRESSION WS*)? ')' WS* ')'
-	|	'methodAnnotated' WS* '(' WS* CLASS_EXPRESSION WS* ')';
+	|	'methodAnnotated' WS* '(' WS* ANNOTATION_EXPRESSION WS* ')';
 
 fragment
 MODIFIER
@@ -34,6 +34,10 @@ POINTCUT_OPERATOR
 fragment
 CLASS_EXPRESSION
 	:	(('*' | '\\') ID)+ | '*'; 
+	
+fragment
+ANNOTATION_EXPRESSION
+	:	('\\' ID)+;
 
 fragment
 METHOD_EXPRESSION

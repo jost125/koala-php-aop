@@ -80,11 +80,11 @@ class CompileMethodMatchVisitorTest extends TestCase {
 			),
 			array(
 				'methodAnnotated(\\Some\\Annotation)',
-				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'\\Some\\Annotation\')))'
+				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new \Koala\Reflection\Annotation\Parsing\AnnotationExpression(\'\\Some\\Annotation\')))'
 			),
 			array(
 				'methodAnnotated(\\Some\\Annotation) and execution(* *::*(..))',
-				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'\\Some\\Annotation\'))) && (preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName()))'
+				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new \Koala\Reflection\Annotation\Parsing\AnnotationExpression(\'\\Some\\Annotation\'))) && (preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName()))'
 			),
 		);
 	}
