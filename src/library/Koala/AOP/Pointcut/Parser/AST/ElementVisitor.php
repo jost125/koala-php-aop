@@ -3,9 +3,11 @@
 namespace Koala\AOP\Pointcut\Parser\AST;
 
 use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationMethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
 use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
 use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\ClassAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\ExecutionPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodAnnotatedPointcut;
@@ -23,6 +25,7 @@ interface ElementVisitor {
 	public function acceptAnyArguments(AnyArguments $anyArguments);
 	public function acceptArgument(Argument $argument);
 	public function acceptArgumentsExpression(ArgumentsExpression $argumentsExpression);
+	public function acceptAnnotationMethodExpression(AnnotationMethodExpression $annotationMethodExpression);
 	public function acceptAnnotationClassExpression(AnnotationClassExpression $annotationClassExpression);
 	public function acceptClassExpression(ClassExpression $classExpression);
 	public function acceptMethodExpression(MethodExpression $methodExpression);
@@ -30,6 +33,7 @@ interface ElementVisitor {
 	public function acceptNoArguments(NoArguments $noArguments);
 	public function acceptExecutionPointcut(ExecutionPointcut $pointcut);
 	public function acceptMethodAnnotatedPointcut(MethodAnnotatedPointcut $pointcut);
+	public function acceptClassAnnotatedPointcut(ClassAnnotatedPointcut $pointcut);
 	public function acceptPointcutExpression(PointcutExpression $pointcutExpression);
 	public function acceptPointcutExpressionGroupStart(PointcutExpressionGroupStart $pointcutExpressionGroupStart);
 	public function acceptPointcutExpressionGroupEnd(PointcutExpressionGroupEnd $pointcutExpressionGroupEnd);

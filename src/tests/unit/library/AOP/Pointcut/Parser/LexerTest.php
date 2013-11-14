@@ -49,7 +49,8 @@ class LexerTest extends TestCase {
 					execution(* *::*(..)) or
 					execution(* *::*(..))
 				)'),
-			array('methodAnnotated(\\Some\\Annotation) and execution(* *::*(..))'),
+			array('methodAnnotated(\\Some\\MethodAnnotation) and execution(* *::*(..))'),
+			array('classAnnotated(\\Some\\ClassAnnotation) and execution(* *::*(..))'),
 		);
 	}
 

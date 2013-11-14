@@ -3,9 +3,11 @@
 namespace Koala\AOP\Pointcut\Parser;
 
 use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationMethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
 use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
 use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\ClassAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodExpression;
@@ -40,6 +42,7 @@ class Lexer {
 		switch ($this->stream->peek()) {
 			case 'e':
 			case 'm':
+			case 'c':
 				$pointcutExpression->addElement($this->pointcut());
 				if ($this->matchWs($this->stream->peek())) {
 					$this->skipWs();
@@ -66,10 +69,19 @@ class Lexer {
 
 	private function pointcut() {
 		$c = $this->stream->peek();
-		if ($c == 'e') {
-			$pointcut = new ExecutionPointcut();
-		} else {
-			$pointcut = new MethodAnnotatedPointcut();
+		$pointcut = null;
+		switch ($c) {
+			case 'e':
+				$pointcut = new ExecutionPointcut();
+				break;
+			case 'm':
+				$pointcut = new MethodAnnotatedPointcut();
+				break;
+			case 'c':
+				$pointcut = new ClassAnnotatedPointcut();
+				break;
+			default:
+				$this->throwUnexpectedChar($c);
 		}
 
 		$pointcut->addElement($this->pointcutType());
@@ -97,6 +109,8 @@ class Lexer {
 
 			$this->skipChar(')');
 		} else if ($c == 'm') {
+			$pointcut->addElement($this->annotationMethodExpression());
+		} else if ($c == 'c') {
 			$pointcut->addElement($this->annotationClassExpression());
 		}
 		$this->skipWs();
@@ -110,6 +124,8 @@ class Lexer {
 		$c = $this->stream->peek();
 		if ($c == 'e') {
 			$this->skipWord('execution');
+		} else if ($c == 'c') {
+			$this->skipWord('classAnnotated');
 		} else {
 			$this->skipWord('methodAnnotated');
 		}
@@ -148,6 +164,22 @@ class Lexer {
 		}
 		$this->stream->stopRecording();
 		return new Modifier($this->stream->getRecord());
+	}
+
+	private function annotationMethodExpression() {
+		$this->stream->startRecording();
+		do {
+			switch($this->stream->peek()) {
+				case '\\':
+					$this->skipChar('\\');
+					$this->id();
+					break;
+				default:
+					$this->throwUnexpectedChar($this->stream->read());
+			}
+		} while(in_array($this->stream->peek(), array('\\')));
+		$this->stream->stopRecording();
+		return new AnnotationMethodExpression($this->stream->getRecord());
 	}
 
 	private function annotationClassExpression() {

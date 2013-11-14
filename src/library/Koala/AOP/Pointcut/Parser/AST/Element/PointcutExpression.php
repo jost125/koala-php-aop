@@ -13,6 +13,7 @@ class PointcutExpression extends ContainerElement {
 	protected function acceptElements() {
 		return new TypeList(array(
 			MethodAnnotatedPointcut::class,
+			ClassAnnotatedPointcut::class,
 			ExecutionPointcut::class,
 			PointcutOperator::class,
 			PointcutExpression::class,
