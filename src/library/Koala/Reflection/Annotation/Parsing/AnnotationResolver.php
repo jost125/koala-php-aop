@@ -15,6 +15,13 @@ interface AnnotationResolver {
 	public function hasClassAnnotation(ReflectionClass $reflectionClass, AnnotationExpression $annotationExpression);
 
 	/**
+	 * @param ReflectionMethod $reflectionMethod
+	 * @param AnnotationExpression $annotationExpression
+	 * @return boolean
+	 */
+	public function hasMethodAnnotation(ReflectionMethod $reflectionMethod, AnnotationExpression $annotationExpression);
+
+	/**
 	 * @param ReflectionClass $reflectionClass
 	 * @param AnnotationExpression $annotationExpression
 	 * @return ReflectionMethod[]

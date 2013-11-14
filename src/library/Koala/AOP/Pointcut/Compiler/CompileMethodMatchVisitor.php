@@ -2,14 +2,16 @@
 
 namespace Koala\AOP\Pointcut\Compiler;
 
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationClassExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
 use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
 use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\ExecutionPointcut;
+use Koala\AOP\Pointcut\Parser\AST\Element\MethodAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\Modifier;
 use Koala\AOP\Pointcut\Parser\AST\Element\NoArguments;
-use Koala\AOP\Pointcut\Parser\AST\Element\Pointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
@@ -61,6 +63,10 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 		}
 	}
 
+	public function acceptAnnotationClassExpression(AnnotationClassExpression $annotationClassExpression) {
+		$this->compiled .= '$this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'' . $annotationClassExpression->getValue() . '\'))';
+	}
+
 	public function acceptClassExpression(ClassExpression $classExpression) {
 		$this->compiled .= 'preg_match(\'~' . $this->prepareRegex(ltrim($classExpression->getValue(), '\\')) . '~\', $reflectionMethod->getDeclaringClass()->getName())';
 	}
@@ -83,7 +89,11 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 		$this->canHaveArgument = false;
 	}
 
-	public function acceptPointcut(Pointcut $pointcut) {
+	public function acceptMethodAnnotatedPointcut(MethodAnnotatedPointcut $pointcut) {
+		$this->compiled .= ')';
+	}
+
+	public function acceptExecutionPointcut(ExecutionPointcut $pointcut) {
 		$this->compiled .= ')';
 		$this->arguments = array();
 		$this->canHaveArgument = true;

@@ -2,14 +2,16 @@
 
 namespace Koala\AOP\Pointcut\Parser;
 
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationClassExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
 use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
 use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\MethodAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\Modifier;
 use Koala\AOP\Pointcut\Parser\AST\Element\NoArguments;
-use Koala\AOP\Pointcut\Parser\AST\Element\Pointcut;
+use Koala\AOP\Pointcut\Parser\AST\Element\ExecutionPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
@@ -63,8 +65,12 @@ class Lexer {
 	}
 
 	private function pointcut() {
-		$pointcut = new Pointcut();
 		$c = $this->stream->peek();
+		if ($c == 'e') {
+			$pointcut = new ExecutionPointcut();
+		} else {
+			$pointcut = new MethodAnnotatedPointcut();
+		}
 
 		$pointcut->addElement($this->pointcutType());
 		$this->skipWs();
@@ -91,7 +97,7 @@ class Lexer {
 
 			$this->skipChar(')');
 		} else if ($c == 'm') {
-			$pointcut->addElement($this->classExpression());
+			$pointcut->addElement($this->annotationClassExpression());
 		}
 		$this->skipWs();
 		$this->skipChar(')');
@@ -142,6 +148,28 @@ class Lexer {
 		}
 		$this->stream->stopRecording();
 		return new Modifier($this->stream->getRecord());
+	}
+
+	private function annotationClassExpression() {
+		$this->stream->startRecording();
+		do {
+			switch($this->stream->peek()) {
+				case '*':
+					$this->skipChar('*');
+					if ($this->matchIdBegin($this->stream->peek())) {
+						$this->id();
+					}
+					break;
+				case '\\':
+					$this->skipChar('\\');
+					$this->id();
+					break;
+				default:
+					$this->throwUnexpectedChar($this->stream->read());
+			}
+		} while(in_array($this->stream->peek(), array('*', '\\')));
+		$this->stream->stopRecording();
+		return new AnnotationClassExpression($this->stream->getRecord());
 	}
 
 	private function classExpression() {

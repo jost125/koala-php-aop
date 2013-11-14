@@ -5,20 +5,15 @@ namespace Koala\AOP\Pointcut\Parser\AST\Element;
 use Koala\AOP\Pointcut\Parser\AST\ContainerElement;
 use Koala\AOP\Pointcut\Parser\AST\TypeList;
 
-class PointcutExpression extends ContainerElement {
+class MethodAnnotatedPointcut extends ContainerElement {
 
 	/**
 	 * @return TypeList
 	 */
 	protected function acceptElements() {
 		return new TypeList(array(
-			MethodAnnotatedPointcut::class,
-			ExecutionPointcut::class,
-			PointcutOperator::class,
-			PointcutExpression::class,
-			PointcutExpressionGroupStart::class,
-			PointcutExpressionGroupEnd::class,
+			PointcutType::class,
+			AnnotationClassExpression::class
 		));
 	}
-
 }
