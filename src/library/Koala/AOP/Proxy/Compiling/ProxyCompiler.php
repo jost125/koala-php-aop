@@ -62,7 +62,7 @@ class ProxyCompiler {
 		$code = '';
 		foreach ($interceptedMethods as $method) {
 			$code .=
-				'	public function ' . $method->getName() . '(' . $this->generateMethodArguments($method) . ') {' . "\n" .
+				'	' . ($method->isProtected() ? 'protected' : 'public') . ' function ' . $method->getName() . '(' . $this->generateMethodArguments($method) . ') {' . "\n" .
 					'		$reflectionMethod = new \\ReflectionMethod(\'' . $method->getDeclaringClass()->getName() . '\', \'' . $method->getName() . '\');' . "\n" .
 					'		$interceptors = $this->' . $this->proxyMemberPrefix . 'interceptorLoader->loadInterceptors($reflectionMethod);' . "\n" .
 					'		$invocation = new \\' . MethodInvocation::class . '($this, $reflectionMethod, func_get_args(), $interceptors);' . "\n" .

@@ -53,7 +53,7 @@ class SimpleProxyReplacerFactory implements ProxyReplacerFactory {
 		$methodMatcherFileStorage = new FileStorage($methodMatcherDir);
 		$pointcutToMatcherClassTranslation = new PointcutToMatcherClassTranslation(new FileCache($pointcutToMatcherClassCacheDir));
 		$methodMatcherCompiler = new MethodMatcherCompiler($methodMatcherFileStorage, $pointcutToMatcherClassTranslation, $this->matcherNamespace, $methodMatcherDir);
-		$pointcutExpressionResolver = new SimplePointcutExpressionResolver($methodMatcherCompiler);
+		$pointcutExpressionResolver = new SimplePointcutExpressionResolver($methodMatcherCompiler, $doctrineAnnotationResolver);
 		$proxyFinder = new SimpleProxyFinder($aspectReflection, $pointcutExpressionResolver);
 		$simpleProxyBuilder = new SimpleProxyBuilder($proxyGenerator, $proxyFinder);
 		$aspectReflectionResolver = new PhpNativeAspectServiceFilter($doctrineAnnotationResolver);

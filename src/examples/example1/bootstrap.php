@@ -11,6 +11,10 @@ require_once __DIR__ . '/../../library/loader.php';
 $autoload = new PSR0AutoLoader(new ArrayList([__DIR__ . '/library/']));
 $autoload->register();
 
+new \Example\Transactional([]); // hack to import
+new \Example\JsonResponse([]); // hack to import
+new \Example\FileTemplateResponse([]); // hack to import
+
 $configurationDefinition = require __DIR__ . '/wiring.php';
 
 $proxyMemberPrefix = '__aop___';

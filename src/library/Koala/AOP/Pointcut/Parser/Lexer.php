@@ -2,14 +2,18 @@
 
 namespace Koala\AOP\Pointcut\Parser;
 
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\AnnotationMethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\AnyArguments;
 use Koala\AOP\Pointcut\Parser\AST\Element\Argument;
 use Koala\AOP\Pointcut\Parser\AST\Element\ArgumentsExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\ClassAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\ClassExpression;
+use Koala\AOP\Pointcut\Parser\AST\Element\MethodAnnotatedPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\MethodExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\Modifier;
 use Koala\AOP\Pointcut\Parser\AST\Element\NoArguments;
-use Koala\AOP\Pointcut\Parser\AST\Element\Pointcut;
+use Koala\AOP\Pointcut\Parser\AST\Element\ExecutionPointcut;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpression;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupEnd;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
@@ -37,6 +41,8 @@ class Lexer {
 		$pointcutExpression = new PointcutExpression();
 		switch ($this->stream->peek()) {
 			case 'e':
+			case 'm':
+			case 'c':
 				$pointcutExpression->addElement($this->pointcut());
 				if ($this->matchWs($this->stream->peek())) {
 					$this->skipWs();
@@ -62,29 +68,51 @@ class Lexer {
 	}
 
 	private function pointcut() {
-		$pointcut = new Pointcut();
+		$c = $this->stream->peek();
+		$pointcut = null;
+		switch ($c) {
+			case 'e':
+				$pointcut = new ExecutionPointcut();
+				break;
+			case 'm':
+				$pointcut = new MethodAnnotatedPointcut();
+				break;
+			case 'c':
+				$pointcut = new ClassAnnotatedPointcut();
+				break;
+			default:
+				$this->throwUnexpectedChar($c);
+		}
+
 		$pointcut->addElement($this->pointcutType());
 		$this->skipWs();
 		$this->skipChar('(');
 		$this->skipWs();
-		$pointcut->addElement($this->modifier());
-		$this->ws();
-		$this->skipWs();
-		$pointcut->addElement($this->classExpression());
-		$this->skipWord('::');
-		$pointcut->addElement($this->methodExpression());
-		$this->skipChar('(');
-		$this->skipWs();
 
-		$c = $this->stream->peek();
-		if (in_array($c, array('.', 'v', '$', '\\'))) {
-			$pointcut->addElement($this->argumentsExpression());
+		if ($c == 'e') {
+			$pointcut->addElement($this->modifier());
+			$this->ws();
 			$this->skipWs();
-		} else {
-			$pointcut->addElement(new NoArguments(''));
-		}
+			$pointcut->addElement($this->classExpression());
+			$this->skipWord('::');
+			$pointcut->addElement($this->methodExpression());
+			$this->skipChar('(');
+			$this->skipWs();
 
-		$this->skipChar(')');
+			$c = $this->stream->peek();
+			if (in_array($c, array('.', 'v', '$', '\\'))) {
+				$pointcut->addElement($this->argumentsExpression());
+				$this->skipWs();
+			} else {
+				$pointcut->addElement(new NoArguments(''));
+			}
+
+			$this->skipChar(')');
+		} else if ($c == 'm') {
+			$pointcut->addElement($this->annotationMethodExpression());
+		} else if ($c == 'c') {
+			$pointcut->addElement($this->annotationClassExpression());
+		}
 		$this->skipWs();
 		$this->skipChar(')');
 
@@ -93,7 +121,14 @@ class Lexer {
 
 	private function pointcutType() {
 		$this->stream->startRecording();
-		$this->skipWord('execution');
+		$c = $this->stream->peek();
+		if ($c == 'e') {
+			$this->skipWord('execution');
+		} else if ($c == 'c') {
+			$this->skipWord('classAnnotated');
+		} else {
+			$this->skipWord('methodAnnotated');
+		}
 		$this->stream->stopRecording();
 		return new PointcutType($this->stream->getRecord());
 	}
@@ -129,6 +164,38 @@ class Lexer {
 		}
 		$this->stream->stopRecording();
 		return new Modifier($this->stream->getRecord());
+	}
+
+	private function annotationMethodExpression() {
+		$this->stream->startRecording();
+		do {
+			switch($this->stream->peek()) {
+				case '\\':
+					$this->skipChar('\\');
+					$this->id();
+					break;
+				default:
+					$this->throwUnexpectedChar($this->stream->read());
+			}
+		} while(in_array($this->stream->peek(), array('\\')));
+		$this->stream->stopRecording();
+		return new AnnotationMethodExpression($this->stream->getRecord());
+	}
+
+	private function annotationClassExpression() {
+		$this->stream->startRecording();
+		do {
+			switch($this->stream->peek()) {
+				case '\\':
+					$this->skipChar('\\');
+					$this->id();
+					break;
+				default:
+					$this->throwUnexpectedChar($this->stream->read());
+			}
+		} while(in_array($this->stream->peek(), array('\\')));
+		$this->stream->stopRecording();
+		return new AnnotationClassExpression($this->stream->getRecord());
 	}
 
 	private function classExpression() {

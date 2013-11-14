@@ -6,6 +6,7 @@ use Example\Aspect\NameWrapper;
 use Example\Aspect\PrivateAspect;
 use Example\Aspect\TemplateResponseConvertor;
 use Example\Aspect\TestingAspect;
+use Example\Aspect\TransactionalHandler;
 use Example\Controller\HiController;
 use Example\DAO\UserDAO;
 use Koala\DI\Definition\Configuration\ArrayConfigurationDefinition;
@@ -55,18 +56,23 @@ return new ArrayConfigurationDefinition(
 //				'class' => TestingAspect::class,
 //				'arguments' => [],
 //			],
+//			'transactionalHandler' => [
+//				'serviceId' => 'transactionalHandler',
+//				'class' => TransactionalHandler::class,
+//				'arguments' => [],
+//			],
 			'jsonResponseConvertor' => [
 				'serviceId' => 'jsonResponseConvertor',
 				'class' => JsonResponseConvertor::class,
 				'arguments' => [],
 			],
-//			'templateResponseConvertor' => [
-//				'serviceId' => 'templateResponseConvertor',
-//				'class' => TemplateResponseConvertor::class,
-//				'arguments' => [
-//					['value' => __DIR__ . '/views'],
-//				],
-//			],
+			'templateResponseConvertor' => [
+				'serviceId' => 'templateResponseConvertor',
+				'class' => TemplateResponseConvertor::class,
+				'arguments' => [
+					['value' => __DIR__ . '/views'],
+				],
+			],
 //			'exceptionLogger' => [
 //				'serviceId' => 'exceptionLogger',
 //				'class' => ExceptionLogger::class,

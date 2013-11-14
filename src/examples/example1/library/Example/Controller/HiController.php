@@ -3,7 +3,12 @@
 namespace Example\Controller;
 
 use Example\DAO\UserDAO;
+use Example\JsonResponse;
+use Example\FileTemplateResponse;
 
+/**
+ * @FileTemplateResponse
+ */
 class HiController {
 
 	private $hiMessage;

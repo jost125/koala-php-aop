@@ -20,15 +20,13 @@ POINTCUT_EXPRESSION
 
 fragment
 POINTCUT
-	:	POINTCUT_TYPE WS* '(' WS* MODIFIER WS+ CLASS_EXPRESSION '::' METHOD_EXPRESSION '(' WS* (ARGUMENTS_EXPRESSION WS*)? ')' WS* ')';
+	:	'execution' WS* '(' WS* MODIFIER WS+ CLASS_EXPRESSION '::' METHOD_EXPRESSION '(' WS* (ARGUMENTS_EXPRESSION WS*)? ')' WS* ')'
+	|	'methodAnnotated' WS* '(' WS* ANNOTATION_EXPRESSION WS* ')'
+	|	'classAnnotated' WS* '(' WS* ANNOTATION_EXPRESSION WS* ')';
 
 fragment
 MODIFIER
 	:	'public' | 'private' | 'protected' | '*';
-
-fragment
-POINTCUT_TYPE
-	:	'execution';
 
 fragment
 POINTCUT_OPERATOR
@@ -37,6 +35,10 @@ POINTCUT_OPERATOR
 fragment
 CLASS_EXPRESSION
 	:	(('*' | '\\') ID)+ | '*'; 
+	
+fragment
+ANNOTATION_EXPRESSION
+	:	('\\' ID)+;
 
 fragment
 METHOD_EXPRESSION
@@ -48,7 +50,7 @@ ID  :	('a'..'z'|'A'..'Z'|'_') ('a'..'z'|'A'..'Z'|'0'..'9'|'_')*
 
 fragment
 ARGUMENT
-	:	('var' | (('\\') ID)+ ) WS+ '$' ID | '$' ID);
+	:	('var' | (('\\') ID)+ ) WS+ '$' ID | '$' ID;
 
 fragment
 ARGUMENTS_EXPRESSION

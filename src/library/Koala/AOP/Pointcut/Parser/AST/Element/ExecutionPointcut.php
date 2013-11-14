@@ -5,7 +5,7 @@ namespace Koala\AOP\Pointcut\Parser\AST\Element;
 use Koala\AOP\Pointcut\Parser\AST\ContainerElement;
 use Koala\AOP\Pointcut\Parser\AST\TypeList;
 
-class Pointcut extends ContainerElement {
+class ExecutionPointcut extends ContainerElement {
 
 	/**
 	 * @return TypeList
