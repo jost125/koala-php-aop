@@ -6,6 +6,7 @@ use Koala\AOP\Pointcut\Parser\Lexer;
 use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\IO\Storage\FileStorage;
 use Koala\IO\Stream\StringInputStream;
+use Koala\Reflection\Annotation\Parsing\AnnotationResolver;
 use Koala\Reflection\MethodMatcher;
 
 class MethodMatcherCompiler {
@@ -51,6 +52,10 @@ class MethodMatcherCompiler {
 		$compiled = '<?php' . "\n";
 		$compiled .= 'namespace ' . $this->matcherNamespace . ";\n";
 		$compiled .= 'class ' . $matcherFQNClass . ' implements \\' . MethodMatcher::class . " {\n";
+		$compiled .= ' private $annotationResolver;' . "\n";
+		$compiled .= ' public function __construct(\\' . AnnotationResolver::class . ' $annotationResolver) {' . "\n";
+		$compiled .= ' 	$this->annotationResolver = $annotationResolver;' . "\n";
+		$compiled .= ' }' . "\n";
 		$compiled .= '	public function match(\ReflectionMethod $reflectionMethod) {' . "\n";
 		$compiled .= '		return ' . $compiledExpression . ";\n";
 		$compiled .= '	}' . "\n";

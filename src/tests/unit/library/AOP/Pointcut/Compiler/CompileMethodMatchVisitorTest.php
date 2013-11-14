@@ -78,6 +78,14 @@ class CompileMethodMatchVisitorTest extends TestCase {
 				)',
 				'(preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName())) && ((preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName())) || (preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName())))'
 			),
+			array(
+				'methodAnnotated(\\Some\\Annotation)',
+				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'\\Some\\Annotation\')))'
+			),
+			array(
+				'methodAnnotated(\\Some\\Annotation) and execution(* *::*(..))',
+				'($this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'\\Some\\Annotation\'))) && (preg_match(\'~^.*?$~\', $reflectionMethod->getDeclaringClass()->getName()) && preg_match(\'~^.*?$~\', $reflectionMethod->getName()))'
+			),
 		);
 	}
 

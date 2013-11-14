@@ -18,6 +18,7 @@ use Koala\AOP\Pointcut\Parser\AST\Element\PointcutExpressionGroupStart;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutOperator;
 use Koala\AOP\Pointcut\Parser\AST\Element\PointcutType;
 use Koala\AOP\Pointcut\Parser\AST\ElementVisitor;
+use Koala\Reflection\Annotation\Parsing\AnnotationExpression;
 
 class CompileMethodMatchVisitor implements ElementVisitor {
 
@@ -64,7 +65,7 @@ class CompileMethodMatchVisitor implements ElementVisitor {
 	}
 
 	public function acceptAnnotationClassExpression(AnnotationClassExpression $annotationClassExpression) {
-		$this->compiled .= '$this->annotationResolver->hasMethodAnnotation($reflectionMethod, new AnnotationExpression(\'' . $annotationClassExpression->getValue() . '\'))';
+		$this->compiled .= '$this->annotationResolver->hasMethodAnnotation($reflectionMethod, new \\' . AnnotationExpression::class . '(\'' . $annotationClassExpression->getValue() . '\'))';
 	}
 
 	public function acceptClassExpression(ClassExpression $classExpression) {
