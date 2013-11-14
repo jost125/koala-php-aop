@@ -19,7 +19,7 @@ class TemplateResponseConvertor {
 	}
 
 	/**
-	 * @Around("execution(public \Example\Controller*::*Action(..))")
+	 * @Around("methodAnnotated(\Example\FileTemplateResponse) or (classAnnotated(\Example\FileTemplateResponse) and execution(public \Example\Controller*::*Action(..)))")
 	 */
 	public function convert(Joinpoint $joinpoint) {
 		$result = $joinpoint->proceed();

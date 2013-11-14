@@ -13,7 +13,7 @@ use Koala\AOP\Joinpoint;
 class JsonResponseConvertor {
 
 	/**
-	 * @Around("execution(public \Example\Controller*::*Action(..))")
+	 * @Around("methodAnnotated(\Example\JsonResponse) or (classAnnotated(\Example\JsonResponse) and execution(public \Example\Controller*::*Action(..)))")
 	 */
 	public function convert(Joinpoint $joinpoint) {
 		$result = $joinpoint->proceed();

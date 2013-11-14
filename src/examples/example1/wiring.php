@@ -66,13 +66,13 @@ return new ArrayConfigurationDefinition(
 				'class' => JsonResponseConvertor::class,
 				'arguments' => [],
 			],
-//			'templateResponseConvertor' => [
-//				'serviceId' => 'templateResponseConvertor',
-//				'class' => TemplateResponseConvertor::class,
-//				'arguments' => [
-//					['value' => __DIR__ . '/views'],
-//				],
-//			],
+			'templateResponseConvertor' => [
+				'serviceId' => 'templateResponseConvertor',
+				'class' => TemplateResponseConvertor::class,
+				'arguments' => [
+					['value' => __DIR__ . '/views'],
+				],
+			],
 //			'exceptionLogger' => [
 //				'serviceId' => 'exceptionLogger',
 //				'class' => ExceptionLogger::class,
