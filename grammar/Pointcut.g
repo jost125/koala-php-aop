@@ -20,15 +20,12 @@ POINTCUT_EXPRESSION
 
 fragment
 POINTCUT
-	:	POINTCUT_TYPE WS* '(' WS* MODIFIER WS+ CLASS_EXPRESSION '::' METHOD_EXPRESSION '(' WS* (ARGUMENTS_EXPRESSION WS*)? ')' WS* ')';
+	:	'execution' WS* '(' WS* MODIFIER WS+ CLASS_EXPRESSION '::' METHOD_EXPRESSION '(' WS* (ARGUMENTS_EXPRESSION WS*)? ')' WS* ')'
+	|	'methodAnnotated' WS* '(' WS* CLASS_EXPRESSION WS* ')';
 
 fragment
 MODIFIER
 	:	'public' | 'private' | 'protected' | '*';
-
-fragment
-POINTCUT_TYPE
-	:	'execution';
 
 fragment
 POINTCUT_OPERATOR
