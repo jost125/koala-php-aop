@@ -6,16 +6,20 @@ use Koala\AOP\Proxy\ProxyReplacer;
 use Koala\DI\Definition\Argument\WiringArgument;
 use Koala\DI\Definition\Configuration\ConfigurationDefinition;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
+use Koala\DI\Extension\IBeforeCompileExtension;
 
 class Container implements IContainer {
 	private $services = array();
 	private $configurationDefinition;
-	private $proxyReplacer;
+	private $beforeCompileExtensions = [];
 
-	public function __construct(ConfigurationDefinition $configurationDefinition, ProxyReplacer $proxyReplacer) {
-		$this->proxyReplacer = $proxyReplacer;
-		$this->configurationDefinition = $proxyReplacer->replaceProxies($configurationDefinition);
+	public function __construct(ConfigurationDefinition $configurationDefinition) {
+		$this->configurationDefinition = $configurationDefinition;
 		$this->services['container'] = $this;
+	}
+
+	public function registerBeforeCompileExtension(IBeforeCompileExtension $extension) {
+		$this->beforeCompileExtensions[] = $extension;
 	}
 
 	public function getService($serviceId) {
@@ -23,6 +27,14 @@ class Container implements IContainer {
 			$this->createService($serviceId);
 		}
 		return $this->getServiceInstance($serviceId);
+	}
+
+	public function compile() {
+		// TODO there should be caching.
+		/** @var IBeforeCompileExtension $extension */
+		foreach ($this->beforeCompileExtensions as $extension) {
+			$this->configurationDefinition = $extension->load($this->configurationDefinition);
+		}
 	}
 
 	public function getParameter($parameterId) {

@@ -1,5 +1,6 @@
 <?php
 
+use Koala\AOP\DI\Extension\AOPExtension;
 use Koala\AOP\Proxy\SimpleProxyReplacerFactory;
 use Koala\AutoLoad\PSR0AutoLoader;
 use Koala\Collection\ArrayList;
@@ -26,4 +27,6 @@ $cacheDir = __DIR__ . '/tmp/cache/';
 
 $proxyReplacerFactory = new SimpleProxyReplacerFactory($proxyMemberPrefix, $proxyNamespacePrefix, $matcherNamespace, $interceptorLoaderId, $containerId, $cacheDir);
 
-$diContainer = new Container($configurationDefinition, $proxyReplacerFactory->create());
+$diContainer = new Container($configurationDefinition);
+$diContainer->registerBeforeCompileExtension(new AOPExtension($proxyReplacerFactory->create()));
+$diContainer->compile();
