@@ -17,7 +17,7 @@ new \Example\FileTemplateResponse([]); // hack to import
 
 $configurationDefinition = require __DIR__ . '/wiring.php';
 
-$proxyMemberPrefix = '__aop___';
+$proxyMemberPrefix = '__aop__';
 $proxyNamespacePrefix = '__AOP__';
 $matcherNamespace = 'MethodMatcher';
 $interceptorLoaderId = 'generatedInterceptorLoader';
