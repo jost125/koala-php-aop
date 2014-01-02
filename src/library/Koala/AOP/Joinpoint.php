@@ -50,6 +50,10 @@ class Joinpoint {
 		return $this->arguments[$index] = $value;
 	}
 
+	public function setArguments(array $values) {
+		return $this->arguments = $values;
+	}
+
 	public function getClassName() {
 		return $this->reflectionMethod->getDeclaringClass()->getName();
 	}
