@@ -116,7 +116,9 @@ class AutoLoaderDumper {
 	private function dumpToFile(IList $classInFiles, $fileToDump) {
 		$classes = '';
 		foreach ($classInFiles as list($class, $file)) {
-			$classes .= "\t\t'$class' => '$file',\n";
+			if ($class) {
+				$classes .= "\t\t'$class' => '$file',\n";
+			}
 		}
 
 		file_put_contents($fileToDump, "<?php

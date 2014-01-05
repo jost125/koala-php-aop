@@ -7,7 +7,6 @@ use Koala\Collection\ArrayList;
 use Koala\DI\Container;
 
 require_once __DIR__ . '/../../../vendor/autoload.php';
-require_once __DIR__ . '/../../library/loader.php';
 
 $autoload = new PSR0AutoLoader(new ArrayList([__DIR__ . '/library/']));
 $autoload->register();
