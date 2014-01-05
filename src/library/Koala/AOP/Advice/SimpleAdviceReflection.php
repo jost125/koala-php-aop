@@ -54,7 +54,7 @@ class SimpleAdviceReflection implements AdviceReflection {
 		return $advices;
 	}
 
-	public function createPoincutExpression(Annotation $annotation) {
+	private function createPoincutExpression(Annotation $annotation) {
 		$pointcutExpression = new PointcutExpression($annotation->getParameter('value'));
 		switch ($annotation->getName()) {
 			case Before::class:

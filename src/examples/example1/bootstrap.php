@@ -1,5 +1,6 @@
 <?php
 
+use Koala\AOP\DI\Extension\AOPExtension;
 use Koala\AOP\Proxy\SimpleProxyReplacerFactory;
 use Koala\AutoLoad\PSR0AutoLoader;
 use Koala\Collection\ArrayList;
@@ -17,7 +18,7 @@ new \Example\FileTemplateResponse([]); // hack to import
 
 $configurationDefinition = require __DIR__ . '/wiring.php';
 
-$proxyMemberPrefix = '__aop___';
+$proxyMemberPrefix = '__aop__';
 $proxyNamespacePrefix = '__AOP__';
 $matcherNamespace = 'MethodMatcher';
 $interceptorLoaderId = 'generatedInterceptorLoader';
@@ -26,4 +27,6 @@ $cacheDir = __DIR__ . '/tmp/cache/';
 
 $proxyReplacerFactory = new SimpleProxyReplacerFactory($proxyMemberPrefix, $proxyNamespacePrefix, $matcherNamespace, $interceptorLoaderId, $containerId, $cacheDir);
 
-$diContainer = new Container($configurationDefinition, $proxyReplacerFactory->create());
+$diContainer = new Container($configurationDefinition);
+$diContainer->registerBeforeCompileExtension(new AOPExtension($proxyReplacerFactory->create()));
+$diContainer->compile();

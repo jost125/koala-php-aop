@@ -2,7 +2,6 @@
 
 namespace Koala\Reflection\Annotation;
 
-use Doctrine\Common\Annotations\Annotation;
 use Koala\AOP\TestCase;
 
 class DoctrineWrappedAnnotationTest extends TestCase {
@@ -51,9 +50,9 @@ class DoctrineWrappedAnnotationTest extends TestCase {
 
 }
 
-class FooAnnotation extends Annotation {
+class FooAnnotation extends \Doctrine\Common\Annotations\Annotation {
 }
 
-class BarAnnotation extends Annotation {
+class BarAnnotation extends \Doctrine\Common\Annotations\Annotation {
 	public $baz;
 }

@@ -1,5 +1,5 @@
 {
-	"name":"aop/aop",
+	"name":"jost125/koala-php-aop",
 	"type": "library",
 	"description":"Aspect-oriented programming library",
 	"keywords": ["aop"],
@@ -8,7 +8,7 @@
 	],
 	"minimum-stability":"dev",
 	"require": {
-		"php": ">=5.3.2",
+		"php": ">=5.5.0",
 		"doctrine/annotations": "dev-master"
 	}
 }

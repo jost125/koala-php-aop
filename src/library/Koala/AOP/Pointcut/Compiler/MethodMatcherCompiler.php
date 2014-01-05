@@ -40,7 +40,7 @@ class MethodMatcherCompiler {
 		return '\\' . $this->matcherNamespace . '\\' . $matcherClass;
 	}
 
-	public function doCompile(PointcutExpression $pointcutExpression, $matcherFQNClass) {
+	private function doCompile(PointcutExpression $pointcutExpression, $matcherFQNClass) {
 		$visitor = new CompileMethodMatchVisitor();
 
 		$lexer = new Lexer(new StringInputStream($pointcutExpression->getExpression()));
