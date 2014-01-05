@@ -28,6 +28,30 @@ class DoctrineAnnotationResolverTest extends TestCase {
 		$this->assertTrue($result);
 	}
 
+	public function testHasClassAnnotation_none() {
+		$reflectionClass = new ReflectionClass(Bar::class);
+		$result = $this->annotationResolver->hasClassAnnotation($reflectionClass, new AnnotationExpression('Koala\AOP\NonExisting'));
+		$this->assertFalse($result);
+	}
+
+	public function testHasMethodAnnotation() {
+		$reflectionClass = new ReflectionClass(Baz::class);
+		$result = $this->annotationResolver->hasMethodAnnotation(
+			$reflectionClass->getMethod('beforeAdvice'),
+			new AnnotationExpression('Koala\AOP\Before(..)')
+		);
+		$this->assertTrue($result);
+	}
+
+	public function testHasMethodAnnotation_none() {
+		$reflectionClass = new ReflectionClass(Baz::class);
+		$result = $this->annotationResolver->hasMethodAnnotation(
+			$reflectionClass->getMethod('beforeAdvice'),
+			new AnnotationExpression('Koala\AOP\NonExisting(..)')
+		);
+		$this->assertFalse($result);
+	}
+
 	public function testGetMethodsHavingAnnotation() {
 		$reflectionClass = new ReflectionClass(Baz::class);
 		$methods = $this->annotationResolver->getMethodsHavingAnnotation($reflectionClass, new AnnotationExpression('Koala\AOP\Before(..)'));
