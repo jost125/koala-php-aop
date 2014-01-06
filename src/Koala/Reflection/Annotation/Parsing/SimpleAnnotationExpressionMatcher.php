@@ -22,6 +22,6 @@ class SimpleAnnotationExpressionMatcher implements AnnotationExpressionMatcher {
 		$regexp = preg_quote($regexp, '~');
 		$regexp = preg_replace('~\\\\\(\\\\\.\\\\\.\\\\\)$~', '\(.*\)', $regexp);
 
-		return '~^' . $regexp . '$~';
+		return '~^' . $regexp . '$~s';
 	}
 }

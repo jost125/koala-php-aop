@@ -42,6 +42,9 @@ class FileCache implements ICache {
 	}
 
 	private function saveCache() {
+		if (!file_exists($this->file)) {
+			mkdir(dirname($this->file), 0777, true);
+		}
 		file_put_contents($this->file, serialize($this->cache));
 	}
 }
