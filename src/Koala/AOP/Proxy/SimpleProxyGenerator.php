@@ -51,10 +51,11 @@ class SimpleProxyGenerator implements ProxyGenerator {
 		foreach ($proxyAbstractionList as $proxy) {
 			/** @var Joinpoint $joinpoint */
 			$joinpointAdvices = $proxy->getJoinpointsAdvices();
-			foreach ($joinpointAdvices->getKeys() as $joinpoint) {
+			foreach ($joinpointAdvices->getKeyList() as $joinpoint) {
 				/** @var ServiceDefinition $aspectDefinition */
 				/** @var Advice $advice */
-				foreach ($joinpointAdvices->getValue($joinpoint) as list($advice, $aspectDefinition)) {
+				foreach ($joinpointAdvices->getValue($joinpoint) as $advices) {
+					list($advice, $aspectDefinition) = $advices;
 					$reflectionMethod = $joinpoint->getReflectionMethod();
 
 					$className = get_class($advice->getPointcut());
@@ -133,7 +134,7 @@ class SimpleProxyGenerator implements ProxyGenerator {
 		$targetClass = new ReflectionClass($proxy->getTargetDefinition()->getClassName());
 		$interceptedMethods = array();
 		/** @var Joinpoint $joinpoint */
-		foreach ($proxy->getJoinpointsAdvices()->getKeys() as $joinpoint) {
+		foreach ($proxy->getJoinpointsAdvices()->getKeyList() as $joinpoint) {
 			$interceptedMethods[$joinpoint->getReflectionMethod()->getName()] = $joinpoint->getReflectionMethod();
 		}
 		return $this->proxyCompiler->compileProxy($targetClass, $interceptedMethods);

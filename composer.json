@@ -10,10 +10,17 @@
 		{"name":"Jan Machala", "email":"jan.machala@email.cz"}
 	],
 	"minimum-stability":"dev",
+	"repositories": [
+		{
+			"type": "vcs",
+			"url": "git@github.com:jost125/koala-collections.git"
+		}
+	],
 	"require": {
 		"php": ">=5.5.0",
 		"doctrine/annotations": "~1.2",
-		"doctrine/cache": "~1.4"
+		"doctrine/cache": "~1.4",
+		"jost125/koala-collections": "dev-master"
 	},
 	"require-dev": {
 		"phpunit/phpunit": "3.7.*"

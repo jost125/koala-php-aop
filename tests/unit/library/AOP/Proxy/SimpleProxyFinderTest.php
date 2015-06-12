@@ -15,8 +15,8 @@ use Koala\AOP\Aspect\AspectReflection;
 use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\AOP\Pointcut\PointcutExpressionResolver;
 use Koala\AOP\TestCase;
-use Koala\Collection\ArrayList;
-use Koala\Collection\Map;
+use Koala\Collection\Immutable\ArrayList;
+use Koala\Collection\Immutable\Map;
 use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
@@ -73,10 +73,10 @@ class SimpleProxyFinderTest extends TestCase {
 			$this->assertEquals($expectedProxy->getTargetDefinition(), $proxy->getTargetDefinition());
 
 			$joinpointsAdvices = $proxy->getJoinpointsAdvices();
-			$joinpoints = $joinpointsAdvices->getKeys();
+			$joinpoints = $joinpointsAdvices->getKeyList();
 			$it2 = $joinpoints->getIterator();
 			$expectedJoinpointAdvices = $expectedProxy->getJoinpointsAdvices();
-			foreach ($expectedJoinpointAdvices->getKeys() as $expectedJoinpoint) {
+			foreach ($expectedJoinpointAdvices->getKeyList() as $expectedJoinpoint) {
 				$this->assertEquals($expectedJoinpointAdvices->getValue($expectedJoinpoint), $joinpointsAdvices->getValue($it2->current()));
 				$it2->next();
 			}
@@ -109,9 +109,11 @@ class SimpleProxyFinderTest extends TestCase {
 			'class' => FooAspect::class,
 		));
 
-		$joinpointsAdvices = new Map();
-		$joinpointsAdvices->put($joinpoint, new ArrayList());
-		$joinpointsAdvices->getValue($joinpoint)->put([$advice, $adviceDefinition]);
+		$joinpointsAdvices = new Map([
+			[$joinpoint, new ArrayList([
+				[$advice, $adviceDefinition]
+			])]
+		]);
 
 		$targetDefinition = new ArrayServiceDefinition(array(
 			'serviceId' => 'fooService',

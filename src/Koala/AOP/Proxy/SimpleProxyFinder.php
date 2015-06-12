@@ -6,9 +6,9 @@ use Koala\AOP\Abstraction\Proxy;
 use Koala\AOP\Abstraction\ProxyList;
 use Koala\AOP\Aspect\AspectReflection;
 use Koala\AOP\Pointcut\PointcutExpressionResolver;
-use Koala\Collection\ArrayList;
 use Koala\Collection\IMap;
-use Koala\Collection\Map;
+use Koala\Collection\Immutable\ArrayList;
+use Koala\Collection\Immutable\Map;
 use Koala\DI\Definition\Configuration\ServiceDefinition;
 use ReflectionClass;
 
@@ -37,7 +37,7 @@ class SimpleProxyFinder implements ProxyFinder {
 		$proxyList = new ProxyList();
 
 		foreach ($targetDefinitions as $targetDefinition) {
-			$advicesJoinpoints = new Map();
+			$advicesJoinpoints = new Map([]);
 			foreach ($aspectDefinitions as $aspectDefinition) {
 				$aspect = $this->aspectReflection->getAspect(new ReflectionClass($aspectDefinition->getClassName()));
 				$advices = $aspect->getAdvices();
@@ -45,7 +45,7 @@ class SimpleProxyFinder implements ProxyFinder {
 					$pointcutExpression = $advice->getPointcut()->getPointcutExpression();
 					$joinpoints = $this->pointcutExpressionResolver->findJoinpoints(new ReflectionClass($targetDefinition->getClassName()), $pointcutExpression);
 					if (count($joinpoints)) {
-						$advicesJoinpoints->put($advice, [$joinpoints, $aspectDefinition]);
+						$advicesJoinpoints = $advicesJoinpoints->put($advice, [$joinpoints, $aspectDefinition]);
 					}
 				}
 			}
@@ -59,16 +59,20 @@ class SimpleProxyFinder implements ProxyFinder {
 	}
 
 	private function groupByJoinpoints(IMap $advicesJoinpoints) {
-		$groupedByJoinpoints = new Map();
-		foreach ($advicesJoinpoints->getKeys() as $advice) {
+		$groupedByJoinpoints = new Map([]);
+		foreach ($advicesJoinpoints->getKeyList() as $advice) {
 			list($joinpoints, $aspectDefinition) = $advicesJoinpoints->getValue($advice);
 			foreach ($joinpoints as $joinpoint) {
-				if (!$groupedByJoinpoints->exists($joinpoint)) {
-					$groupedByJoinpoints->put($joinpoint, new ArrayList());
+				$exists = $groupedByJoinpoints->exists(function ($iteratedJoinpoint) use ($joinpoint) {
+					return $iteratedJoinpoint === $joinpoint;
+				});
+				if (!$exists) {
+					$groupedByJoinpoints = $groupedByJoinpoints->put($joinpoint, new ArrayList([]));
 				}
 				/** @var ArrayList $advices */
 				$advices = $groupedByJoinpoints->getValue($joinpoint);
-				$advices->put([$advice, $aspectDefinition]);
+				$advices = $advices->push([$advice, $aspectDefinition]);
+				$groupedByJoinpoints = $groupedByJoinpoints->put($joinpoint, $advices);
 			}
 		}
 

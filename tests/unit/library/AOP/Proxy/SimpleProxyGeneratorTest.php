@@ -15,8 +15,8 @@ use Koala\AOP\Pointcut\PointcutExpression;
 use Koala\AOP\Proxy\Compiling\ProxyCompiler;
 use Koala\AOP\Proxy\SimpleProxyGenerator;
 use Koala\AOP\TestCase;
-use Koala\Collection\ArrayList;
-use Koala\Collection\Map;
+use Koala\Collection\Immutable\ArrayList;
+use Koala\Collection\Immutable\Map;
 use Koala\DI\Definition\Configuration\ArrayServiceDefinition;
 use Koala\IO\Storage\FileStorage;
 use PHPUnit_Framework_Comparator_MockObject;
@@ -69,9 +69,9 @@ class SimpleProxyGeneratorTest extends TestCase {
 			'class' => FooAspect::class,
 		));
 
-		$joinpointsAdvices = new Map();
-		$joinpointsAdvices->put($joinpoint, new ArrayList());
-		$joinpointsAdvices->getValue($joinpoint)->put([$advice, $aspectDefinition]);
+		$joinpointsAdvices = new Map([
+			[$joinpoint, new ArrayList([[$advice, $aspectDefinition]])],
+		]);
 
 		$proxyList->addProxy(new Proxy(
 			$joinpointsAdvices,

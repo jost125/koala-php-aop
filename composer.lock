@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "4b92beb6cd91941db23bb1aa549a3ab9",
+    "hash": "0aea6f1064a52aca37bbfe2f9c44a246",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -197,6 +197,44 @@
                 "parser"
             ],
             "time": "2014-09-09 13:34:57"
+        },
+        {
+            "name": "jost125/koala-collections",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jost125/koala-collections.git",
+                "reference": "b926a6f2a30b322223096c5fd8ae5a979607d2a1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jost125/koala-collections/zipball/b926a6f2a30b322223096c5fd8ae5a979607d2a1",
+                "reference": "b926a6f2a30b322223096c5fd8ae5a979607d2a1",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "Koala\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Jan Machala",
+                    "email": "jan.machala@email.cz"
+                }
+            ],
+            "support": {
+                "source": "https://github.com/jost125/koala-collections/tree/master",
+                "issues": "https://github.com/jost125/koala-collections/issues"
+            },
+            "time": "2015-06-12 14:08:40"
         }
     ],
     "packages-dev": [
@@ -628,7 +666,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "jost125/koala-collections": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
