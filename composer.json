@@ -2,7 +2,8 @@
 	"name":"jost125/koala-php-aop",
 	"type": "library",
 	"autoload": {
-		"files": ["src/Koala/loader.php"]
+		"files": ["src/Koala/loader.php"],
+		"psr-0": {"Koala\\": "src/"}
 	},
 	"description":"Aspect-oriented programming library",
 	"keywords": ["aop"],
