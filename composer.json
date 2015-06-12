@@ -13,5 +13,8 @@
 	"require": {
 		"php": ">=5.5.0",
 		"doctrine/annotations": "dev-master"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "3.7.*"
 	}
 }
